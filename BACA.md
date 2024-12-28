@@ -479,35 +479,94 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
 
 ## <img src="https://github.com/user-attachments/assets/932b96eb-cbc7-42f1-8938-43cb431889a5" width="16" height="16"> Catatan
 <ul>
-    <li>
-        <strong><p>Perbaikan Hardware :</p></strong>
-        1. Gunakan PSU standar dengan kapasitas 3A untuk menyuplai seluruh perangkat yang terpasang.<br><br>
-        2. Tambahkan Step Down Converter untuk mendapatkan tegangan yang lebih stabil dan sesuai dengan kebutuhan perangkat. Dengan adanya komponen ini, maka tidak membutuhkan Arduino Uno.<br><br>
-        3. Tambahkan isolator pada komponen listrik untuk mencegah arus bocor.<br><br>
-        4. Pasang kipas pendingin atau ventilasi tambahan untuk meningkatkan aliran udara dan mencegah panas berlebih.<br><br>
-        5. Tambahkan Heat Sink pada komponen yang rentan panas.<br><br>
-        6. Ganti pengaturan Relay dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih di Solenoid Valve.<br><br>
-        7. Gunakan pelindung fisik seperti casing khusus untuk melindungi Probe Sensor pH dari kerusakan, terutama akibat benturan.<br><br>
-    </li><br>
-    <li>
-        <strong><p>Perbaikan Firmware :</p></strong>
-        1. Ganti fungsi delay dengan millis() untuk mengelola waktu tanpa menghentikan eksekusi fungsi lain.<br><br>
-        2. Optimalkan algoritma untuk mengurangi latensi pada proses pengambilan keputusan. Disarankan menggunakan RTOS (Real-Time Operating System) agar dapat mengatur lebih baik prioritas fungsi yang ada.<br><br>
-        3. Tambahkan metode OTA (Over The Air) untuk meningkatkan keamanan jaringan, termasuk Bot Telegram.<br><br>
-    </li><br>
-    <li>
-        <strong><p>Fitur Otomatisasi Tambahan Yang Disarankan :</p></strong>
-        1. Pompa otomatis yang terhubung dengan sensor level cairan untuk mengontrol pengisian Galon pH dan AB Mix.<br><br>
-        2. Pemberian pakan otomatis berbasis waktu untuk memberikan pakan secara terjadwal.<br><br>
-        3. Pompa otomatis yang dikendalikan melalui bot telegram untuk mempermudah proses pengurasan dan pengisian air.<br><br>
-        4. Pemantauan kualitas air pada kolam atau akuarium menggunakan perpaduan antara sensor pH, suhu air, dan amonia.<br><br>
-        5. Penyinaran tanaman dengan lampu pertumbuhan untuk menumbuhkan tanaman secara optimal meski dalam kondisi yang minim cahaya (sebagai pengganti sinar matahari).<br><br>
-    </li><br>
-    <li>
-        <strong><p>Optimalisasi Media dan Infrastruktur :</p></strong>
-        1. Tingkatkan jumlah modul hidroponik agar mampu menampung lebih banyak tanaman.<br><br>
-        2. Eksplorasi media tanam alternatif seperti arang sekam atau cocopeat untuk meningkatkan efisiensi pertumbuhan tanaman.<br><br>
-    </li>
+<li>
+   <strong><p>Perbaikan Hardware :</p></strong>
+   <table>
+   <tr>
+   <td width="20">1.</td>
+   <td width="820">Gunakan PSU standar dengan kapasitas 3A untuk menyuplai seluruh perangkat yang terpasang.</td>
+   </tr>
+   <tr>
+   <td width="20">2.</td>
+   <td width="820">Tambahkan Step Down Converter untuk mendapatkan tegangan yang lebih stabil dan sesuai dengan kebutuhan perangkat. Dengan adanya komponen ini, maka tidak membutuhkan Arduino Uno.</td>
+   </tr>
+   <tr>
+   <td width="20">3.</td>
+   <td width="820">Tambahkan isolator pada komponen listrik untuk mencegah arus bocor.</td>
+   </tr>
+   <tr>
+   <td width="20">4.</td>
+   <td width="820">Pasang kipas pendingin atau ventilasi tambahan untuk meningkatkan aliran udara dan mencegah panas berlebih.</td>
+   </tr>
+   <tr>
+   <td width="20">5.</td>
+   <td width="820">Tambahkan Heat Sink pada komponen yang rentan panas.</td>
+   </tr>
+   <tr>
+   <td width="20">6.</td>
+   <td width="820">Ganti pengaturan Relay dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih di Solenoid Valve.</td>
+   </tr>
+   <tr>
+   <td width="20">7.</td>
+   <td width="820">Gunakan pelindung fisik seperti casing khusus untuk melindungi Probe Sensor pH dari kerusakan, terutama akibat benturan.</td>
+   </tr>
+   </table>
+</li><br>
+<li>
+   <strong><p>Perbaikan Firmware :</p></strong>
+   <table>
+   <tr>
+   <td width="20">1.</td>
+   <td width="820">Ganti fungsi delay dengan millis() untuk mengelola waktu tanpa menghentikan eksekusi fungsi lain.</td>
+   </tr>
+   <tr>
+   <td width="20">2.</td>
+   <td width="820">Optimalkan algoritma untuk mengurangi latensi pada proses pengambilan keputusan. Disarankan menggunakan RTOS (Real-Time Operating System) agar dapat mengatur lebih baik prioritas fungsi yang ada.</td>
+   </tr>
+   <tr>
+   <td width="20">3.</td>
+   <td width="820">Tambahkan metode OTA (Over The Air) untuk meningkatkan keamanan jaringan, termasuk Bot Telegram.</td>
+   </tr>
+   </table>
+</li><br>
+<li>
+   <strong><p>Fitur Otomatisasi Tambahan Yang Disarankan :</p></strong>
+   <table>
+   <tr>
+   <td width="20">1.</td>      
+   <td width="820">Pompa otomatis yang terhubung dengan sensor level cairan untuk mengontrol pengisian Galon pH dan AB Mix.</td>
+   </tr>
+   <tr>
+   <td width="20">2.</td>      
+   <td width="820">Pemberian pakan otomatis berbasis waktu untuk memberikan pakan secara terjadwal.</td>
+   </tr>
+   <tr>
+   <td width="20">3.</td>      
+   <td width="820">Pompa otomatis yang dikendalikan melalui bot telegram untuk mempermudah proses pengurasan dan pengisian air.</td>
+   </tr>
+   <tr>
+   <td width="20">4.</td>      
+   <td width="820">Pemantauan kualitas air pada kolam atau akuarium menggunakan perpaduan antara sensor pH, suhu air, dan amonia.</td>
+   </tr>
+   <tr>
+   <td width="20">5.</td>      
+   <td width="820">Penyinaran tanaman dengan lampu pertumbuhan untuk menumbuhkan tanaman secara optimal meski dalam kondisi yang minim cahaya (sebagai pengganti sinar matahari).</td>
+   </tr>
+   </table>
+</li><br>
+<li>
+   <strong><p>Optimalisasi Media dan Infrastruktur :</p></strong>
+   <table>
+   <tr>
+   <td width="20">1.</td>
+   <td width="820">Tingkatkan jumlah modul hidroponik agar mampu menampung lebih banyak tanaman.</td>
+   </tr>
+   <tr>
+   <td width="20">2.</td>
+   <td width="820">Eksplorasi media tanam alternatif seperti arang sekam atau cocopeat untuk meningkatkan efisiensi pertumbuhan tanaman.</td>
+   </tr>
+   </table>
+</li>
 </ul>
 
 <br><br>
