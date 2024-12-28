@@ -478,35 +478,94 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
 
 ## <img src="https://github.com/user-attachments/assets/932b96eb-cbc7-42f1-8938-43cb431889a5" width="16" height="16"> Notes
 <ul>
-    <li>
-        <strong><p>Hardware Repairs :</p></strong>
-        1. Use a standard PSU with a capacity of 3A to supply all installed devices.<br><br>
-        2. Add a Step Down Converter to get a more stable voltage and in accordance with the needs of the device. With this component, there is no need for an Arduino Uno.<br><br>
-        3. Add insulators to electrical components to prevent leakage current.<br><br>
-        4. Install cooling fans or additional ventilation to increase airflow and prevent overheating.<br><br>
-        5. Add heat sinks to heat-prone components.<br><br>
-        6. Change the Relay setting from NO (Normally Open) to NC (Normally Close) to reduce overheating in the Solenoid Valve.<br><br>
-        7. Use physical protection such as a special case to protect the pH Sensor Probe from damage, especially from impact.<br><br>
-    </li><br>
-    <li>
-        <strong><p>Firmware Repairs :</p></strong>
-        1. Replace the delay function with millis() to manage time without stopping the execution of other functions.<br><br>
-        2. Optimize the algorithm to reduce latency in the decision-making process. It is recommended to use RTOS (Real-Time Operating System) in order to better prioritize the functions.<br><br>
-        3. Add OTA (Over The Air) methods to improve network security, including Telegram Bot.<br><br>
-    </li><br>
-    <li>
-        <strong><p>Suggested Additional Automation Features :</p></strong>
-        1. Automatic pump connected with liquid level sensor to control filling of Gallon pH and AB Mix.<br><br>
-        2. Time-based automatic feeding for scheduled feeding.<br><br>
-        3. Automatic pump controlled via telegram bot to simplify the process of draining and replenishing water.<br><br>
-        4. Monitoring water quality in ponds or aquariums using a combination of pH, water temperature, and ammonia sensors.<br><br>
-        5. Plant irradiation with growth lamps to grow plants optimally even in low light conditions (as a substitute for sunlight).<br><br>
-    </li><br>
-    <li>
-        <strong><p>Media and Infrastructure Optimization :</p></strong>
-        1. Increase the number of hydroponic modules to accommodate more plants.<br><br>
-        2. Exploration of alternative growing media such as husk charcoal or cocopeat to improve plant growth efficiency.<br><br>
-    </li>
+<li>
+   <strong><p>Hardware Repairs :</p></strong>      
+   <table>
+   <tr>
+   <td width="20">1.</td>
+   <td width="820">Use a standard PSU with a capacity of 3A to supply all installed devices.</td>
+   </tr>
+   <tr>
+   <td width="20">2.</td>
+   <td width="820">Add a Step Down Converter to get a more stable voltage and in accordance with the needs of the device. With this component, there is no need for an Arduino Uno.</td>
+   </tr>
+   <tr>
+   <td width="20">3.</td>
+   <td width="820">Add insulators to electrical components to prevent leakage current.</td>
+   </tr>
+   <tr>
+   <td width="20">4.</td>
+   <td width="820">Install cooling fans or additional ventilation to increase airflow and prevent overheating.</td>
+   </tr>
+   <tr>
+   <td width="20">5.</td>
+   <td width="820">Add heat sinks to heat-prone components.</td>
+   </tr>
+   <tr>
+   <td width="20">6.</td>
+   <td width="820">Change the Relay setting from NO (Normally Open) to NC (Normally Close) to reduce overheating in the Solenoid Valve.</td>
+   </tr>
+   <tr>
+   <td width="20">7.</td>
+   <td width="820">Use physical protection such as a special case to protect the pH Sensor Probe from damage, especially from impact.</td>
+   </tr>
+   </table>
+</li><br>
+<li>
+   <strong><p>Firmware Repairs :</p></strong>
+   <table>
+   <tr>
+   <td width="20">1.</td>
+   <td width="820">Replace the delay function with millis() to manage time without stopping the execution of other functions.</td>
+   </tr>
+   <tr>
+   <td width="20">2.</td>
+   <td width="820">Optimize the algorithm to reduce latency in the decision-making process. It is recommended to use RTOS (Real-Time Operating System) in order to better prioritize the functions.</td>
+   </tr>
+   <tr>
+   <td width="20">3.</td>
+   <td width="820">Add OTA (Over The Air) methods to improve network security, including Telegram Bot.</td>
+   </tr>
+   </table>
+</li><br>
+<li>
+   <strong><p>Suggested Additional Automation Features :</p></strong>
+   <table>
+   <tr>
+   <td width="20">1.</td>
+   <td width="820">Automatic pump connected with liquid level sensor to control filling of Gallon pH and AB Mix.</td>
+   </tr>
+   <tr>
+   <td width="20">2.</td>
+   <td width="820">Time-based automatic feeding for scheduled feeding.</td>
+   </tr>
+   <tr>
+   <td width="20">3.</td>
+   <td width="820">Automatic pump controlled via telegram bot to simplify the process of draining and replenishing water.</td>
+   </tr>
+   <tr>
+   <td width="20">4.</td>
+   <td width="820">Monitoring water quality in ponds or aquariums using a combination of pH, water temperature, and ammonia sensors.</td>
+   </tr>
+   <tr>
+   <td width="20">5.</td>
+   <td width="820">Plant irradiation with growth lamps to grow plants optimally even in low light conditions (as a substitute for sunlight).</td>
+   </tr>
+   </table>
+</li><br>
+<li>
+   <strong><p>Media and Infrastructure Optimization :</p></strong>
+   <table>
+   <tr>
+   <td width="20">1.</td>
+   <td width="820">Increase the number of hydroponic modules to accommodate more plants.</td>
+   </tr>
+   <tr>
+   <td width="20">2.</td>
+   <td width="820">Exploration of alternative growing media such as husk charcoal or cocopeat to improve plant growth efficiency.</td>
+   </tr>
+   </table>
+</li>
 </ul>
 
 <br><br>
