@@ -479,33 +479,33 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
 ## <img src="https://github.com/user-attachments/assets/932b96eb-cbc7-42f1-8938-43cb431889a5" width="16" height="16"> Notes
 <ul>
     <li>
-        <strong><p>Perbaikan Hardware :</p></strong>
-        1. Gunakan PSU standar dengan kapasitas 3A untuk menyuplai seluruh perangkat yang terpasang.<br><br>
-        2. Tambahkan Step Down Converter untuk mendapatkan tegangan yang lebih stabil dan sesuai dengan kebutuhan perangkat. Dengan adanya komponen ini, maka tidak membutuhkan Arduino Uno.<br><br>
-        3. Tambahkan isolator pada komponen listrik untuk mencegah arus bocor.<br><br>
-        4. Pasang kipas pendingin atau ventilasi tambahan untuk meningkatkan aliran udara dan mencegah panas berlebih.<br><br>
-        5. Tambahkan Heat Sink pada komponen yang rentan panas.<br><br>
-        6. Ganti pengaturan Relay dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih di Solenoid Valve.<br><br>
-        7. Gunakan pelindung fisik seperti casing khusus untuk melindungi Probe Sensor pH dari kerusakan, terutama akibat benturan.<br><br>
-    </li>
+        <strong><p>Hardware Repairs :</p></strong>
+        1. Use a standard PSU with a capacity of 3A to supply all installed devices.<br><br>
+        2. Add a Step Down Converter to get a more stable voltage and in accordance with the needs of the device. With this component, there is no need for an Arduino Uno.<br><br>
+        3. Add insulators to electrical components to prevent leakage current.<br><br>
+        4. Install cooling fans or additional ventilation to increase airflow and prevent overheating.<br><br>
+        5. Add heat sinks to heat-prone components.<br><br>
+        6. Change the Relay setting from NO (Normally Open) to NC (Normally Close) to reduce overheating in the Solenoid Valve.<br><br>
+        7. Use physical protection such as a special case to protect the pH Sensor Probe from damage, especially from impact.<br><br>
+    </li><br>
     <li>
-        <strong><p>Perbaikan Firmware :</p></strong>
-        1. Ganti fungsi delay dengan millis() untuk mengelola waktu tanpa menghentikan eksekusi fungsi lain.<br><br>
-        2. Optimalkan algoritma untuk mengurangi latensi pada proses pengambilan keputusan. Disarankan menggunakan RTOS (Real-Time Operating System) agar dapat mengatur lebih baik prioritas fungsi yang ada.<br><br>
-        3. Tambahkan metode OTA (Over The Air) untuk meningkatkan keamanan jaringan, termasuk Bot Telegram.<br><br>
-    </li>
+        <strong><p>Firmware Repairs :</p></strong>
+        1. Replace the delay function with millis() to manage time without stopping the execution of other functions.<br><br>
+        2. Optimize the algorithm to reduce latency in the decision-making process. It is recommended to use RTOS (Real-Time Operating System) in order to better prioritize the functions.<br><br>
+        3. Add OTA (Over The Air) methods to improve network security, including Telegram Bot.<br><br>
+    </li><br>
     <li>
-        <strong><p>Fitur Otomatisasi Tambahan Yang Disarankan :</p></strong>
-        1. Pompa otomatis yang terhubung dengan sensor level cairan untuk mengontrol pengisian Galon pH dan AB Mix.<br><br>
-        2. Pemberian pakan otomatis berbasis waktu untuk memberikan pakan secara terjadwal.<br><br>
-        3. Pompa otomatis yang dikendalikan melalui bot telegram untuk mempermudah proses pengurasan dan pengisian air.<br><br>
-        4. Pemantauan kualitas air pada kolam atau akuarium menggunakan perpaduan antara sensor pH, suhu air, dan amonia.<br><br>
-        5. Penyinaran tanaman dengan lampu pertumbuhan untuk menumbuhkan tanaman secara optimal meski dalam kondisi yang minim cahaya (sebagai pengganti sinar matahari).<br><br>
-    </li>
+        <strong><p>Suggested Additional Automation Features :</p></strong>
+        1. Automatic pump connected with liquid level sensor to control filling of Gallon pH and AB Mix.<br><br>
+        2. Time-based automatic feeding for scheduled feeding.<br><br>
+        3. Automatic pump controlled via telegram bot to simplify the process of draining and replenishing water.<br><br>
+        4. Monitoring water quality in ponds or aquariums using a combination of pH, water temperature, and ammonia sensors.<br><br>
+        5. Plant irradiation with growth lamps to grow plants optimally even in low light conditions (as a substitute for sunlight).<br><br>
+    </li><br>
     <li>
-        <strong><p>Optimalisasi Media dan Infrastruktur :</p></strong>
-        1. Tingkatkan jumlah modul hidroponik agar mampu menampung lebih banyak tanaman.<br><br>
-        2. Eksplorasi media tanam alternatif seperti arang sekam atau cocopeat untuk meningkatkan efisiensi pertumbuhan tanaman.<br><br>
+        <strong><p>Media and Infrastructure Optimization :</p></strong>
+        1. Increase the number of hydroponic modules to accommodate more plants.<br><br>
+        2. Exploration of alternative growing media such as husk charcoal or cocopeat to improve plant growth efficiency.<br><br>
     </li>
 </ul>
 

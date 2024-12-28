@@ -488,13 +488,13 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
         5. Tambahkan Heat Sink pada komponen yang rentan panas.<br><br>
         6. Ganti pengaturan Relay dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih di Solenoid Valve.<br><br>
         7. Gunakan pelindung fisik seperti casing khusus untuk melindungi Probe Sensor pH dari kerusakan, terutama akibat benturan.<br><br>
-    </li>
+    </li><br>
     <li>
         <strong><p>Perbaikan Firmware :</p></strong>
         1. Ganti fungsi delay dengan millis() untuk mengelola waktu tanpa menghentikan eksekusi fungsi lain.<br><br>
         2. Optimalkan algoritma untuk mengurangi latensi pada proses pengambilan keputusan. Disarankan menggunakan RTOS (Real-Time Operating System) agar dapat mengatur lebih baik prioritas fungsi yang ada.<br><br>
         3. Tambahkan metode OTA (Over The Air) untuk meningkatkan keamanan jaringan, termasuk Bot Telegram.<br><br>
-    </li>
+    </li><br>
     <li>
         <strong><p>Fitur Otomatisasi Tambahan Yang Disarankan :</p></strong>
         1. Pompa otomatis yang terhubung dengan sensor level cairan untuk mengontrol pengisian Galon pH dan AB Mix.<br><br>
@@ -502,7 +502,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
         3. Pompa otomatis yang dikendalikan melalui bot telegram untuk mempermudah proses pengurasan dan pengisian air.<br><br>
         4. Pemantauan kualitas air pada kolam atau akuarium menggunakan perpaduan antara sensor pH, suhu air, dan amonia.<br><br>
         5. Penyinaran tanaman dengan lampu pertumbuhan untuk menumbuhkan tanaman secara optimal meski dalam kondisi yang minim cahaya (sebagai pengganti sinar matahari).<br><br>
-    </li>
+    </li><br>
     <li>
         <strong><p>Optimalisasi Media dan Infrastruktur :</p></strong>
         1. Tingkatkan jumlah modul hidroponik agar mampu menampung lebih banyak tanaman.<br><br>
