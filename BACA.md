@@ -68,6 +68,14 @@ Sistem akuaponik adalah sistem pertanian gabungan antara ikan dengan sayuran yan
 ## Rancangan Proyek
 <table>
 <tr>
+<th width="840">Infrastruktur</th>
+</tr>
+<tr>
+<td><img src="Assets/Documentation/Diagram/Infrastructure.jpg" alt="infrastructure"></td>
+</tr>
+</table>
+<table>
+<tr>
 <th width="280">Diagram Ilustrasi</th>
 <th width="280">Desain Prototipe</th>
 <th width="280">Desain Wadah Utama</th>
@@ -469,94 +477,40 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
 
 <br><br>
 
-## Kekurangan
-1. Hardware:
-
-   <table><tr><td width="810">
-   
-   • Arus bocor listrik disebabkan oleh penggunaan PSU yang tidak standar atau kurangnya isolator yang digunakan.
-   
-   • Kurangnya sirkulasi udara yang ada di main box dapat menyebabkan panas.
-   
-   • NO (Normally Open) yang diterapkan pada relay mengakibatkan solenoid valve menjadi panas.
-   
-   • Kurangnya arus listrik mengakibatkan LCD tidak kuat menyala.
-   
-   • Penggunaan Arduino Uno sebagai filter atau pembagi tegangan itu dinilai tidak efisien.
-   
-   • Probe sensor pH tidak memiliki proteksi.
-   
-   </td></tr></table><br>
-
-2. Firmware:
-
-   <table><tr><td width="810">
-   
-   • Waktu tunda yang ada di setiap method dinilai berlebihan, seharusnya menggunakan fungsi ``` millis() ``` agar tidak mengganggu method lainnya.
-
-   • Penggunaan ``` io-t.net ``` dinilai kurang maksimal karena diketahui penggunaannya baru sebatas ``` publish ```.
-
-   • Fitur keamanan yang ada pada bot telegram dirasa belum baik.
-
-   </td></tr></table><br>
-
-3. Lainnya:
-
-   <table><tr><td width="810">
-
-   • Pengisian galon pH dan pemberian AB Mix itu masih dilakukan secara manual sehingga menyulitkan pengguna.
-
-   • Pemberian pakan ikan masih dilakukan secara manual.
-
-   • Sawi Pakcoy kurang mendapatkan asupan sinar matahari secara teratur, sehingga setelah pemindahan lahan, perkembangannya tidak secepat sebelumnya.
-
-   • Pengurasan dan pengisian air akuarium ini masih menggunakan cara manual, sehingga sangat merepotkan bagi pengguna.
-   
-   </td></tr></table>
+## <img src="https://github.com/user-attachments/assets/932b96eb-cbc7-42f1-8938-43cb431889a5" width="16" height="16"> Catatan
+<ul>
+    <li>
+        <strong><p>Perbaikan Hardware :</p></strong>
+        1. Gunakan PSU standar dengan kapasitas 3A untuk menyuplai seluruh perangkat yang terpasang.<br><br>
+        2. Tambahkan Step Down Converter untuk mendapatkan tegangan yang lebih stabil dan sesuai dengan kebutuhan perangkat. Dengan adanya komponen ini, maka tidak membutuhkan Arduino Uno.<br><br>
+        3. Tambahkan isolator pada komponen listrik untuk mencegah arus bocor.<br><br>
+        4. Pasang kipas pendingin atau ventilasi tambahan untuk meningkatkan aliran udara dan mencegah panas berlebih.<br><br>
+        5. Tambahkan Heat Sink pada komponen yang rentan panas.<br><br>
+        6. Ganti pengaturan Relay dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih di Solenoid Valve.<br><br>
+        7. Gunakan pelindung fisik seperti casing khusus untuk melindungi Probe Sensor pH dari kerusakan, terutama akibat benturan.<br><br>
+    </li>
+    <li>
+        <strong><p>Perbaikan Firmware :</p></strong>
+        1. Ganti fungsi delay dengan millis() untuk mengelola waktu tanpa menghentikan eksekusi fungsi lain.<br><br>
+        2. Optimalkan algoritma untuk mengurangi latensi pada proses pengambilan keputusan. Disarankan menggunakan RTOS (Real-Time Operating System) agar dapat mengatur lebih baik prioritas fungsi yang ada.<br><br>
+        3. Tambahkan metode OTA (Over The Air) untuk meningkatkan keamanan jaringan, termasuk Bot Telegram.<br><br>
+    </li>
+    <li>
+        <strong><p>Fitur Otomatisasi Tambahan Yang Disarankan :</p></strong>
+        1. Pompa otomatis yang terhubung dengan sensor level cairan untuk mengontrol pengisian Galon pH dan AB Mix.<br><br>
+        2. Pemberian pakan otomatis berbasis waktu untuk memberikan pakan secara terjadwal.<br><br>
+        3. Pompa otomatis yang dikendalikan melalui bot telegram untuk mempermudah proses pengurasan dan pengisian air.<br><br>
+        4. Pemantauan kualitas air pada kolam atau akuarium menggunakan perpaduan antara sensor pH, suhu air, dan amonia.<br><br>
+        5. Penyinaran tanaman dengan lampu pertumbuhan untuk menumbuhkan tanaman secara optimal meski dalam kondisi yang minim cahaya (sebagai pengganti sinar matahari).<br><br>
+    </li>
+    <li>
+        <strong><p>Optimalisasi Media dan Infrastruktur :</p></strong>
+        1. Tingkatkan jumlah modul hidroponik agar mampu menampung lebih banyak tanaman.<br><br>
+        2. Eksplorasi media tanam alternatif seperti arang sekam atau cocopeat untuk meningkatkan efisiensi pertumbuhan tanaman.<br><br>
+    </li>
+</ul>
 
 <br><br>
-
-## Kelebihan  
-<table><tr><td width="840">
-   
-   • Antarmuka sistem melalui bot telegram, sehingga pemberian perintah sekaligus upaya pemantauan dapat dilakukan kapan saja dan dimana saja.
-   
-   • Dengan IT2FL, akurasi sensor menjadi lebih akurat.
-
-   • Sistem ini secara otomatis dapat mengambil keputusannya sendiri dan juga dapat dikendalikan secara manual oleh pengguna.
-   
-   • Sistem ini telah dilengkapi dengan fitur pewaktuan.
-
-</td></tr></table><br><br>
-
-## Di Masa Depan
-<table><tr><td width="840">
-   
-   • Perlunya peningkatan arus listrik. Anda dapat menggunakan PSU 3A.
-   
-   • Perlunya mengubah NO (Normally Open) menjadi NC (Normally Close) pada relay agar perangkat yang dialiri listrik itu dapat terhindar dari kerusakan.
-
-   • Perlunya pembagian tegangan dan arus listrik. Anda dapat menggunakan step down.
-   
-   • Perlunya peningkatan fitur keamanan pada bot telegram.
-
-   • Perlunya peningkatan keamanan pada sensor pH.
-   
-   • Perlunya penambahan perangkat re-fill galon pH dan AB mix yang dibuat secara otomatis.
-   
-   • Perlunya penambahan perangkat yang dapat melakukan pengukuran suhu air dan amonia.
-   
-   • Perlunya penambahan perangkat dalam pemberian pakan ikan secara otomatis.
-   
-   • Perlunya penambahan perangkat yang dapat memancarkan sinar hangat sebagai pengganti sinar matahari.
-   
-   • Perlunya penambahan perangkat yang dapat melakukan pengurasan dan pengisian air akuarium.
-   
-   • Perlunya penambahan perangkat yang dapat melakukan pendinginan secara optimal pada bagian main box.
-   
-   • Lahan tanam hidroponik yang ada pada penelitian ini mungkin kedepannya perlu dikembangkan lagi. Selain itu, media tanam rockwool dapat diganti dengan media tanam lain yang lebih mencukupi kebutuhan tanaman, misalnya : arang sekam maupun cocopeat.
-
-</td></tr></table><br><br>
 
 ## Apresiasi
 Jika karya ini bermanfaat bagi anda, maka dukunglah karya ini sebagai bentuk apresiasi kepada penulis dengan mengklik tombol ``` ⭐Bintang ``` di bagian atas repositori.

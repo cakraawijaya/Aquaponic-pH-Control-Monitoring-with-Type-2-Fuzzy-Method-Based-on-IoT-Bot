@@ -68,6 +68,14 @@ An aquaponic system is a combined farming system between fish with vegetables wh
 ## Project Designs
 <table>
 <tr>
+<th width="840">Infrastructure</th>
+</tr>
+<tr>
+<td><img src="Assets/Documentation/Diagram/Infrastructure.jpg" alt="infrastructure"></td>
+</tr>
+</table>
+<table>
+<tr>
 <th width="280">Pictorial Diagram</th>
 <th width="280">Prototype Design</th>
 <th width="280">Main Box Design</th>
@@ -468,94 +476,40 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
 
 <br><br>
 
-## Disadvantages
-1. Hardware:
-
-   <table><tr><td width="810">
-   
-   • Electrical leakage current is caused by the use of non-standard PSU or the lack of insulators used.
-   
-   • Lack of air circulation in the main box can cause heat.
-   
-   • NO (Normally Open) applied to the relay causes the solenoid valve to become hot.
-   
-   • The lack of electric current causes the LCD to not power on.
-   
-   • The use of Arduino Uno as a filter or voltage divider is considered inefficient.
-   
-   • The pH sensor probe has no protection.
-   
-   </td></tr></table><br>
-
-2. Firmware:
-
-   <table><tr><td width="810">
-   
-   • The delay time in each method is considered excessive, it should use the ``` millis() ``` function so as not to interfere with other methods.
-
-   • The use of ``` io-t.net ``` is considered not maximal because it is known that its use is just limited to ``` publish ```.
-
-   • The security features on telegram bots are not good.
-
-   </td></tr></table><br>
-
-3. Others:
-
-   <table><tr><td width="810">
-   
-   • Filling gallons of pH and giving AB Mix is still done manually, making it difficult for users.
-   
-   • Fish feeding is still done manually.
-   
-   • Pakcoy mustard greens lack regular sunlight intake, so after transplanting the land, its development is not as fast as before.
-
-   • Draining and filling the aquarium water is still done manually, making it very inconvenient for users.
-
-   </td></tr></table>
+## <img src="https://github.com/user-attachments/assets/932b96eb-cbc7-42f1-8938-43cb431889a5" width="16" height="16"> Notes
+<ul>
+    <li>
+        <strong><p>Perbaikan Hardware :</p></strong>
+        1. Gunakan PSU standar dengan kapasitas 3A untuk menyuplai seluruh perangkat yang terpasang.<br><br>
+        2. Tambahkan Step Down Converter untuk mendapatkan tegangan yang lebih stabil dan sesuai dengan kebutuhan perangkat. Dengan adanya komponen ini, maka tidak membutuhkan Arduino Uno.<br><br>
+        3. Tambahkan isolator pada komponen listrik untuk mencegah arus bocor.<br><br>
+        4. Pasang kipas pendingin atau ventilasi tambahan untuk meningkatkan aliran udara dan mencegah panas berlebih.<br><br>
+        5. Tambahkan Heat Sink pada komponen yang rentan panas.<br><br>
+        6. Ganti pengaturan Relay dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih di Solenoid Valve.<br><br>
+        7. Gunakan pelindung fisik seperti casing khusus untuk melindungi Probe Sensor pH dari kerusakan, terutama akibat benturan.<br><br>
+    </li>
+    <li>
+        <strong><p>Perbaikan Firmware :</p></strong>
+        1. Ganti fungsi delay dengan millis() untuk mengelola waktu tanpa menghentikan eksekusi fungsi lain.<br><br>
+        2. Optimalkan algoritma untuk mengurangi latensi pada proses pengambilan keputusan. Disarankan menggunakan RTOS (Real-Time Operating System) agar dapat mengatur lebih baik prioritas fungsi yang ada.<br><br>
+        3. Tambahkan metode OTA (Over The Air) untuk meningkatkan keamanan jaringan, termasuk Bot Telegram.<br><br>
+    </li>
+    <li>
+        <strong><p>Fitur Otomatisasi Tambahan Yang Disarankan :</p></strong>
+        1. Pompa otomatis yang terhubung dengan sensor level cairan untuk mengontrol pengisian Galon pH dan AB Mix.<br><br>
+        2. Pemberian pakan otomatis berbasis waktu untuk memberikan pakan secara terjadwal.<br><br>
+        3. Pompa otomatis yang dikendalikan melalui bot telegram untuk mempermudah proses pengurasan dan pengisian air.<br><br>
+        4. Pemantauan kualitas air pada kolam atau akuarium menggunakan perpaduan antara sensor pH, suhu air, dan amonia.<br><br>
+        5. Penyinaran tanaman dengan lampu pertumbuhan untuk menumbuhkan tanaman secara optimal meski dalam kondisi yang minim cahaya (sebagai pengganti sinar matahari).<br><br>
+    </li>
+    <li>
+        <strong><p>Optimalisasi Media dan Infrastruktur :</p></strong>
+        1. Tingkatkan jumlah modul hidroponik agar mampu menampung lebih banyak tanaman.<br><br>
+        2. Eksplorasi media tanam alternatif seperti arang sekam atau cocopeat untuk meningkatkan efisiensi pertumbuhan tanaman.<br><br>
+    </li>
+</ul>
 
 <br><br>
-
-## Advantages
-<table><tr><td width="840">
-   
-   • The system interface is through a telegram bot, so that giving orders as well as monitoring efforts can be done anytime and anywhere.
-   
-   • With IT2FL, the accuracy of the sensor becomes more accurate.
-
-   • The system can automatically make its own decisions and can also be manually controlled by the user.
-   
-   • The system has been equipped with a timing feature.
-
-</td></tr></table><br><br>
-
-## In the Future
-<table><tr><td width="840">
-   
-   • Need for increased amperage. You can use a 3A PSU.
-
-   • Need to change the NO (Normally Open) to NC (Normally Close) on the relays so that the electrified device can avoid damage.
-
-   • Need for voltage and current sharing. You can use a step down.
-   
-   • Need for increased the security features of telegram bots.
-
-   • Need for increased security on the pH sensor.
-   
-   • Need for the addition of pH tank re-fill devices and AB mix tanks that are made automatically.
-   
-   • Need for additional devices that can measure water temperature and ammonia.
-   
-   • Need for additional devices in automatic fish feeding.
-   
-   • Need for additional devices that can emit warm light as a substitute for sunlight.
-   
-   • Need for additional devices that can drain and fill aquarium water.
-   
-   • Need for additional devices that can optimally cool the main box. 
-   
-   • The existing hydroponic planting field in this study may need to be developed further in the future. In addition, rockwool planting media can be replaced with other planting media that are more adequate for plant needs, for example: husk charcoal or cocopeat.
-
-</td></tr></table><br><br>
 
 ## Appreciation
 If this work is useful to you, then support this work as a form of appreciation to the author by clicking the ``` ⭐Star ``` button at the top of the repository.
