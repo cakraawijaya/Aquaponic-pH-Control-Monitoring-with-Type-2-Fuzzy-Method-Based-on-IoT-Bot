@@ -20,10 +20,10 @@ CTBotInlineKeyboard InKbd, In3Kbd1, In3Kbd2, In3Kbd3, In3Kbd4, In3Kbd5, In3Kbd6,
 //===================================================== Deklarasi Variabel: Tipe Data ======================================================
 //Tipe data Char
 char dataHari[7][12] = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"}; 
-char Payload[4];
+char payload_Publish[4];
 
 //Tipe data Float
-float pHResult, analog=0, x, a, b, y, phValue = 0, Temporary;
+float pHResult, analog=0, x, a, b, y, old_pHValue = 0, pHValue;
 float pHair_Upper, pHair_Lower;
 float AKU, AKL, ALU, ALL, NU, NL, BLU, BLL, BKU, BKL;
 float SigyiMiuMFUpper, SigyiMiuMFLower, SigMiuMFUpper, SigMiuMFLower, yl, yr;
@@ -88,7 +88,8 @@ void setup(){
 
 //============================================================== Method Loop ===============================================================
 void loop(){
-  readPH(); //Memanggil Method readpH
+  readPH(); //Memanggil method readpH
+  IT2FL_pH(); //Memanggil method IT2FL_pH
   botTelegram(); //memanggil method botTelegram
 }
 
@@ -215,14 +216,13 @@ void readPH(){
   if(y>14.00){ y = 14.00; } 
   else if (y<0.00){ y = 0.00; }
   
-  Temporary = y; //Menyimpan nilai pH untuk sementara
+  pHValue = y; //Menyimpan nilai ke variabel pHValue
 
   //Cek nilai pH ada perubahan atau tidak, jika ada perubahan maka:
-  if(Temporary != phValue){
-    phValue = Temporary; //Menyimpan nilai sementara ke variabel phValue
-    dtostrf(phValue, 4, 2, Payload); //Float -> String 
-    client.publish(Topic, Payload); //Publish nilai pH
-    IT2FL_pH(); //Memanggil Method IT2FL_pH
+  if(pHValue != pHValue){
+    dtostrf(pHValue, 4, 2, payload_Publish); //Float -> String 
+    client.publish(Topic, payload_Publish); //Publish nilai pH
+    old_pHValue = pHValue; //Menyimpan nilai pH saat ini ke variabel old_pHValue
   }
 }
 
@@ -241,7 +241,7 @@ void LCDfailBot(){
   lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("Bot Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); delay(5000);
 }
 void Viewnow(){
-  lcd.clear(); lcd.backlight(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(Payload)); delay(1000); Waiting();
+  lcd.clear(); lcd.backlight(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(payload_Publish)); delay(1000); Waiting();
 }
 void LCDAllpHON(){
   lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
@@ -422,9 +422,9 @@ void botTelegram(){
       rp1 = "🙋🏻‍♂️ Hai @" + msg.sender.username + " 👋👋\nBerikut hasil monitoring pH terkini :\n\n";
       myBot.sendMessage(msg.sender.id, rp1);
       DTnow(); Viewnow();
-      rp2 = "--------------------------------------------------------------\n 👁 MONITORING PH \n--------------------------------------------------------------\n💦 pH air akuarium : " + String(Payload) + "\n⏰ waktu : " + String(waktu) + "\n--------------------------------------------------------------"; 
+      rp2 = "--------------------------------------------------------------\n 👁 MONITORING PH \n--------------------------------------------------------------\n💦 pH air akuarium : " + String(payload_Publish) + "\n⏰ waktu : " + String(waktu) + "\n--------------------------------------------------------------"; 
       myBot.sendMessage(msg.sender.id, rp2);
-      Serial.println("pH air akuaponik saat ini : " + String(Payload) + "\nWaktu saat ini : " + String(waktu) + "\n");
+      Serial.println("pH air akuaponik saat ini : " + String(payload_Publish) + "\nWaktu saat ini : " + String(waktu) + "\n");
     }    
     else if(msg.text.equalsIgnoreCase("🤖 Bantuan Bot")) { //Opsi Bantuan Bot
       sendMsg = "Apakah anda ingin mengakses bantuan bot sekarang?";
@@ -569,9 +569,9 @@ void botTelegram(){
 //================================================== Method Interval Type 2 Fuzzy Logic ==================================================
 void IT2FL_pH(){
   Serial.println("\n[Interval Type 2 Fuzzy Logic]\nproses fuzzifikasi :"); 
-  Serial.println("\nDeteksi pH: " + String(phValue));
-  pHair_Upper=float(phValue); //Memasukkan nilai pH ke Himpunan atas
-  pHair_Lower=float(phValue); //Memasukkan nilai pH ke Himpunan bawah
+  Serial.println("\nDeteksi pH: " + String(pHValue, 2));
+  pHair_Upper = float(pHValue); //Memasukkan nilai pH ke Himpunan atas
+  pHair_Lower = float(pHValue); //Memasukkan nilai pH ke Himpunan bawah
   fuzz_it2fl(); //Memanggil Method Fuzzifikasi
   Serial.println("\nproses inferensi :"); 
   infer_it2fl(); //Memanggil Method Inferensi
