@@ -21,10 +21,10 @@ CTBotInlineKeyboard InKbd, In3Kbd1, In3Kbd2, In3Kbd3, In3Kbd4, In3Kbd5, In3Kbd6,
 //===================================================== Deklarasi Variabel: Tipe Data ======================================================
 //Tipe data Char
 char dataHari[7][12] = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"}; 
-char pHresultPUB[4]; 
+char Payload[4];
 
 //Tipe data Float
-float pHResult, analog=0, x, a, b, y;
+float pHResult, analog=0, x, a, b, y, phValue = 0, Temporary;
 float pHair_Upper, pHair_Lower;
 float AKU, AKL, ALU, ALL, NU, NL, BLU, BLL, BKU, BKL;
 float SigyiMiuMFUpper, SigyiMiuMFLower, SigMiuMFUpper, SigMiuMFLower, yl, yr;
@@ -89,7 +89,8 @@ void setup(){
 
 //============================================================== Method Loop ===============================================================
 void loop(){
-  botTelegram(); //memanggil method opsi menu Bot Telegram
+  readPH(); //Memanggil Method readpH
+  botTelegram(); //memanggil method botTelegram
 }
 
 
@@ -205,7 +206,7 @@ void DTnow(){
 
 
 //============================================================== Method Read pH ============================================================
-void ReadPH(){
+void readPH(){
   analog = analogRead(PoPin); //Membaca analog pin pH
   x = analog * (5.0 / 4095.0); //Nilai tegangan murni
   a = 21.84; b = -5.27; //Linear Regression Value
@@ -215,9 +216,15 @@ void ReadPH(){
   if(y>14.00){ y = 14.00; } 
   else if (y<0.00){ y = 0.00; }
   
-  //publish topic IoT
-  dtostrf(y, 4, 2, pHresultPUB); //Float -> String
-  client.publish(Topic, pHresultPUB); //publish nilai pH
+  Temporary = y; //Menyimpan nilai pH untuk sementara
+
+  //Cek nilai pH ada perubahan atau tidak, jika ada perubahan maka:
+  if(Temporary != phValue){
+    phValue = Temporary; //Menyimpan nilai sementara ke variabel phValue
+    dtostrf(phValue, 4, 2, Payload); //Float -> String 
+    client.publish(Topic, Payload); //Publish nilai pH
+    IT2FL_pH(); //Memanggil Method IT2FL_pH
+  }
 }
 
 
@@ -235,7 +242,7 @@ void LCDfailBot(){
   lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("Bot Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); delay(5000);
 }
 void Viewnow(){
-  lcd.clear(); lcd.backlight(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(pHresultPUB)); delay(1000); Waiting();
+  lcd.clear(); lcd.backlight(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(Payload)); delay(1000); Waiting();
 }
 void LCDAllpHON(){
   lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
@@ -396,7 +403,6 @@ void ButtonBot(){
 //====================================================== Method Opsi Bot Telegram ========================================================
 void botTelegram(){
   TBMessage msg; //Constructor TBMessage
-  ReadPH(); //Memanggil Method ReadpH
   
   if(myBot.getNewMessage(msg)){  
     if(msg.text.equalsIgnoreCase("/start")){ //Start Bot
@@ -557,16 +563,16 @@ void botTelegram(){
       sendMsg = "🙋🏻‍♂️ Hai @" + msg.sender.username + " 👋👋\n\n❌ Gagal mengakses, coba lagi";
       myBot.sendMessage(msg.sender.id, sendMsg);
     } 
-  } IT2FL_pH(); //Memanggil Method IT2FL_pH
+  }
 }
 
 
 //================================================== Method Interval Type 2 Fuzzy Logic ==================================================
 void IT2FL_pH(){
   Serial.println("\n[Interval Type 2 Fuzzy Logic]\nproses fuzzifikasi :"); 
-  Serial.println("\nDeteksi pH: " + String(y));
-  pHair_Upper=float(y); //Memasukkan nilai pH ke Himpunan atas
-  pHair_Lower=float(y); //Memasukkan nilai pH ke Himpunan bawah
+  Serial.println("\nDeteksi pH: " + String(phValue));
+  pHair_Upper=float(phValue); //Memasukkan nilai pH ke Himpunan atas
+  pHair_Lower=float(phValue); //Memasukkan nilai pH ke Himpunan bawah
   fuzz_it2fl(); //Memanggil Method Fuzzifikasi
   Serial.println("\nproses inferensi :"); 
   infer_it2fl(); //Memanggil Method Inferensi
