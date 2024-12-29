@@ -82,7 +82,7 @@ void setup(){
   ButtonBot(); //Memanggil method Tombol Custom pada Bot Telegram
   RTCinit(); //Memanggil method RTCinit
   Loading(); //LCD view Loading
-  pinMode(PBuzzer, OUTPUT); //inisialisasi pin sebagai OUTPUT
+  pinMode(PBuzzer, OUTPUT); //Inisialisasi pin sebagai OUTPUT
 }
 
 
@@ -93,17 +93,17 @@ void loop(){
   client.loop();
 
   readPH(); //Memanggil method readpH
-  botTelegram(); //memanggil method botTelegram
+  botTelegram(); //Memanggil method botTelegram
 }
 
 
 //============================================================= Method LCD Init ============================================================
 void LCDinit(){
-  // memulai komunikasi serial dengan LCD
+  //Memulai komunikasi serial dengan LCD
   lcd.init();
-  //start LCD
+  //Start LCD
   lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("Memulai"); lcd.setCursor(1,1); lcd.print("Sistem pH..."); delay(1000);
-  //welcome LCD
+  //Welcome LCD
   lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("Welcome to"); lcd.setCursor(1,1); lcd.print("PHIOTNET...."); delay(1000);
 }
 
@@ -117,9 +117,9 @@ void RTCinit(){
 
 //============================================================ Method RELAY Init ===========================================================
 void RELAYinit(){
-  pinMode(SValve1, OUTPUT); //inisialisasi pin sebagai output
-  pinMode(SValve2, OUTPUT); //inisialisasi pin sebagai output
-  all_pH_off(); //default relay untuk pertama kali harus off
+  pinMode(SValve1, OUTPUT); //Inisialisasi pin sebagai output
+  pinMode(SValve2, OUTPUT); //Inisialisasi pin sebagai output
+  all_pH_off(); //Default relay untuk pertama kali harus off
 }
 
 
@@ -139,8 +139,8 @@ void connectWiFi(){
   Serial.println("\nstatus :\nWi-Fi berhasil tersambung");
   Serial.println(WiFi.localIP());
   
-  WiFi.setAutoReconnect(true); //Auto reconnect after lost connect
-  WiFi.persistent(true); //reconnect to Access Point
+  WiFi.setAutoReconnect(true); //Menyambungkan kembali secara otomatis setelah sambungan terputus
+  WiFi.persistent(true); //Menyambungkan kembali ke Access Point
   delay(1000);
 }
 
@@ -222,7 +222,7 @@ void DTnow(){
   DateTime now = rtc.now(); //Membuat objek baru: now untuk menampung method RTC
   hari = dataHari[now.dayOfTheWeek()]; //Hari
   tanggal = now.day(), DEC; bulan = now.month(), DEC; tahun = now.year(), DEC; //DD-MM-YYYY
-  waktu = String() + hari + ", " + tanggal + "-" + bulan + "-" + tahun; //waktu
+  waktu = String() + hari + ", " + tanggal + "-" + bulan + "-" + tahun; //Waktu
 }
 
 
@@ -345,13 +345,13 @@ void pH_down_onlm(){ //Method pH Down On 25 detik : On/Off Controller
 
 //============================================================= Method Alarm =============================================================
 void B2(){ //Method alarm 2x bunyi : On/Off Controller
-  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(1000); // buzzer nyala 1x
-  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(2000); // buzzer nyala 1x
+  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(1000); //Buzzer nyala 1x
+  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(2000); //Buzzer nyala 1x
 }
 void B3(){ //Method alarm 3x bunyi : On/Off Controller
-  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(1000); // buzzer nyala 1x
-  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(1000); // buzzer nyala 1x
-  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(2000); // buzzer nyala 1x
+  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(1000); //Buzzer nyala 1x
+  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(1000); //Buzzer nyala 1x
+  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(2000); //Buzzer nyala 1x
 } 
     
 
@@ -524,15 +524,15 @@ void botTelegram(){
         goto main_menu;
       }
       else if(msg.callbackQueryData.equals(INrespYes1)){ //Respon Opsi Sub Menu All-pH ON
-        all_pH_on(); //menyalakan semua relay pH
-        statusKendaliIoT = "ON"; //status kendali ON
+        all_pH_on(); //Menyalakan semua relay pH
+        statusKendaliIoT = "ON"; //Status kendali ON
         LCDAllpHON(); //View LCD All-pH ON
         sendMsg = "🌊 Semua pH (Up-Down): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
       else if(msg.callbackQueryData.equals(INrespYes2)){ //Respon Opsi Sub Menu All-pH OFF
-        all_pH_off(); //mematikan semua relay pH
-        statusKendaliIoT = "OFF"; //status kendali OFF
+        all_pH_off(); //Mematikan semua relay pH
+        statusKendaliIoT = "OFF"; //Status kendali OFF
         LCDAllpHOFF(); //View LCD All-pH OFF
         sendMsg = "💤 Semua pH (Up-Down): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
@@ -543,15 +543,15 @@ void botTelegram(){
         goto sub_menu2;
       }
       else if(msg.callbackQueryData.equals(INrespYes3)){ //Respon Opsi Sub Menu pH-Up ON
-        pH_up_on(); //menyalakan relay pH Up
-        statusKendaliIoT = "ON"; //status kendali ON
+        pH_up_on(); //Menyalakan relay pH Up
+        statusKendaliIoT = "ON"; //Status kendali ON
         LCDpHUpON(); //View LCD pH-Up ON
         sendMsg = "🌊 pH (Up): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
       else if(msg.callbackQueryData.equals(INrespYes4)){ //Respon Opsi Sub Menu pH-Up OFF
-        pH_up_off(); //mematikan relay pH Up
-        statusKendaliIoT = "OFF"; //status kendali OFF
+        pH_up_off(); //Mematikan relay pH Up
+        statusKendaliIoT = "OFF"; //Status kendali OFF
         LCDpHUpOFF(); //View LCD pH-Up OFF
         sendMsg = "💤 pH (Up): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
@@ -562,15 +562,15 @@ void botTelegram(){
         goto sub_menu3;
       }
       else if(msg.callbackQueryData.equals(INrespYes5)){ //Respon Opsi Sub Menu pH-Down ON
-        pH_down_on(); //menyalakan relay pH Down
-        statusKendaliIoT = "ON"; //status kendali ON
+        pH_down_on(); //Menyalakan relay pH Down
+        statusKendaliIoT = "ON"; //Status kendali ON
         LCDpHDownON(); //View LCD pH-Down ON
         sendMsg = "🌊 pH (Down): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
       else if(msg.callbackQueryData.equals(INrespYes6)){ //Respon Opsi Sub Menu pH-Down OFF
-        pH_down_off(); //mematikan relay pH Down
-        statusKendaliIoT = "OFF"; //status kendali OFF
+        pH_down_off(); //Mematikan relay pH Down
+        statusKendaliIoT = "OFF"; //Status kendali OFF
         LCDpHDownOFF(); //View LCD pH-Down OFF
         sendMsg = "💤 pH (Down): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
