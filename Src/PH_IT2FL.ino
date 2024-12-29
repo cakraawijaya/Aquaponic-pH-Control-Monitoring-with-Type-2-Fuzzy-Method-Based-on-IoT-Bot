@@ -9,7 +9,6 @@
 //======================================================= Inisialisasi: Constructor ========================================================
 RTC_DS3231 rtc; //Constructor RTC_DS3231
 LiquidCrystal_I2C lcd(0x27, 16, 2); //Constructor LiquidCrystal_I2C
-WiFiServer server(80); //Constructor WiFiServer
 WiFiClient espClient; //Constructor WiFiClient
 PubSubClient client(espClient); //Constructor PubSubClient
 CTBot myBot; //Constructor CTBot
