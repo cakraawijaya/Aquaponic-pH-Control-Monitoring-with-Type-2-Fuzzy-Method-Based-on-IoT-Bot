@@ -20,9 +20,10 @@ CTBotInlineKeyboard InKbd, In3Kbd1, In3Kbd2, In3Kbd3, In3Kbd4, In3Kbd5, In3Kbd6,
 //===================================================== Deklarasi Variabel: Tipe Data ======================================================
 //Tipe data Char
 char dataHari[7][12] = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"}; 
-char payload_Publish[4], payload_Subscribe;
+char payload_Publish[4];
 
 //Tipe data Float
+float payload_Subscribe = 0.00;
 float pHResult, adc_phSensor, x, a, b, y, old_pHValue = 0, pHValue;
 float pHair_Upper, pHair_Lower;
 float AKU, AKL, ALU, ALL, NU, NL, BLU, BLL, BKU, BKL;
@@ -42,6 +43,7 @@ String Topic, hari, waktu, rp1, rp2, sendMsg, statusPH, statusBuzzer, statusRela
 bool viewTombol; 
 bool relayON = LOW;
 bool relayOFF = HIGH;
+
 
 //============================================================= Define Variabel ============================================================
 #define PBuzzer 2 //Pin Kaki Piezo Buzzer
@@ -81,7 +83,6 @@ void setup(){
   ButtonBot(); //Memanggil method Tombol Custom pada Bot Telegram
   RTCinit(); //Memanggil method RTCinit
   Loading(); //LCD view Loading
-  pinMode(PoPin, INPUT); //Menginisialisasi PoPin sebagai INPUT
   pinMode(PBuzzer, OUTPUT); //inisialisasi pin sebagai OUTPUT
 }
 
@@ -149,7 +150,6 @@ void connectWiFi(){
 void connectIoT(){
   Serial.print("\n[Konfigurasi IoT]\nmencoba menghubungkan ke Platform : "); 
   Serial.println(mqtt_server);
-
   client.setServer(mqtt_server, mqtt_port); 
   client.setCallback(receivedCallback);
 }
@@ -190,9 +190,16 @@ void receivedCallback(char* topic, byte* payload, unsigned int length) {
 
   // Ubah string ke float
   payload_Subscribe = atof(message);
+}
 
-  // Cetak Payload Subscribe
-  Serial.println("\nPayload: " + String(payload_Subscribe));
+
+//==================================================== Method Debugging untuk Subscribe ==================================================
+void debuggingSubscribe(){
+  if(payload_Subscribe != 0){
+    Serial.println("\n[Pemeriksaan Subscribe MQTT]"); 
+    Serial.println("Payload: " + String(payload_Subscribe));
+    Serial.println("\n==================================================================================");
+  }
 }
 
 
@@ -244,6 +251,7 @@ void readPH(){
   if(pHValue != old_pHValue){
     dtostrf(pHValue, 4, 2, payload_Publish); //Float -> String 
     client.publish(Topic, payload_Publish, true); //Publish topik beserta payloadnya menggunakan retain message
+    // debuggingSubscribe(); //Memanggil method debuggingSubscribe => Jika tidak digunakan sebaiknya dibuat komentar saja
     IT2FL_pH(); //Memanggil method IT2FL_pH
     old_pHValue = pHValue; //Menyimpan nilai pH saat ini ke variabel old_pHValue
   }
@@ -445,9 +453,9 @@ void botTelegram(){
       rp1 = "🙋🏻‍♂️ Hai @" + msg.sender.username + " 👋👋\nBerikut hasil monitoring pH terkini :\n\n";
       myBot.sendMessage(msg.sender.id, rp1);
       DTnow(); Viewnow();
-      rp2 = "--------------------------------------------------------------\n 👁 MONITORING PH \n--------------------------------------------------------------\n💦 pH air akuarium : " + String(payload_Publish) + "\n⏰ waktu : " + String(waktu) + "\n--------------------------------------------------------------"; 
+      rp2 = "--------------------------------------------------------------\n 👁 MONITORING PH \n--------------------------------------------------------------\n💦 pH air akuarium : " + String(payload_Subscribe) + "\n⏰ waktu : " + String(waktu) + "\n--------------------------------------------------------------"; 
       myBot.sendMessage(msg.sender.id, rp2);
-      Serial.println("pH air akuaponik saat ini : " + String(payload_Publish) + "\nWaktu saat ini : " + String(waktu) + "\n");
+      Serial.println("pH air akuaponik saat ini : " + String(payload_Subscribe) + "\nWaktu saat ini : " + String(waktu) + "\n");
     }    
     else if(msg.text.equalsIgnoreCase("🤖 Bantuan Bot")) { //Opsi Bantuan Bot
       sendMsg = "Apakah anda ingin mengakses bantuan bot sekarang?";
