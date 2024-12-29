@@ -533,7 +533,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    <table>
    <tr>
    <td width="20">1.</td>
-   <td width="820">Automatic pump connected with liquid level sensor to control filling Gallons of pH and AB Mix.</td>
+   <td width="820">Automatic pump integrated with a level sensor to control liquid filling in the form of pH and AB Mix.</td>
    </tr>
    <tr>
    <td width="20">2.</td>
