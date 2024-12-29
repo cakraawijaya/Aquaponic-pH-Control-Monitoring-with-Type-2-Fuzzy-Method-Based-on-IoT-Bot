@@ -23,7 +23,7 @@ char payload_Publish[4];
 
 //Tipe data Float
 float payload_Subscribe;
-float pHResult, adc_phSensor, x, a, b, y, old_pHValue = 0, pHValue;
+float adc_phSensor, x, a, b, y, old_pHValue = 0, pHValue;
 float pHair_Upper, pHair_Lower;
 float AKU, AKL, ALU, ALL, NU, NL, BLU, BLL, BKU, BKL;
 float SigyiMiuMFUpper, SigyiMiuMFLower, SigMiuMFUpper, SigMiuMFLower, yl, yr;
@@ -178,17 +178,10 @@ void reconnect(){
 
 //===================================================== Method Pemanggilan Topik Subscribe =================================================
 void receivedCallback(char* topic, byte* payload, unsigned int length) {  
-  // Konversi payload ke float
-  char message[length + 1];
-  for (int i = 0; i < length; i++) {
-    message[i] = (char)payload[i];
-  }
-
-  // Tambahkan null terminator
-  message[length] = '\0';
-
-  // Ubah string ke float
-  payload_Subscribe = atof(message);
+  char message[length + 1]; //Membuat variable array untuk menampung data payload
+  for (i = 0; i < length; i++) { message[i] = (char)payload[i]; } //Menampung data payload
+  message[length] = '\0'; //Null terminator
+  payload_Subscribe = atof(message); //Ubah string ke float
 }
 
 
