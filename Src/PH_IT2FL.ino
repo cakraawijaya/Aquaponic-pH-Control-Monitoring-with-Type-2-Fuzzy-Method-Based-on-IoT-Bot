@@ -37,7 +37,7 @@ int i, yi, ycos, yout, Tarray1, Tarray2;
 int SPK[5]; 
 
 //Tipe data String
-String Topic, hari, waktu, rp1, rp2, sendMsg, statusPH, statusBuzzer, statusRelaypH, statusKendaliIoT; 
+String hari, waktu, rp1, rp2, sendMsg, statusPH, statusBuzzer, statusRelaypH, statusKendaliIoT; 
 
 //Tipe data Boolean
 bool viewTombol; 
