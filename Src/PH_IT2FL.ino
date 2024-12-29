@@ -89,7 +89,6 @@ void setup(){
 //============================================================== Method Loop ===============================================================
 void loop(){
   readPH(); //Memanggil method readpH
-  IT2FL_pH(); //Memanggil method IT2FL_pH
   botTelegram(); //memanggil method botTelegram
 }
 
@@ -219,9 +218,10 @@ void readPH(){
   pHValue = y; //Menyimpan nilai ke variabel pHValue
 
   //Cek nilai pH ada perubahan atau tidak, jika ada perubahan maka:
-  if(pHValue != pHValue){
+  if(pHValue != old_pHValue){
     dtostrf(pHValue, 4, 2, payload_Publish); //Float -> String 
     client.publish(Topic, payload_Publish); //Publish nilai pH
+    IT2FL_pH(); //Memanggil method IT2FL_pH
     old_pHValue = pHValue; //Menyimpan nilai pH saat ini ke variabel old_pHValue
   }
 }
