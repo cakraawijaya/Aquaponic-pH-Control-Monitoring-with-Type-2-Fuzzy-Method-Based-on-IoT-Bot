@@ -23,7 +23,7 @@ char dataHari[7][12] = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "
 char payload_Publish[4];
 
 //Tipe data Float
-float pHResult, analog=0, x, a, b, y, old_pHValue = 0, pHValue;
+float pHResult, adc_phSensor, x, a, b, y, old_pHValue = 0, pHValue;
 float pHair_Upper, pHair_Lower;
 float AKU, AKL, ALU, ALL, NU, NL, BLU, BLL, BKU, BKL;
 float SigyiMiuMFUpper, SigyiMiuMFLower, SigMiuMFUpper, SigMiuMFLower, yl, yr;
@@ -205,8 +205,8 @@ void DTnow(){
 
 //============================================================== Method Read pH ============================================================
 void readPH(){
-  analog = analogRead(PoPin); //Membaca analog pin pH
-  x = analog * (5.0 / 4095.0); //Nilai tegangan murni
+  adc_phSensor = analogRead(PoPin); //Membaca ADC Sensor pH
+  x = adc_phSensor * (5.0 / 4095.0); //Nilai tegangan murni
   a = 21.84; b = -5.27; //Linear Regression Value
   y = a + b * x; //pH Value
 
