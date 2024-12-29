@@ -268,7 +268,7 @@ void pH_up_onlm(){ //Method pH Up On 25 detik : On/Off Controller
     digitalWrite(SValve1, relayON);
     count++;
     if(count == 25){ break; }
-    delay(500);
+    delay(1000);
   }
   digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
 }
@@ -277,7 +277,7 @@ void pH_up_onsd(){ //Method pH Up On 10 detik : On/Off Controller
     digitalWrite(SValve1, relayON);
     count++;
     if(count == 10){ break; }
-    delay(500);
+    delay(1000);
   }
   digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
 }
@@ -304,7 +304,7 @@ void pH_down_onsd(){ //Method pH Down On 10 detik : On/Off Controller
     digitalWrite(SValve2, relayON);
     count++;
     if(count == 10){ break; }
-    delay(500);
+    delay(1000);
   }
   digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
 }
@@ -313,7 +313,7 @@ void pH_down_onlm(){ //Method pH Down On 25 detik : On/Off Controller
     digitalWrite(SValve2, relayON);
     count++;
     if(count == 25){ break; }
-    delay(500);
+    delay(1000);
   }
   digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
 }
