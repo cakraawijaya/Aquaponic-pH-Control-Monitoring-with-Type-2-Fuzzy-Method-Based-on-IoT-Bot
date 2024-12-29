@@ -23,7 +23,7 @@ char dataHari[7][12] = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "
 char payload_Publish[4];
 
 //Tipe data Float
-float payload_Subscribe = 0.00;
+float payload_Subscribe;
 float pHResult, adc_phSensor, x, a, b, y, old_pHValue = 0, pHValue;
 float pHair_Upper, pHair_Lower;
 float AKU, AKL, ALU, ALL, NU, NL, BLU, BLL, BKU, BKL;
