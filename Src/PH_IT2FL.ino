@@ -219,7 +219,7 @@ void readPH(){
   //Cek nilai pH ada perubahan atau tidak, jika ada perubahan maka:
   if(pHValue != old_pHValue){
     dtostrf(pHValue, 4, 2, payload_Publish); //Float -> String 
-    client.publish(Topic, payload_Publish); //Publish nilai pH
+    client.publish(Topic, payload_Publish, true); //Publish topik beserta payloadnya menggunakan retain message
     IT2FL_pH(); //Memanggil method IT2FL_pH
     old_pHValue = pHValue; //Menyimpan nilai pH saat ini ke variabel old_pHValue
   }
