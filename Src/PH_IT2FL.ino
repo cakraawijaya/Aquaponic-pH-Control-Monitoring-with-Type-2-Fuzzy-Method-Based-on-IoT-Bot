@@ -784,16 +784,18 @@ void redukdefuzz_it2fl(){
 
   //Nilai crips berdasarkan pengambilan keputusan
   if(yout == 0){
+    all_pH_off();
     statusPH = "Darurat (Asam Kuat)"; statusBuzzer = "Menyala (3x)";
     statusRelaypH = "pH-Up (ON lama: 25 detik)";
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    all_pH_off(); pH_up_onlm(); B3();
+    pH_up_onlm(); B3();
   }
   else if(yout == 1){
+    all_pH_off();
     statusPH = "Waspada (Asam Lemah)"; statusBuzzer = "Menyala (2x)";
     statusRelaypH = "pH-Up (ON sedang: 10 detik)";
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    all_pH_off(); pH_up_onsd(); B2();
+    pH_up_onsd(); B2();
   }
   else if(yout == 2){
     statusPH = "Aman (Netral)"; statusBuzzer = "Tidak Menyala"; 
@@ -802,16 +804,18 @@ void redukdefuzz_it2fl(){
     all_pH_off();
   }
   else if(yout == 3){
+    all_pH_off();
     statusPH = "Waspada (Basa Lemah)"; statusBuzzer = "Menyala (2x)"; 
     statusRelaypH = "pH-Down (ON sedang: 10 detik)"; 
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    all_pH_off(); pH_down_onsd(); B2();
+    pH_down_onsd(); B2();
   }
   else if(yout == 4){
+    all_pH_off();
     statusPH = "Darurat (Basa Kuat)"; statusBuzzer = "Menyala (3x)";
     statusRelaypH = "pH-Down (ON lama: 25 detik)"; 
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    all_pH_off(); pH_down_onlm(); B3(); 
+    pH_down_onlm(); B3(); 
   }
 }
 
