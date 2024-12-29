@@ -181,7 +181,7 @@ void receivedCallback(char* topic, byte* payload, unsigned int length) {
   char message[length + 1]; //Membuat variable array untuk menampung data payload
   for (i = 0; i < length; i++) { message[i] = (char)payload[i]; } //Menampung data payload
   message[length] = '\0'; //Null terminator
-  payload_Subscribe = atof(message); //Ubah string ke float
+  payload_Subscribe = atof(message); //Ubah string ke float dan masukkan ke variabel payload_Subscribe
 }
 
 
