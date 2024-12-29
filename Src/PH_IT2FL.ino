@@ -179,14 +179,20 @@ void reconnect(){
 
 //===================================================== Method Pemanggilan Topik Subscribe =================================================
 void receivedCallback(char* topic, byte* payload, unsigned int length) {  
-  if (topic == "detect") {
-    // Cetak topik yang diterima
-    Serial.print("Topic: " + String(topic) + " --- ");
-
-    // Tangkap payload yang diterima ke dalam variabel global
-    payload_Subscribe = (char)payload[0];
-    Serial.print("Payload: " + String(payload_Subscribe));
+  // Konversi payload ke float
+  char message[length + 1];
+  for (int i = 0; i < length; i++) {
+    message[i] = (char)payload[i];
   }
+
+  // Tambahkan null terminator
+  message[length] = '\0';
+
+  // Ubah string ke float
+  payload_Subscribe = atof(message);
+
+  // Cetak Payload Subscribe
+  Serial.println("\nPayload: " + String(payload_Subscribe));
 }
 
 
