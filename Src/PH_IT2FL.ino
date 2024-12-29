@@ -72,9 +72,7 @@ bool relayOFF = HIGH;
 
 //============================================================== Method Setup ===============================================================
 void setup(){
-  Serial.begin(9600); //Memulai komunikasi serial dengan baud rate 9600
-  pinMode(PoPin, INPUT); //Menginisialisasi PoPin sebagai INPUT
-  pinMode(PBuzzer, OUTPUT); //inisialisasi pin sebagai output
+  RELAYinit(); //Memanggil method RELAYinit
   LCDinit(); //Memanggil method LCDinit
   connectWiFi(); //Memanggil method connectWiFi
   connectIoT(); //Memanggil method connectIoT (i-ot.net)
@@ -82,7 +80,9 @@ void setup(){
   ButtonBot(); //Memanggil method Tombol Custom pada Bot Telegram
   RTCinit(); //Memanggil method RTCinit
   Loading(); //LCD view Loading
-  RELAYinit(); //Memanggil method RELAYinit
+  pinMode(PoPin, INPUT); //Menginisialisasi PoPin sebagai INPUT
+  pinMode(PBuzzer, OUTPUT); //inisialisasi pin sebagai OUTPUT
+  Serial.begin(9600); //Memulai komunikasi serial dengan baud rate 9600
 }
 
 
