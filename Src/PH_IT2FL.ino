@@ -20,7 +20,7 @@ CTBotInlineKeyboard InKbd, In3Kbd1, In3Kbd2, In3Kbd3, In3Kbd4, In3Kbd5, In3Kbd6,
 //===================================================== Deklarasi Variabel: Tipe Data ======================================================
 //Tipe data Char
 char dataHari[7][12] = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"}; 
-char payload_Publish[4];
+char payload_Publish[4], payload_Subscribe;
 
 //Tipe data Float
 float pHResult, adc_phSensor, x, a, b, y, old_pHValue = 0, pHValue;
@@ -88,6 +88,10 @@ void setup(){
 
 //============================================================== Method Loop ===============================================================
 void loop(){
+  // Pertahankan koneksi IoT
+  if (!client.connected()) { reconnect(); }
+  client.loop();
+
   readPH(); //Memanggil method readpH
   botTelegram(); //memanggil method botTelegram
 }
@@ -141,34 +145,48 @@ void connectWiFi(){
 }
 
 
-//========================================================== Method Konfigurasi IoT ========================================================
+//============================================================= Method Koneksi IoT =========================================================
 void connectIoT(){
   Serial.print("\n[Konfigurasi IoT]\nmencoba menghubungkan ke Platform : "); 
-  Serial.println(mqtt_server); 
+  Serial.println(mqtt_server);
+
   client.setServer(mqtt_server, mqtt_port); 
+  client.setCallback(receivedCallback);
+}
 
-  if (WiFi.status() == WL_CONNECTED) {
 
-    while(!client.connected()){        
-      if(client.connect(mqtt_clientID, mqtt_username, mqtt_password)){
-        Serial.println("\nstatus :"); Serial.print(mqtt_server);
-        Serial.println(" berhasil tersambung");  
-      } else{
-        Serial.println("\nstatus :"); Serial.print(mqtt_server);
-        Serial.print(" gagal tersambung (" + String(client.state()) + ")\nmenyambungkan kembali");
-        LCDfailIoT(); //LCD view Fail
-        while(!client.connect(mqtt_clientID, mqtt_username, mqtt_password)){
-          delay(500);
-          Serial.print(".");
-        }
-      }
+//==================================================== Method Menghubungkan Ulang Jaringan =================================================
+void reconnect(){
+  while(!client.connected()){        
+    if(client.connect(mqtt_clientID, mqtt_username, mqtt_password)){
+      Serial.println("status :"); Serial.print(mqtt_server);
+      Serial.println(" berhasil tersambung");  
+      client.subscribe(Topic);
     } 
-
-    if(client.connected()){
-      client.loop();
+    else{
+      Serial.println("\nstatus :"); Serial.print(mqtt_server);
+      Serial.print(" gagal tersambung (" + String(client.state()) + ")\nmenyambungkan kembali");
+      LCDfailIoT(); //LCD view Fail
+      while(!client.connect(mqtt_clientID, mqtt_username, mqtt_password)){
+        delay(500);
+        Serial.print(".");
+      }
+      delay(1000);
     }
+  } 
+}
 
-  } delay(1000);
+
+//===================================================== Method Pemanggilan Topik Subscribe =================================================
+void receivedCallback(char* topic, byte* payload, unsigned int length) {  
+  if (topic == "detect") {
+    // Cetak topik yang diterima
+    Serial.print("Topic: " + String(topic) + " --- ");
+
+    // Tangkap payload yang diterima ke dalam variabel global
+    payload_Subscribe = (char)payload[0];
+    Serial.print("Payload: " + String(payload_Subscribe));
+  }
 }
 
 
@@ -576,7 +594,7 @@ void IT2FL_pH(){
   infer_it2fl(); //Memanggil Method Inferensi
   Serial.println("\nproses reduksi tipe & defuzzifikasi :"); 
   redukdefuzz_it2fl(); //Memanggil Method Reduksi Tipe dan Defuzzifikasi
-  Serial.println("\n==================================================================================\n");
+  Serial.println("\n==================================================================================");
   reset_redukdeffuzz();
 }
 
