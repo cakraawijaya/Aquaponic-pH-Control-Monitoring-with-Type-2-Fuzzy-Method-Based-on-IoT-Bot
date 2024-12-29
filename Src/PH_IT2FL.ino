@@ -422,7 +422,7 @@ void botTelegram(){
       rp1 = "🙋🏻‍♂️ Hai @" + msg.sender.username + " 👋👋\nBerikut hasil monitoring pH terkini :\n\n";
       myBot.sendMessage(msg.sender.id, rp1);
       DTnow(); Viewnow();
-      rp2 = "--------------------------------------------------------------\n 👁 MONITORING PH \n--------------------------------------------------------------\n💦 pH air akuarium : " + String(pHresultPUB) + "\n⏰ waktu : " + String(waktu) + "\n--------------------------------------------------------------"; 
+      rp2 = "--------------------------------------------------------------\n 👁 MONITORING PH \n--------------------------------------------------------------\n💦 pH air akuarium : " + String(Payload) + "\n⏰ waktu : " + String(waktu) + "\n--------------------------------------------------------------"; 
       myBot.sendMessage(msg.sender.id, rp2);
       Serial.println("pH air akuaponik saat ini : " + String(Payload) + "\nWaktu saat ini : " + String(waktu) + "\n");
     }    
