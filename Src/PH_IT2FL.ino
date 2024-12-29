@@ -1,7 +1,6 @@
 //============================================================ Deklarasi Library ===========================================================
 #include <WiFi.h> //Pemanggilan Library WiFi
 #include <PubSubClient.h> //Pemanggilan Library PubSubClient
-#include <Wire.h> //Pemanggilan Library Wire
 #include <LiquidCrystal_I2C.h> //Pemanggilan Library LiquidCrystal_I2C
 #include <CTBot.h> //Pemanggilan Library CTBot
 #include <RTClib.h> //Pemanggilan Library RTClib
@@ -425,7 +424,7 @@ void botTelegram(){
       DTnow(); Viewnow();
       rp2 = "--------------------------------------------------------------\n 👁 MONITORING PH \n--------------------------------------------------------------\n💦 pH air akuarium : " + String(pHresultPUB) + "\n⏰ waktu : " + String(waktu) + "\n--------------------------------------------------------------"; 
       myBot.sendMessage(msg.sender.id, rp2);
-      Serial.println("pH air akuaponik saat ini : " + String(pHresultPUB) + "\nWaktu saat ini : " + String(waktu) + "\n");
+      Serial.println("pH air akuaponik saat ini : " + String(Payload) + "\nWaktu saat ini : " + String(waktu) + "\n");
     }    
     else if(msg.text.equalsIgnoreCase("🤖 Bantuan Bot")) { //Opsi Bantuan Bot
       sendMsg = "Apakah anda ingin mengakses bantuan bot sekarang?";
