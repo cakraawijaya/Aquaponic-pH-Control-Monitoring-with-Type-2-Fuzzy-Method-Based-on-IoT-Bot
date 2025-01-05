@@ -119,9 +119,11 @@ void loop(){
   //Jika waktu sekarang dikurangi waktu terakhir lebih besar dari 1 detik maka :
   if ((currentMillis - startTime1) > delayTime1) {
     readPublishPH(); //Memanggil method readPublishPH
-    botTelegram(); //Memanggil method botTelegram
     startTime1 = currentMillis; //Perbarui waktu terakhir dijalankan
   }
+
+  botTelegram(); //Memanggil method botTelegram
+  Waiting(); // Cetak LCD: Waiting
 }
 
 
@@ -294,49 +296,49 @@ void LCDfailBot(){
 void Viewnow(){
   //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 1 detik maka :
   if ((currentMillis - startTime1) >= delayTime1) {
-    lcd.clear(); lcd.backlight(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(payload_Subscribe)); Waiting();
+    lcd.clear(); lcd.backlight(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(payload_Subscribe));
     startTime1 = currentMillis; //Perbarui waktu terakhir dijalankan
   }
 }
 void LCDAllpHON(){
   //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
   if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(6,1); lcd.print("(ON)"); Waiting(); 
+    lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(6,1); lcd.print("(ON)");
     startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
   }
 }
 void LCDAllpHOFF(){
   //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
   if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(5,1); lcd.print("(OFF)"); Waiting();
+    lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(5,1); lcd.print("(OFF)");
     startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
   }
 }
 void LCDpHUpON(){
   //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
   if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(6,1); lcd.print("(ON)"); Waiting();
+    lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(6,1); lcd.print("(ON)");
     startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
   }
 }
 void LCDpHUpOFF(){
   //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
   if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(5,1); lcd.print("(OFF)"); Waiting();  
+    lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(5,1); lcd.print("(OFF)");
     startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
   }
 }
 void LCDpHDownON(){
   //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
   if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(ON)"); Waiting();
+    lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(ON)");
     startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
   }
 }
 void LCDpHDownOFF(){
   //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
   if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(OFF)"); Waiting(); 
+    lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(OFF)");
     startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
   }
 }
