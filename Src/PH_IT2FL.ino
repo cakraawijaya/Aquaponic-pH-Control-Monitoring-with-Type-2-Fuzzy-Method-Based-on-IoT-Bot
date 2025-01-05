@@ -30,7 +30,6 @@ float SigyiMiuMFUpper, SigyiMiuMFLower, SigMiuMFUpper, SigMiuMFLower, yl, yr;
 float MiuUMF[5], MiuLMF[5];
 
 //Tipe data Int
-int count=0;
 int tanggal, bulan, tahun; 
 int i, yi, ycos, yout, Tarray1, Tarray2; 
 int SPK[5]; 
@@ -187,7 +186,7 @@ void connectIoT(){
 void reconnect(){
   while(!client.connected()){        
     if(client.connect(mqtt_clientID, mqtt_username, mqtt_password)){
-      Serial.println("status :"); Serial.print(mqtt_server);
+      Serial.println("\nstatus :"); Serial.print(mqtt_server);
       Serial.println(" berhasil tersambung");  
       client.subscribe(Topic);
     } 
