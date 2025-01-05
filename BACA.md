@@ -517,14 +517,10 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    <table>
    <tr>
    <td width="20">1.</td>
-   <td width="820">Ganti fungsi delay dengan millis() untuk mengelola waktu tanpa menghentikan eksekusi fungsi lain.</td>
-   </tr>
-   <tr>
-   <td width="20">2.</td>
    <td width="820">Optimalkan algoritma untuk mengurangi latensi pada proses pengambilan keputusan. Disarankan menggunakan RTOS (Real-Time Operating System) agar dapat mengatur lebih baik prioritas fungsi yang ada.</td>
    </tr>
    <tr>
-   <td width="20">3.</td>
+   <td width="20">2.</td>
    <td width="820">Tambahkan metode OTA (Over The Air) untuk meningkatkan keamanan jaringan, termasuk Bot Telegram.</td>
    </tr>
    </table>

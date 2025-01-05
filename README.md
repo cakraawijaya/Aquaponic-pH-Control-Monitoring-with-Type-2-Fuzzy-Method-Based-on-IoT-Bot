@@ -516,14 +516,10 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    <table>
    <tr>
    <td width="20">1.</td>
-   <td width="820">Replace the delay function with millis() to manage time without stopping the execution of other functions.</td>
-   </tr>
-   <tr>
-   <td width="20">2.</td>
    <td width="820">Optimize the algorithm to reduce latency in the decision-making process. It is recommended to use RTOS (Real-Time Operating System) in order to better prioritize the functions.</td>
    </tr>
    <tr>
-   <td width="20">3.</td>
+   <td width="20">2.</td>
    <td width="820">Add OTA (Over The Air) methods to improve network security, including Telegram Bot.</td>
    </tr>
    </table>

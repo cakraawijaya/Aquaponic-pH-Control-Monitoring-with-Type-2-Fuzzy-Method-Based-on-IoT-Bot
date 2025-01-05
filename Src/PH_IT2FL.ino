@@ -42,6 +42,15 @@ String hari, waktu, rp1, rp2, sendMsg, statusPH, statusBuzzer, statusRelaypH, st
 bool viewTombol; 
 bool relayON = LOW;
 bool relayOFF = HIGH;
+bool isPumpOn = false;
+unsigned long currentMillis;
+unsigned long startTime = 0;
+const unsigned long delayTime = 1000;
+unsigned long pumpStartTime1 = 0;
+unsigned long pumpStartTime2 = 0;
+const unsigned long pumpDuration1 = 10000;
+const unsigned long pumpDuration2 = 25000;
+bool isMillisFinished = false;
 
 
 //============================================================= Define Variabel ============================================================
@@ -83,17 +92,33 @@ void setup(){
   RTCinit(); //Memanggil method RTCinit
   Loading(); //LCD view Loading
   pinMode(PBuzzer, OUTPUT); //Inisialisasi pin sebagai OUTPUT
+  
+  //Atur waktu agar pompa langsung menyala
+  pumpStartTime1 = millis() - pumpDuration1;
+  pumpStartTime2 = millis() - pumpDuration2;
 }
 
 
 //============================================================== Method Loop ===============================================================
 void loop(){
-  // Pertahankan koneksi IoT
+  //Ambil waktu saat ini
+  currentMillis = millis();
+  
+  //Jika proses sudah selesai, hentikan pemeriksaan millis
+  if (isMillisFinished) {
+    return; //Keluar dari loop() tanpa melakukan apa-apa
+  }
+  
+  //Pertahankan koneksi IoT
   if (!client.connected()) { reconnect(); }
   client.loop();
 
-  readPH(); //Memanggil method readpH
-  botTelegram(); //Memanggil method botTelegram
+  //Jika waktu sekarang dikurangi waktu terakhir lebih besar dari 1 detik maka :
+  if ((currentMillis - startTime) > delayTime) {
+    readPublishPH(); //Memanggil method readPublishPH
+    botTelegram(); //Memanggil method botTelegram
+    startTime = currentMillis; //Perbarui waktu terakhir dijalankan
+  }
 }
 
 
@@ -227,7 +252,7 @@ void DTnow(){
 
 
 //============================================================== Method Read pH ============================================================
-void readPH(){
+void readPublishPH(){
   adc_phSensor = analogRead(PoPin); //Membaca ADC Sensor pH
   x = adc_phSensor * (5.0 / 4095.0); //Nilai tegangan murni
   a = 21.84; b = -5.27; //Linear Regression Value
@@ -288,28 +313,40 @@ void LCDpHDownOFF(){
 
 //========================================================= Method Output Relay pH =======================================================
 void pH_up_onlm(){ //Method pH Up On 25 detik : On/Off Controller
-  while(count <= 25){
-    digitalWrite(SValve1, relayON);
-    count++;
-    if(count == 25){ break; }
-    delay(1000);
+  //Jika pompa pH Up belum menyala dan waktu sudah memenuhi durasi, maka:
+  if (!isPumpOn && (currentMillis - pumpStartTime2) >= pumpDuration2) {
+    pH_up_on(); //Memanggil fungsi untuk menyalakan pompa
+    isPumpOn = true; //Perbarui status pompa
+    pumpStartTime2 = currentMillis; //Perbarui waktu terakhir pompa dinyalakan
   }
-  digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
+
+  //Jika pompa pH Up sedang menyala dan waktu telah mencapai durasi, maka:
+  if (isPumpOn && (currentMillis - pumpStartTime2) >= pumpDuration2) {
+    pH_up_off(); //Memanggil fungsi untuk mematikan pompa
+    isPumpOn = false; //Perbarui status pompa
+    isMillisFinished = true; //Tandai fungsi millis selesai
+  }
 }
 void pH_up_onsd(){ //Method pH Up On 10 detik : On/Off Controller
-  while(count <= 10){
-    digitalWrite(SValve1, relayON);
-    count++;
-    if(count == 10){ break; }
-    delay(1000);
+  //Jika pompa pH Up belum menyala dan waktu sudah memenuhi durasi, maka:
+  if (!isPumpOn && (currentMillis - pumpStartTime1) >= pumpDuration1) {
+    pH_up_on(); //Memanggil fungsi untuk menyalakan pompa
+    isPumpOn = true; //Perbarui status pompa
+    pumpStartTime1 = currentMillis; //Perbarui waktu terakhir pompa dinyalakan
   }
-  digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
+
+  //Jika pompa pH Up sedang menyala dan waktu telah mencapai durasi, maka:
+  if (isPumpOn && (currentMillis - pumpStartTime1) >= pumpDuration1) {
+    pH_up_off(); //Memanggil fungsi untuk mematikan pompa
+    isPumpOn = false; //Perbarui status pompa
+    isMillisFinished = true; //Tandai fungsi millis selesai
+  }
 }
 void pH_up_on(){ //Method pH Up on : On/Off Controller
-  digitalWrite(SValve1, relayON);
+  digitalWrite(SValve1, relayON);    //Nyalakan pompa
 }
 void pH_up_off(){ //Method pH Up off : On/Off Controller
-  digitalWrite(SValve1, relayOFF);
+  digitalWrite(SValve1, relayOFF);   //Matikan pompa
 }
 void all_pH_on(){ //Method pH Up dan pH Down on : On/Off Controller
   digitalWrite(SValve1, relayON); digitalWrite(SValve2, relayON);
@@ -318,28 +355,40 @@ void all_pH_off(){ //Method pH Up dan pH Down off : On/Off Controller
   digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
 }
 void pH_down_on(){ //Method pH Down on : On/Off Controller
-  digitalWrite(SValve2, relayON);
+  digitalWrite(SValve2, relayON);    //Nyalakan pompa
 }
 void pH_down_off(){ //Method pH Down off : On/Off Controller
-  digitalWrite(SValve2, relayOFF);
+  digitalWrite(SValve2, relayOFF);   //Matikan pompa
 }
 void pH_down_onsd(){ //Method pH Down On 10 detik : On/Off Controller
-  while(count <= 10){
-    digitalWrite(SValve2, relayON);
-    count++;
-    if(count == 10){ break; }
-    delay(1000);
+  //Jika pompa pH Down belum menyala dan waktu sudah memenuhi durasi, maka:
+  if (!isPumpOn && (currentMillis - pumpStartTime1) >= pumpDuration1) {
+    pH_down_on(); //Memanggil fungsi untuk menyalakan pompa
+    isPumpOn = true; //Perbarui status pompa
+    pumpStartTime1 = currentMillis; //Perbarui waktu terakhir pompa dinyalakan
   }
-  digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
+
+  //Jika pompa pH Down sedang menyala dan waktu telah mencapai durasi, maka:
+  if (isPumpOn && (currentMillis - pumpStartTime1) >= pumpDuration1) {
+    pH_down_off(); //Memanggil fungsi untuk mematikan pompa
+    isPumpOn = false; //Perbarui status pompa
+    isMillisFinished = true; //Tandai fungsi millis selesai
+  }
 }
 void pH_down_onlm(){ //Method pH Down On 25 detik : On/Off Controller
-  while(count <= 25){
-    digitalWrite(SValve2, relayON);
-    count++;
-    if(count == 25){ break; }
-    delay(1000);
+  //Jika pompa pH Down belum menyala dan waktu sudah memenuhi durasi, maka:
+  if (!isPumpOn && (currentMillis - pumpStartTime2) >= pumpDuration2) {
+    pH_down_on(); //Memanggil fungsi untuk menyalakan pompa
+    isPumpOn = true; //Perbarui status pompa
+    pumpStartTime2 = currentMillis; //Perbarui waktu terakhir pompa dinyalakan
   }
-  digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
+
+  //Jika pompa pH Down sedang menyala dan waktu telah mencapai durasi, maka:
+  if (isPumpOn && (currentMillis - pumpStartTime2) >= pumpDuration2) {
+    pH_down_off(); //Memanggil fungsi untuk mematikan pompa
+    isPumpOn = false; //Perbarui status pompa
+    isMillisFinished = true; //Tandai fungsi millis selesai
+  }
 }
 
 
@@ -585,7 +634,7 @@ void botTelegram(){
       sendMsg = "🙋🏻‍♂️ Hai @" + msg.sender.username + " 👋👋\n\n❌ Gagal mengakses, coba lagi";
       myBot.sendMessage(msg.sender.id, sendMsg);
     } 
-  }
+  }  
 }
 
 
