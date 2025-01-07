@@ -117,10 +117,8 @@ void loop(){
   //Ambil waktu saat ini
   currentMillis = millis();
   
-  // Jika proses sudah selesai, hentikan millis
-  if (isMillisFinished) {
-    isMillisFinished = false; // Reset flag agar pemeriksaan millis dapat dilanjutkan
-  }
+  //Reset flag agar pemeriksaan millis dapat dilanjutkan
+  if (isMillisFinished) { isMillisFinished = false; }
   
   //Pertahankan koneksi IoT
   if (!client.connected()) { reconnect(); }
@@ -354,10 +352,10 @@ void LCDpHDownOFF(){
 
 
 //========================================================= Method Output Relay pH =======================================================
-void pH_up_onlm(){ //Method pH Up On 25 detik : On/Off Controller
+void pH_up_onlm(){ //Method pH Up On 25 detik -> dengan fungsi millis
   pHUpControll(pumpDuration2, pumpStartTime2);
 }
-void pH_up_onsd(){ //Method pH Up On 10 detik : On/Off Controller
+void pH_up_onsd(){ //Method pH Up On 10 detik -> dengan fungsi millis
   pHUpControll(pumpDuration1, pumpStartTime1);
 }
 void pHUpControll(unsigned long duration, unsigned long &startTime){
@@ -392,10 +390,10 @@ void pH_down_on(){ //Method pH Down on : On/Off Controller
 void pH_down_off(){ //Method pH Down off : On/Off Controller
   digitalWrite(SValve2, relayOFF);   //Matikan pompa
 }
-void pH_down_onsd(){ //Method pH Down On 10 detik : On/Off Controller
+void pH_down_onsd(){ //Method pH Down On 10 detik -> dengan fungsi millis
   pHDownControll(pumpDuration1, pumpStartTime1);
 }
-void pH_down_onlm(){ //Method pH Down On 25 detik : On/Off Controller
+void pH_down_onlm(){ //Method pH Down On 25 detik -> dengan fungsi millis
   pHDownControll(pumpDuration2, pumpStartTime2);
 }
 void pHDownControll(unsigned long duration, unsigned long &startTime){
