@@ -354,10 +354,10 @@ void LCDpHDownOFF(){
 
 
 //========================================================= Method Output Relay pH =======================================================
-void pH_up_onlm(){ //Method pH Up On 25 detik : On/Off Controller
+void pH_up_onlm(){ //Method pH Up On 25 detik -> dengan fungsi millis
   pHUpControll(pumpStartTime2, pumpDuration2);
 }
-void pH_up_onsd(){ //Method pH Up On 10 detik : On/Off Controller
+void pH_up_onsd(){ //Method pH Up On 10 detik -> dengan fungsi millis
   pHUpControll(pumpStartTime1, pumpDuration1);
 }
 void pHUpControll(unsigned long duration, unsigned long &startTime){
@@ -367,7 +367,6 @@ void pHUpControll(unsigned long duration, unsigned long &startTime){
     isPumpOn = true; //Perbarui status pompa
     startTime = currentMillis; //Perbarui waktu terakhir pompa dinyalakan
   }
-
   //Jika pompa pH Up sedang menyala dan waktu telah mencapai durasi, maka:
   if (isPumpOn && (currentMillis - startTime) >= duration) {
     pH_up_off(); //Memanggil fungsi untuk mematikan pompa
@@ -393,10 +392,10 @@ void pH_down_on(){ //Method pH Down on : On/Off Controller
 void pH_down_off(){ //Method pH Down off : On/Off Controller
   digitalWrite(SValve2, relayOFF);   //Matikan pompa
 }
-void pH_down_onsd(){ //Method pH Down On 10 detik : On/Off Controller
+void pH_down_onsd(){ //Method pH Down On 10 detik -> dengan fungsi millis
   pHDownControll(pumpStartTime1, pumpDuration1);
 }
-void pH_down_onlm(){ //Method pH Down On 25 detik : On/Off Controller
+void pH_down_onlm(){ //Method pH Down On 25 detik -> dengan fungsi millis
   pHDownControll(pumpStartTime2, pumpDuration2);
 }
 void pHDownControll(unsigned long duration, unsigned long &startTime){
@@ -406,7 +405,6 @@ void pHDownControll(unsigned long duration, unsigned long &startTime){
     isPumpOn = true; //Perbarui status pompa
     startTime = currentMillis; //Perbarui waktu terakhir pompa dinyalakan
   }
-
   //Jika pompa pH Down sedang menyala dan waktu telah mencapai durasi, maka:
   if (isPumpOn && (currentMillis - startTime) >= duration) {
     pH_down_off(); //Memanggil fungsi untuk mematikan pompa
