@@ -23,7 +23,8 @@ char payload_Publish[4];
 
 //Tipe data Float
 float payload_Subscribe;
-float adc_phSensor, x, a, b, y, old_pHValue = 0, pHValue;
+float adc_phSensor, x, a, b;
+float y, old_pHValue = 0, pHValue;
 float pHair_Upper, pHair_Lower;
 float AKU, AKL, ALU, ALL, NU, NL, BLU, BLL, BKU, BKL;
 float SigyiMiuMFUpper, SigyiMiuMFLower, SigMiuMFUpper, SigMiuMFLower, yl, yr;
@@ -35,7 +36,8 @@ int i, yi, ycos, yout, Tarray1, Tarray2;
 int SPK[5]; 
 
 //Tipe data String
-String hari, waktu, rp1, rp2, sendMsg, statusPH, statusBuzzer, statusRelaypH, statusKendaliIoT; 
+String hari, waktu, rp1, rp2, sendMsg, statusKendaliIoT;
+String statusPH, statusBuzzer, statusRelaypH; 
 
 //Tipe data Boolean
 bool viewTombol; 
@@ -58,10 +60,13 @@ const unsigned long pumpDuration2 = 25000;
 
 
 //============================================================= Define Variabel ============================================================
+//Perangkat
 #define PBuzzer 2 //Pin Kaki Piezo Buzzer
 #define PoPin 35 //Pin Kaki pH Sensor (Po)
 #define SValve1 5 //Pin Kaki pH Up
 #define SValve2 18 //Pin Kaki pH Down
+
+//Koneksi
 #define ssid "YOUR_WIFI_NAME" //Nama wifi router
 #define password "YOUR_WIFI_PASSWORD" //Password wifi router
 #define mqtt_server "io-t.net" //Nama Platform IoT (Broker)
@@ -69,6 +74,9 @@ const unsigned long pumpDuration2 = 25000;
 #define mqtt_username "YOUR_IOTNET_USERNAME" //Username Io-t.net
 #define mqtt_password "YOUR_IOTNET_PASSWORD" //Password Io-t.net
 #define mqtt_clientID "YOUR_IOTNET_CLIENTID" //Client ID Io-t.net
+#define Topic "detect" //Topic MQTT : detect pH
+
+//Bot Telegram
 #define BOTtoken "YOUR_API_BOT_TOKEN" //API bot telegram
 #define INrespYes "INrespYes" //Callback Inline Respon Iya ke-1 
 #define INrespNo "INrespNo" //Callback Inline Respon Tidak ke-1 
@@ -81,7 +89,6 @@ const unsigned long pumpDuration2 = 25000;
 #define INrespYes5 "INrespYes5" //Callback Inline Respon Iya ke-6
 #define INrespYes6 "INrespYes6" //Callback Inline Respon Iya ke-7 
 #define INrespNo3 "INrespNo3" //Callback Inline Respon Tidak ke-4
-#define Topic "detect" //Topic MQTT : detect pH
 
 
 //============================================================== Method Setup ===============================================================
