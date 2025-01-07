@@ -41,7 +41,11 @@ String hari, waktu, rp1, rp2, sendMsg, statusPH, statusBuzzer, statusRelaypH, st
 bool viewTombol; 
 bool relayON = LOW;
 bool relayOFF = HIGH;
+bool isBuzzerOn = false;
 bool isPumpOn = false;
+bool isMillisFinished = false;
+
+//Tipe data Unsigned
 unsigned long currentMillis;
 unsigned long startTime1 = 0;
 unsigned long startTime2 = 0;
@@ -51,7 +55,6 @@ unsigned long pumpStartTime1 = 0;
 unsigned long pumpStartTime2 = 0;
 const unsigned long pumpDuration1 = 10000;
 const unsigned long pumpDuration2 = 25000;
-bool isMillisFinished = false;
 
 
 //============================================================= Define Variabel ============================================================
@@ -97,6 +100,7 @@ void setup(){
   //Atur waktu agar fungsi millis langsung menyala
   startTime1 = millis() - delayTime1;
   startTime2 = millis() - delayTime2;
+  buzzerStartTime = millis() - buzzerDelayTime;
   pumpStartTime1 = millis() - pumpDuration1;
   pumpStartTime2 = millis() - pumpDuration2;
 }
@@ -426,13 +430,36 @@ void pH_down_onlm(){ //Method pH Down On 25 detik : On/Off Controller
 
 //============================================================= Method Alarm =============================================================
 void B2(){ //Method alarm 2x bunyi : On/Off Controller
-  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(1000); //Buzzer nyala 1x
-  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(2000); //Buzzer nyala 1x
+  //Jika waktu pada buzzer sudah memenuhi durasi, maka :
+  if ((currentMillis - startTime1) >= delayTime1) {
+    if (i < 2) { //Jika bunyi belum mencapai 2 kali, maka :
+      isBuzzerOn = !isBuzzerOn; //Penukaran status buzzer
+      digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
+      if (!isBuzzerOn) { //Jika buzzer baru saja mati, maka lakukan :
+        i++; //Increment
+      }
+      startTime1 = currentMillis; //Perbarui waktu terakhir dijalankan
+    } else {
+      digitalWrite(PBuzzer, LOW); //Matikan buzzer
+      isMillisFinished = true; //Tandai fungsi millis selesai
+    }
+  }
 }
 void B3(){ //Method alarm 3x bunyi : On/Off Controller
-  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(1000); //Buzzer nyala 1x
-  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(1000); //Buzzer nyala 1x
-  digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(2000); //Buzzer nyala 1x
+  //Jika waktu pada buzzer sudah memenuhi durasi, maka :
+  if ((currentMillis - startTime1) >= delayTime1) {
+    if (i < 3) { //Jika bunyi belum mencapai 3 kali, maka :
+      isBuzzerOn = !isBuzzerOn; //Penukaran status buzzer
+      digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
+      if (!isBuzzerOn) { //Jika buzzer baru saja mati, maka lakukan :
+        i++; //Increment
+      }
+      startTime1 = currentMillis; //Perbarui waktu terakhir dijalankan
+    } else {
+      digitalWrite(PBuzzer, LOW); //Matikan buzzer
+      isMillisFinished = true; //Tandai fungsi millis selesai
+    }
+  }
 } 
     
 
