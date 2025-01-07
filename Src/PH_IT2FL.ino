@@ -355,30 +355,21 @@ void LCDpHDownOFF(){
 
 //========================================================= Method Output Relay pH =======================================================
 void pH_up_onlm(){ //Method pH Up On 25 detik : On/Off Controller
-  //Jika pompa pH Up belum menyala dan waktu sudah memenuhi durasi, maka:
-  if (!isPumpOn && (currentMillis - pumpStartTime2) >= pumpDuration2) {
-    pH_up_on(); //Memanggil fungsi untuk menyalakan pompa
-    isPumpOn = true; //Perbarui status pompa
-    pumpStartTime2 = currentMillis; //Perbarui waktu terakhir pompa dinyalakan
-  }
-
-  //Jika pompa pH Up sedang menyala dan waktu telah mencapai durasi, maka:
-  if (isPumpOn && (currentMillis - pumpStartTime2) >= pumpDuration2) {
-    pH_up_off(); //Memanggil fungsi untuk mematikan pompa
-    isPumpOn = false; //Perbarui status pompa
-    isMillisFinished = true; //Tandai fungsi millis selesai
-  }
+  pHUpControll(pumpStartTime2, pumpDuration2);
 }
 void pH_up_onsd(){ //Method pH Up On 10 detik : On/Off Controller
+  pHUpControll(pumpStartTime1, pumpDuration1);
+}
+void pHDownControll(unsigned long duration, unsigned long &startTime){
   //Jika pompa pH Up belum menyala dan waktu sudah memenuhi durasi, maka:
-  if (!isPumpOn && (currentMillis - pumpStartTime1) >= pumpDuration1) {
+  if (!isPumpOn && (currentMillis - startTime) >= duration) {
     pH_up_on(); //Memanggil fungsi untuk menyalakan pompa
     isPumpOn = true; //Perbarui status pompa
-    pumpStartTime1 = currentMillis; //Perbarui waktu terakhir pompa dinyalakan
+    startTime = currentMillis; //Perbarui waktu terakhir pompa dinyalakan
   }
 
   //Jika pompa pH Up sedang menyala dan waktu telah mencapai durasi, maka:
-  if (isPumpOn && (currentMillis - pumpStartTime1) >= pumpDuration1) {
+  if (isPumpOn && (currentMillis - startTime) >= duration) {
     pH_up_off(); //Memanggil fungsi untuk mematikan pompa
     isPumpOn = false; //Perbarui status pompa
     isMillisFinished = true; //Tandai fungsi millis selesai
@@ -403,30 +394,21 @@ void pH_down_off(){ //Method pH Down off : On/Off Controller
   digitalWrite(SValve2, relayOFF);   //Matikan pompa
 }
 void pH_down_onsd(){ //Method pH Down On 10 detik : On/Off Controller
-  //Jika pompa pH Down belum menyala dan waktu sudah memenuhi durasi, maka:
-  if (!isPumpOn && (currentMillis - pumpStartTime1) >= pumpDuration1) {
-    pH_down_on(); //Memanggil fungsi untuk menyalakan pompa
-    isPumpOn = true; //Perbarui status pompa
-    pumpStartTime1 = currentMillis; //Perbarui waktu terakhir pompa dinyalakan
-  }
-
-  //Jika pompa pH Down sedang menyala dan waktu telah mencapai durasi, maka:
-  if (isPumpOn && (currentMillis - pumpStartTime1) >= pumpDuration1) {
-    pH_down_off(); //Memanggil fungsi untuk mematikan pompa
-    isPumpOn = false; //Perbarui status pompa
-    isMillisFinished = true; //Tandai fungsi millis selesai
-  }
+  pHDownControll(pumpStartTime1, pumpDuration1);
 }
 void pH_down_onlm(){ //Method pH Down On 25 detik : On/Off Controller
+  pHDownControll(pumpStartTime2, pumpDuration2);
+}
+void pHDownControll(unsigned long duration, unsigned long &startTime){
   //Jika pompa pH Down belum menyala dan waktu sudah memenuhi durasi, maka:
-  if (!isPumpOn && (currentMillis - pumpStartTime2) >= pumpDuration2) {
+  if (!isPumpOn && (currentMillis - startTime) >= duration) {
     pH_down_on(); //Memanggil fungsi untuk menyalakan pompa
     isPumpOn = true; //Perbarui status pompa
-    pumpStartTime2 = currentMillis; //Perbarui waktu terakhir pompa dinyalakan
+    startTime = currentMillis; //Perbarui waktu terakhir pompa dinyalakan
   }
 
   //Jika pompa pH Down sedang menyala dan waktu telah mencapai durasi, maka:
-  if (isPumpOn && (currentMillis - pumpStartTime2) >= pumpDuration2) {
+  if (isPumpOn && (currentMillis - startTime) >= duration) {
     pH_down_off(); //Memanggil fungsi untuk mematikan pompa
     isPumpOn = false; //Perbarui status pompa
     isMillisFinished = true; //Tandai fungsi millis selesai
