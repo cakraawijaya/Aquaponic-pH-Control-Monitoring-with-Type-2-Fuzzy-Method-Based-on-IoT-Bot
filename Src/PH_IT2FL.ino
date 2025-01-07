@@ -416,25 +416,15 @@ void pHDownControll(unsigned long duration, unsigned long &startTime){
 
 //============================================================= Method Alarm =============================================================
 void B2(){ //Method alarm 2x bunyi : On/Off Controller
-  //Jika waktu pada buzzer sudah memenuhi durasi, maka :
-  if ((currentMillis - startTime1) >= delayTime1) {
-    if (i < 2) { //Jika bunyi belum mencapai 2 kali, maka :
-      isBuzzerOn = !isBuzzerOn; //Penukaran status buzzer
-      digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
-      if (!isBuzzerOn) { //Jika buzzer baru saja mati, maka lakukan :
-        i++; //Increment
-      }
-      startTime1 = currentMillis; //Perbarui waktu terakhir dijalankan
-    } else {
-      digitalWrite(PBuzzer, LOW); //Matikan buzzer
-      isMillisFinished = true; //Tandai fungsi millis selesai
-    }
-  }
+  buzzerCount(2);
 }
 void B3(){ //Method alarm 3x bunyi : On/Off Controller
+  buzzerCount(3);
+} 
+void buzzerCount(int batasDering){
   //Jika waktu pada buzzer sudah memenuhi durasi, maka :
   if ((currentMillis - startTime1) >= delayTime1) {
-    if (i < 3) { //Jika bunyi belum mencapai 3 kali, maka :
+    if (i < batasDering) { //Jika bunyi belum mencapai batas deringnya, maka :
       isBuzzerOn = !isBuzzerOn; //Penukaran status buzzer
       digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
       if (!isBuzzerOn) { //Jika buzzer baru saja mati, maka lakukan :
