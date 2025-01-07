@@ -354,11 +354,11 @@ void LCDpHDownOFF(){
 
 
 //========================================================= Method Output Relay pH =======================================================
-void pH_up_onlm(){ //Method pH Up On 25 detik -> dengan fungsi millis
-  pHUpControll(pumpStartTime2, pumpDuration2);
+void pH_up_onlm(){ //Method pH Up On 25 detik : On/Off Controller
+  pHUpControll(pumpDuration2, pumpStartTime2);
 }
-void pH_up_onsd(){ //Method pH Up On 10 detik -> dengan fungsi millis
-  pHUpControll(pumpStartTime1, pumpDuration1);
+void pH_up_onsd(){ //Method pH Up On 10 detik : On/Off Controller
+  pHUpControll(pumpDuration1, pumpStartTime1);
 }
 void pHUpControll(unsigned long duration, unsigned long &startTime){
   //Jika pompa pH Up belum menyala dan waktu sudah memenuhi durasi, maka:
@@ -392,11 +392,11 @@ void pH_down_on(){ //Method pH Down on : On/Off Controller
 void pH_down_off(){ //Method pH Down off : On/Off Controller
   digitalWrite(SValve2, relayOFF);   //Matikan pompa
 }
-void pH_down_onsd(){ //Method pH Down On 10 detik -> dengan fungsi millis
-  pHDownControll(pumpStartTime1, pumpDuration1);
+void pH_down_onsd(){ //Method pH Down On 10 detik : On/Off Controller
+  pHDownControll(pumpDuration1, pumpStartTime1);
 }
-void pH_down_onlm(){ //Method pH Down On 25 detik -> dengan fungsi millis
-  pHDownControll(pumpStartTime2, pumpDuration2);
+void pH_down_onlm(){ //Method pH Down On 25 detik : On/Off Controller
+  pHDownControll(pumpDuration2, pumpStartTime2);
 }
 void pHDownControll(unsigned long duration, unsigned long &startTime){
   //Jika pompa pH Down belum menyala dan waktu sudah memenuhi durasi, maka:
