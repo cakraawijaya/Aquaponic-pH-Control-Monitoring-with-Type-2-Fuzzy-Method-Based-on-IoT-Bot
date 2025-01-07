@@ -100,7 +100,6 @@ void setup(){
   //Atur waktu agar fungsi millis langsung menyala
   startTime1 = millis() - delayTime1;
   startTime2 = millis() - delayTime2;
-  buzzerStartTime = millis() - buzzerDelayTime;
   pumpStartTime1 = millis() - pumpDuration1;
   pumpStartTime2 = millis() - pumpDuration2;
 }
