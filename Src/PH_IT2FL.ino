@@ -360,7 +360,7 @@ void pH_up_onlm(){ //Method pH Up On 25 detik : On/Off Controller
 void pH_up_onsd(){ //Method pH Up On 10 detik : On/Off Controller
   pHUpControll(pumpStartTime1, pumpDuration1);
 }
-void pHDownControll(unsigned long duration, unsigned long &startTime){
+void pHUpControll(unsigned long duration, unsigned long &startTime){
   //Jika pompa pH Up belum menyala dan waktu sudah memenuhi durasi, maka:
   if (!isPumpOn && (currentMillis - startTime) >= duration) {
     pH_up_on(); //Memanggil fungsi untuk menyalakan pompa
