@@ -117,9 +117,9 @@ void loop(){
   //Ambil waktu saat ini
   currentMillis = millis();
   
-  //Jika proses sudah selesai, hentikan pemeriksaan millis
+  // Jika proses sudah selesai, hentikan millis
   if (isMillisFinished) {
-    return; //Keluar dari loop() tanpa melakukan apa-apa
+    isMillisFinished = false; // Reset flag agar pemeriksaan millis dapat dilanjutkan
   }
   
   //Pertahankan koneksi IoT
