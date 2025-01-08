@@ -127,9 +127,12 @@ void loop() {
   if (!client.connected()) { reconnect(); }
   client.loop();
 
-  readPublishPH(); //Memanggil method readPublishPH
-  botTelegram(); //Memanggil method botTelegram
-  delay(1000); //Tunda 1 detik
+  //Jika waktu sekarang dikurangi waktu terakhir lebih besar dari 1 detik maka :
+  if ((currentMillis - startTime1) > delayTime1) {
+    readPublishPH(); //Memanggil method readPublishPH
+    botTelegram(); //Memanggil method botTelegram
+    startTime1 = currentMillis; //Perbarui waktu terakhir dijalankan
+  }
 }
 
 
