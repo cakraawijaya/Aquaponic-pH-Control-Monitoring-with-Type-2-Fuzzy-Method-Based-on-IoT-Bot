@@ -435,10 +435,10 @@ void pH_down_onlm() { //Method pH Down On 25 detik -> dengan fungsi millis
 
 
 //============================================================= Method Alarm =============================================================
-void B2(){ //Method alarm 2x bunyi : On/Off Controller
+void B2(){ //Method alarm 2x bunyi : On/Off Controller -> dengan fungsi millis
   //Jika waktu pada buzzer sudah memenuhi durasi, maka :
   if ((currentMillis - startTime1) >= delayTime1) { 
-    if (i < 2) { //Jika bunyi belum mencapai 2 kali, maka :
+    if (i < 2) { //Pastikan bunyi belum mencapai 2 kali, sehingga dilakukan :
       isBuzzerOn = !isBuzzerOn; //Pertukaran status buzzer
       digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
       if (!isBuzzerOn) { //Jika buzzer baru saja mati, maka lakukan :
@@ -452,10 +452,10 @@ void B2(){ //Method alarm 2x bunyi : On/Off Controller
     }
   }
 } 
-void B3(){ //Method alarm 3x bunyi : On/Off Controller
+void B3(){ //Method alarm 3x bunyi : On/Off Controller -> dengan fungsi millis
   //Jika waktu pada buzzer sudah memenuhi durasi, maka :
   if ((currentMillis - startTime1) >= delayTime1) { 
-    if (i < 3) { //Jika bunyi belum mencapai 3 kali, maka :
+    if (i < 3) { //Pastikan bunyi belum mencapai 3 kali, sehingga dilakukan :
       isBuzzerOn = !isBuzzerOn; //Pertukaran status buzzer
       digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
       if (!isBuzzerOn) { //Jika buzzer baru saja mati, maka lakukan :
