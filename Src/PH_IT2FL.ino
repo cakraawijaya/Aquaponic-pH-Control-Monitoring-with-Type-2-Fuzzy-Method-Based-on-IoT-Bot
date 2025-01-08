@@ -52,7 +52,6 @@ bool ispHDown10SecondFinished = false;
 bool ispHDown25SecondFinished = false;
 bool isBuzzer2SecondFinished = false;
 bool isBuzzer3SecondFinished = false;
-bool isMillisFinished = false;
 
 //Tipe data Unsigned
 unsigned long currentMillis;
@@ -939,14 +938,14 @@ void redukdefuzz_it2fl() {
   Tarray2 = sizeof(MiuLMF) / sizeof(int);
 
   //Perhitungan himpunan atas
-  for (i=0; i<Tarray1; i++) {
+  for (i = 0; i < Tarray1; i++) {
     yi += SPK[i];
     SigyiMiuMFUpper += SPK[i] * MiuUMF[i];
     SigMiuMFUpper += MiuUMF[i];
   }
 
   //Perhitungan himpunan bawah
-  for (i=0; i<Tarray2; i++) {
+  for (i = 0; i < Tarray2; i++) {
     yi += SPK[i];
     SigyiMiuMFLower += SPK[i] * MiuLMF[i];
     SigMiuMFLower += MiuLMF[i];
@@ -954,10 +953,10 @@ void redukdefuzz_it2fl() {
 
   //Perhitungan reduksi tipe
   //Interval kiri
-  yl = ((SigyiMiuMFUpper + SigyiMiuMFLower)/(SigMiuMFLower + SigMiuMFUpper));
+  yl = ((SigyiMiuMFUpper + SigyiMiuMFLower) / (SigMiuMFLower + SigMiuMFUpper));
   Serial.println("yl = (" + String(SigyiMiuMFUpper) + " + " + String(SigyiMiuMFLower) + ") / (" + String(SigMiuMFLower) + " + " + String(SigMiuMFUpper) + ") = " + yl);
   //Interval kanan
-  yr = ((SigyiMiuMFLower + SigyiMiuMFUpper)/(SigMiuMFUpper + SigMiuMFLower));
+  yr = ((SigyiMiuMFLower + SigyiMiuMFUpper) / (SigMiuMFUpper + SigMiuMFLower));
   Serial.println("yr = (" + String(SigyiMiuMFLower) + " + " + String(SigyiMiuMFUpper) + ") / (" + String(SigMiuMFUpper) + " + " + String(SigMiuMFLower) + ") = " + yr);
 
   //Perhitungan deffuzifikasi
