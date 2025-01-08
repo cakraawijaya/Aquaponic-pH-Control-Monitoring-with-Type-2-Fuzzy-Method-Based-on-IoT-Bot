@@ -43,9 +43,9 @@ String statusPH, statusBuzzer, statusRelaypH;
 bool viewTombol; 
 bool relayON = LOW;
 bool relayOFF = HIGH;
-bool isBuzzerOn = false;
 bool ispHUpOn = false;
 bool ispHDownOn = false;
+bool isBuzzerOn = false;
 bool ispHUp10SecondFinished = false;
 bool ispHUp25SecondFinished = false;
 bool ispHDown10SecondFinished = false;
@@ -127,12 +127,7 @@ void loop() {
   if (!client.connected()) { reconnect(); }
   client.loop();
 
-  //Jika waktu sekarang dikurangi waktu terakhir lebih besar dari 1 detik maka :
-  if ((currentMillis - startTime1) > delayTime1) {
-    readPublishPH(); //Memanggil method readPublishPH
-    startTime1 = currentMillis; //Perbarui waktu terakhir dijalankan
-  }
-
+  readPublishPH(); //Memanggil method readPublishPH
   botTelegram(); //Memanggil method botTelegram
   delay(1000); //Tunda 1 detik
 }
