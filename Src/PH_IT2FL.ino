@@ -358,14 +358,14 @@ void pH_up_onlm() { //Method pH Up On 25 detik -> dengan fungsi millis
   //Jika Valve pH Up belum menyala, maka :
   if (!ispHUpOn) {
     pH_up_on(); //Memanggil fungsi untuk menyalakan pH Up
-    svalveStartTime2 = currentMillis; //Perbarui waktu terakhir pH Up dinyalakan
+    svalveStartTime2 = currentMillis; //Perbarui waktu terakhir ketika pH Up dinyalakan
     ispHUpOn = true; //Perbarui status pH Up
   } else {
     //Periksa apakah durasinya sudah berlalu
     if ((currentMillis - svalveStartTime2) >= svalveDuration2) {
       pH_up_off(); //Memanggil fungsi untuk mematikan pH Up
       ispHUpOn = false; //Perbarui status pH Up
-      ispHUp25SecondFinished = true; //Tandai fungsi millis pH Up selesai
+      ispHUp25SecondFinished = true; //Tandai fungsi millis bahwa pH Up selesai
     }
   }
 }
@@ -373,14 +373,14 @@ void pH_up_onsd() { //Method pH Up On 10 detik -> dengan fungsi millis
   //Jika Valve pH Up belum menyala, maka :
   if (!ispHUpOn) {
     pH_up_on(); //Memanggil fungsi untuk menyalakan pH Up
-    svalveStartTime1 = currentMillis; //Perbarui waktu terakhir pH Up dinyalakan
+    svalveStartTime1 = currentMillis; //Perbarui waktu terakhir ketika pH Up dinyalakan
     ispHUpOn = true; //Perbarui status pH Up
   } else {
     //Periksa apakah durasinya sudah berlalu
     if ((currentMillis - svalveStartTime1) >= svalveDuration1) {
       pH_up_off(); //Memanggil fungsi untuk mematikan pH Up
       ispHUpOn = false; //Perbarui status pH Up
-      ispHUp10SecondFinished = true; //Tandai fungsi millis pH Up selesai
+      ispHUp10SecondFinished = true; //Tandai fungsi millis bahwa pH Up selesai
     }
   }
 }
@@ -406,14 +406,14 @@ void pH_down_onsd() { //Method pH Down On 10 detik -> dengan fungsi millis
   //Jika Valve pH Down belum menyala, maka :
   if (!ispHDownOn) {
     pH_down_on(); //Memanggil fungsi untuk menyalakan pH Down
-    svalveStartTime1 = currentMillis; //Perbarui waktu terakhir pH Down dinyalakan
+    svalveStartTime1 = currentMillis; //Perbarui waktu terakhir ketika pH Down dinyalakan
     ispHDownOn = true; //Perbarui status pH Down
   } else {
     //Periksa apakah durasinya sudah berlalu
     if ((currentMillis - svalveStartTime1) >= svalveDuration1) {
       pH_down_off(); //Memanggil fungsi untuk mematikan pH Down
       ispHDownOn = false; //Perbarui status pH Down
-      ispHDown10SecondFinished = true; //Tandai fungsi millis pH Down selesai
+      ispHDown10SecondFinished = true; //Tandai fungsi millis bahwa pH Down selesai
     }
   }
 }
@@ -421,56 +421,54 @@ void pH_down_onlm() { //Method pH Down On 25 detik -> dengan fungsi millis
   //Jika Valve pH Down belum menyala, maka :
   if (!ispHDownOn) {
     pH_down_on(); //Memanggil fungsi untuk menyalakan pH Down
-    svalveStartTime2 = currentMillis; //Perbarui waktu terakhir pH Down dinyalakan
+    svalveStartTime2 = currentMillis; //Perbarui waktu terakhir ketika pH Down dinyalakan
     ispHDownOn = true; //Perbarui status pH Down
   } else {
     //Periksa apakah durasinya sudah berlalu
     if ((currentMillis - svalveStartTime2) >= svalveDuration2) {
       pH_down_off(); //Memanggil fungsi untuk mematikan pH Down
       ispHDownOn = false; //Perbarui status pH Down
-      ispHDown25SecondFinished = true; //Tandai fungsi millis pH Down selesai
+      ispHDown25SecondFinished = true; //Tandai fungsi millis bahwa pH Down selesai
     }
   }
 }
 
 
 //============================================================= Method Alarm =============================================================
-void B2() { //Method alarm 2x bunyi : On/Off Controller
-  if (!isBuzzerOn) { //Jika Buzzer belum menyala, maka :
-    if (i < 2) { //Pastikan Buzzer belum berbunyi 2 kali dan lakukan :
-      isBuzzerOn = !isBuzzerOn; //Penukaran status buzzer
+void B2(){ //Method alarm 2x bunyi : On/Off Controller
+  //Jika waktu pada buzzer sudah memenuhi durasi, maka :
+  if ((currentMillis - startTime1) >= delayTime1) { 
+    if (i < 2) { //Jika bunyi belum mencapai 2 kali, maka :
+      isBuzzerOn = !isBuzzerOn; //Pertukaran status buzzer
       digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
       if (!isBuzzerOn) { //Jika buzzer baru saja mati, maka lakukan :
         i++; //Increment
       }
-      startTime1 = currentMillis; //Perbarui waktu terakhir Buzzer dinyalakan
-    }
-  } else {
-    //Periksa apakah durasinya sudah berlalu
-    if ((currentMillis - startTime1) >= delayTime1) {      
+      startTime1 = currentMillis; //Perbarui waktu terakhir ketika buzzer dijalankan
+    } else {
       digitalWrite(PBuzzer, LOW); //Matikan buzzer
-      isBuzzer2SecondFinished = true; //Tandai fungsi millis Buzzer selesai
+      isBuzzer2SecondFinished = true; //Tandai fungsi millis bahwa Buzzer selesai
+      i = 0; //Reset hitungan untuk alarm berikutnya
     }
   }
-}
-void B3() { //Method alarm 3x bunyi : On/Off Controller
-  if (!isBuzzerOn) { //Jika Buzzer belum menyala, maka :
-    if (i < 3) { //Pastikan Buzzer belum berbunyi 3 kali dan lakukan :
-      isBuzzerOn = !isBuzzerOn; //Penukaran status buzzer
+} 
+void B3(){ //Method alarm 3x bunyi : On/Off Controller
+  //Jika waktu pada buzzer sudah memenuhi durasi, maka :
+  if ((currentMillis - startTime1) >= delayTime1) { 
+    if (i < 3) { //Jika bunyi belum mencapai 3 kali, maka :
+      isBuzzerOn = !isBuzzerOn; //Pertukaran status buzzer
       digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
       if (!isBuzzerOn) { //Jika buzzer baru saja mati, maka lakukan :
         i++; //Increment
       }
-      startTime1 = currentMillis; //Perbarui waktu terakhir Buzzer dinyalakan
-    }
-  } else {
-    //Periksa apakah durasinya sudah berlalu
-    if ((currentMillis - startTime1) >= delayTime1) {      
+      startTime1 = currentMillis; //Perbarui waktu terakhir ketika buzzer dijalankan
+    } else {
       digitalWrite(PBuzzer, LOW); //Matikan buzzer
-      isBuzzer3SecondFinished = true; //Tandai fungsi millis Buzzer selesai
+      isBuzzer3SecondFinished = true; //Tandai fungsi millis bahwa Buzzer selesai
+      i = 0; //Reset hitungan untuk alarm berikutnya
     }
   }
-}
+} 
     
 
 //====================================================== Method Button Bot Telegram ======================================================
