@@ -123,9 +123,6 @@ void loop() {
   //Ambil waktu saat ini
   currentMillis = millis();
   
-  //Mengendalikan flow fungsi millis
-  millisFlowControl();
-  
   //Pertahankan koneksi IoT
   if (!client.connected()) { reconnect(); }
   client.loop();
