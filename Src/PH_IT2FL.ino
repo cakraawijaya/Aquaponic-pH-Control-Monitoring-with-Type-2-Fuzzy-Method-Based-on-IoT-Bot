@@ -85,15 +85,15 @@ const unsigned long svalveDuration2 = 25000;
 //Bot Telegram
 #define BOTtoken "YOUR_API_BOT_TOKEN" //API bot telegram
 #define INrespYes "INrespYes" //Callback Inline Respon Iya ke-1 
-#define INrespNo "INrespNo" //Callback Inline Respon Tidak ke-1 
 #define INrespYes1 "INrespYes1" //Callback Inline Respon Iya ke-2 
-#define INrespYes2 "INrespYes2" //Callback Inline Respon Iya ke-3 
-#define INrespNo1 "INrespNo1" //Callback Inline Respon Tidak ke-2
+#define INrespYes2 "INrespYes2" //Callback Inline Respon Iya ke-3
 #define INrespYes3 "INrespYes3" //Callback Inline Respon Iya ke-4 
 #define INrespYes4 "INrespYes4" //Callback Inline Respon Iya ke-5
-#define INrespNo2 "INrespNo2" //Callback Inline Respon Tidak ke-3
 #define INrespYes5 "INrespYes5" //Callback Inline Respon Iya ke-6
-#define INrespYes6 "INrespYes6" //Callback Inline Respon Iya ke-7 
+#define INrespYes6 "INrespYes6" //Callback Inline Respon Iya ke-7
+#define INrespNo "INrespNo" //Callback Inline Respon Tidak ke-1  
+#define INrespNo1 "INrespNo1" //Callback Inline Respon Tidak ke-2
+#define INrespNo2 "INrespNo2" //Callback Inline Respon Tidak ke-3 
 #define INrespNo3 "INrespNo3" //Callback Inline Respon Tidak ke-4
 
 
