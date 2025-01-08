@@ -46,9 +46,12 @@ bool relayOFF = HIGH;
 bool isBuzzerOn = false;
 bool ispHUpOn = false;
 bool ispHDownOn = false;
-bool ispHUpFinished = false;
-bool ispHDownFinished = false;
-bool isBuzzerFinished = false;
+bool ispHUp10SecondFinished = false;
+bool ispHUp25SecondFinished = false;
+bool ispHDown10SecondFinished = false;
+bool ispHDown25SecondFinished = false;
+bool isBuzzer2SecondFinished = false;
+bool isBuzzer3SecondFinished = false;
 bool isMillisFinished = false;
 
 //Tipe data Unsigned
@@ -356,24 +359,39 @@ void LCDpHDownOFF(){
 
 
 //========================================================= Method Output Relay pH =======================================================
-void pH_up_onlm(){ //Method pH Up On 25 detik -> dengan fungsi millis
-  setpHUp(svalveDuration2, svalveStartTime2);
+void pH_up_onlm() { //Method pH Up On 25 detik -> dengan fungsi millis
+  setpHUp25Second();
 }
-void pH_up_onsd(){ //Method pH Up On 10 detik -> dengan fungsi millis
-  setpHUp(svalveDuration1, svalveStartTime1);
+void pH_up_onsd() { //Method pH Up On 10 detik -> dengan fungsi millis
+  setpHUp10Second();
 }
-void setpHUp(unsigned long duration1, unsigned long &startTime1) {
+void setpHUp10Second() {
   // Jika Valve pH Up belum menyala, maka :
   if (!ispHUpOn) {
     pH_up_on(); //Memanggil fungsi untuk menyalakan pH Up
-    startTime1 = currentMillis; //Perbarui waktu terakhir pH Up dinyalakan
+    svalveStartTime1 = currentMillis; //Perbarui waktu terakhir pH Up dinyalakan
     ispHUpOn = true; //Perbarui status pH Up
   } else {
     //Periksa apakah durasinya sudah berlalu
-    if ((currentMillis - startTime1) >= duration1) {
+    if ((currentMillis - svalveStartTime1) >= svalveDuration1) {
       pH_up_off(); //Memanggil fungsi untuk mematikan pH Up
       ispHUpOn = false; //Perbarui status pH Up
-      ispHUpFinished = true; //Tandai fungsi millis pH Up selesai
+      ispHUp10SecondFinished = true; //Tandai fungsi millis pH Up selesai
+    }
+  }
+}
+void setpHUp25Second() {
+  // Jika Valve pH Up belum menyala, maka :
+  if (!ispHUpOn) {
+    pH_up_on(); //Memanggil fungsi untuk menyalakan pH Up
+    svalveStartTime2 = currentMillis; //Perbarui waktu terakhir pH Up dinyalakan
+    ispHUpOn = true; //Perbarui status pH Up
+  } else {
+    //Periksa apakah durasinya sudah berlalu
+    if ((currentMillis - svalveStartTime2) >= svalveDuration2) {
+      pH_up_off(); //Memanggil fungsi untuk mematikan pH Up
+      ispHUpOn = false; //Perbarui status pH Up
+      ispHUp25SecondFinished = true; //Tandai fungsi millis pH Up selesai
     }
   }
 }
@@ -396,23 +414,38 @@ void pH_down_off(){ //Method pH Down off : On/Off Controller
   digitalWrite(SValve2, relayOFF);   //Matikan pompa
 }
 void pH_down_onsd(){ //Method pH Down On 10 detik -> dengan fungsi millis
-  setpHDown(svalveDuration1, svalveStartTime1);
+  setpHDown10Second();
 }
 void pH_down_onlm(){ //Method pH Down On 25 detik -> dengan fungsi millis
-  setpHDown(svalveDuration2, svalveStartTime2);
+  setpHDown25Second();
 }
-void setpHDown(unsigned long duration2, unsigned long &startTime2) {
+void setpHDown10Second() {
   // Jika Valve pH Down belum menyala, maka :
   if (!ispHDownOn) {
     pH_down_on(); //Memanggil fungsi untuk menyalakan pH Down
-    startTime2 = currentMillis; //Perbarui waktu terakhir pH Down dinyalakan
+    svalveStartTime1 = currentMillis; //Perbarui waktu terakhir pH Down dinyalakan
     ispHDownOn = true; //Perbarui status pH Down
   } else {
     //Periksa apakah durasinya sudah berlalu
-    if ((currentMillis - startTime2) >= duration2) {
+    if ((currentMillis - svalveStartTime1) >= svalveDuration1) {
       pH_down_off(); //Memanggil fungsi untuk mematikan pH Down
       ispHDownOn = false; //Perbarui status pH Down
-      ispHDownFinished = true; //Tandai fungsi millis pH Down selesai
+      ispHDown10SecondFinished = true; //Tandai fungsi millis pH Down selesai
+    }
+  }
+}
+void setpHDown25Second() {
+  // Jika Valve pH Down belum menyala, maka :
+  if (!ispHDownOn) {
+    pH_down_on(); //Memanggil fungsi untuk menyalakan pH Down
+    svalveStartTime1 = currentMillis; //Perbarui waktu terakhir pH Down dinyalakan
+    ispHDownOn = true; //Perbarui status pH Down
+  } else {
+    //Periksa apakah durasinya sudah berlalu
+    if ((currentMillis - svalveStartTime2) >= svalveDuration2) {
+      pH_down_off(); //Memanggil fungsi untuk mematikan pH Down
+      ispHDownOn = false; //Perbarui status pH Down
+      ispHDown25SecondFinished = true; //Tandai fungsi millis pH Down selesai
     }
   }
 }
@@ -420,35 +453,57 @@ void setpHDown(unsigned long duration2, unsigned long &startTime2) {
 
 //============================================================= Method Alarm =============================================================
 void B2(){ //Method alarm 2x bunyi : On/Off Controller
-  setBuzzerRinging(delayTime1, startTime1, 2);
+  setBuzzerRinging2Second();
 }
 void B3(){ //Method alarm 3x bunyi : On/Off Controller
-  setBuzzerRinging(delayTime1, startTime1, 3);
+  setBuzzerRinging3Second();
 } 
-void setBuzzerRinging(unsigned long duration3, unsigned long &startTime3, int batasDering) {
+void setBuzzerRinging2Second() {
   if (!isBuzzerOn) { //Jika Buzzer belum menyala, maka :
-    if (i < batasDering) { //Hitung bunyi buzzer apakah sudah mencapai batas yang ditetapkan atau belum
+    if (i < 2) { //Cek bunyi buzzer apakah sudah 2 kali bunyi atau belum
       isBuzzerOn = !isBuzzerOn; //Penukaran status buzzer
       digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
       if (!isBuzzerOn) { //Jika buzzer baru saja mati, maka lakukan :
         i++; //Increment
       }
-      startTime3 = currentMillis; //Perbarui waktu terakhir pH Down dinyalakan
+      startTime1 = currentMillis; //Perbarui waktu terakhir pH Down dinyalakan
     }
   } else {
     //Periksa apakah durasinya sudah berlalu
-    if ((currentMillis - startTime3) >= duration3) {      
+    if ((currentMillis - startTime1) >= delayTime1) {      
       digitalWrite(PBuzzer, LOW); //Matikan buzzer
-      isBuzzerFinished = true; //Tandai fungsi millis pH Down selesai
+      isBuzzer2SecondFinished = true; //Tandai fungsi millis pH Down selesai
+    }
+  }
+}
+void setBuzzerRinging3Second() {
+  if (!isBuzzerOn) { //Jika Buzzer belum menyala, maka :
+    if (i < 3) { //Cek bunyi buzzer apakah sudah 3 kali bunyi atau belum
+      isBuzzerOn = !isBuzzerOn; //Penukaran status buzzer
+      digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
+      if (!isBuzzerOn) { //Jika buzzer baru saja mati, maka lakukan :
+        i++; //Increment
+      }
+      startTime1 = currentMillis; //Perbarui waktu terakhir pH Down dinyalakan
+    }
+  } else {
+    //Periksa apakah durasinya sudah berlalu
+    if ((currentMillis - startTime1) >= delayTime1) {      
+      digitalWrite(PBuzzer, LOW); //Matikan buzzer
+      isBuzzer3SecondFinished = true; //Tandai fungsi millis pH Down selesai
     }
   }
 }
 
 
+//====================================================== Method Kendali Flow Millis ======================================================
 void controllMillis() {
-  if (!ispHUpFinished) { pH_up_onlm(); pH_up_onsd(); }
-  else if (!ispHDownFinished) { pH_down_onsd(); pH_down_onlm(); }
-  else if (!isBuzzerFinished) { B2(); B3(); }
+  if (!ispHUp10SecondFinished) { pH_up_onsd(); }
+  else if (!ispHUp25SecondFinished) { pH_up_onlm(); }
+  else if (!ispHDown10SecondFinished) { pH_down_onsd(); }
+  else if (!ispHDown25SecondFinished) { pH_down_onlm(); }
+  else if (!isBuzzer2SecondFinished) { B2(); }
+  else if (!isBuzzer3SecondFinished) { B3(); }
   else if (isMillisFinished) { isMillisFinished = false; }
 }
     
