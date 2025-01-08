@@ -229,7 +229,7 @@ void receivedCallback(char* topic, byte* payload, unsigned int length) {
 }
 
 
-//==================================================== Method Debugging untuk Subscribe ==================================================
+//====================================================== Method Debugging untuk Subscribe ==================================================
 void debuggingSubscribe() {
   if (payload_Subscribe != 0) {
     Serial.println("\n[Pemeriksaan Subscribe MQTT]"); 
@@ -277,7 +277,7 @@ void readPublishPH() {
   a = 21.84; b = -5.27; //Linear Regression Value
   y = a + b * x; //pH Value
 
-  //set point atas dan bawah
+  //Set point atas dan bawah
   if (y > 14.00) { y = 14.00; } 
   else if (y < 0.00) { y = 0.00; }
   
@@ -366,7 +366,7 @@ void pH_up_onsd() { //Method pH Up On 10 detik -> dengan fungsi millis
   setpHUp10Second();
 }
 void setpHUp10Second() {
-  // Jika Valve pH Up belum menyala, maka :
+  //Jika Valve pH Up belum menyala, maka :
   if (!ispHUpOn) {
     pH_up_on(); //Memanggil fungsi untuk menyalakan pH Up
     svalveStartTime1 = currentMillis; //Perbarui waktu terakhir pH Up dinyalakan
@@ -381,7 +381,7 @@ void setpHUp10Second() {
   }
 }
 void setpHUp25Second() {
-  // Jika Valve pH Up belum menyala, maka :
+  //Jika Valve pH Up belum menyala, maka :
   if (!ispHUpOn) {
     pH_up_on(); //Memanggil fungsi untuk menyalakan pH Up
     svalveStartTime2 = currentMillis; //Perbarui waktu terakhir pH Up dinyalakan
@@ -420,7 +420,7 @@ void pH_down_onlm() { //Method pH Down On 25 detik -> dengan fungsi millis
   setpHDown25Second();
 }
 void setpHDown10Second() {
-  // Jika Valve pH Down belum menyala, maka :
+  //Jika Valve pH Down belum menyala, maka :
   if (!ispHDownOn) {
     pH_down_on(); //Memanggil fungsi untuk menyalakan pH Down
     svalveStartTime1 = currentMillis; //Perbarui waktu terakhir pH Down dinyalakan
@@ -435,7 +435,7 @@ void setpHDown10Second() {
   }
 }
 void setpHDown25Second() {
-  // Jika Valve pH Down belum menyala, maka :
+  //Jika Valve pH Down belum menyala, maka :
   if (!ispHDownOn) {
     pH_down_on(); //Memanggil fungsi untuk menyalakan pH Down
     svalveStartTime1 = currentMillis; //Perbarui waktu terakhir pH Down dinyalakan
@@ -504,7 +504,14 @@ void millisFlowControl() {
   else if (!ispHDown25SecondFinished) { pH_down_onlm(); }
   else if (!isBuzzer2SecondFinished) { B2(); }
   else if (!isBuzzer3SecondFinished) { B3(); }
-  else if (isMillisFinished) { isMillisFinished = false; }
+  else { 
+    ispHUp10SecondFinished = false;
+    ispHUp25SecondFinished = false;
+    ispHDown10SecondFinished = false;
+    ispHDown25SecondFinished = false;
+    isBuzzer2SecondFinished = false;
+    isBuzzer3SecondFinished = false;
+  }
 }
     
 
@@ -764,7 +771,7 @@ void MF_AsamKuat() { //Fungsi Keanggotaan Asam Kuat
     AKU = 1; Serial.print("Nilai AK-Upper: " + String(AKU));
   }
   else if (pHair_Upper > 0 && pHair_Upper < 3) {
-    AKU = (3 - pHair_Upper)/(3 - 0); Serial.print("Nilai AK-Upper: " + String(AKU));
+    AKU = (3 - pHair_Upper) / (3 - 0); Serial.print("Nilai AK-Upper: " + String(AKU));
   }
   else if (pHair_Upper >= 3) {
     AKU = 0; Serial.print("Nilai AK-Upper: " + String(AKU));
@@ -775,7 +782,7 @@ void MF_AsamKuat() { //Fungsi Keanggotaan Asam Kuat
     AKL = 1; Serial.println(" , Nilai AK-Lower: " + String(AKL));
   }
   else if (pHair_Lower > 0 && pHair_Lower < 2.8) {
-    AKL = (2.8 - pHair_Lower)/(2.8 - 0); Serial.println(" , Nilai AK-Lower: " + String(AKL));
+    AKL = (2.8 - pHair_Lower) / (2.8 - 0); Serial.println(" , Nilai AK-Lower: " + String(AKL));
   }
   else if (pHair_Lower >= 2.8) {
     AKL = 0; Serial.println(" , Nilai AK-Lower: " + String(AKL));
@@ -788,11 +795,11 @@ void MF_AsamLemah() { //Fungsi Keanggotaan Asam Lemah
     ALU = 0; Serial.print("Nilai AL-Upper: " + String(ALU));
   }
   else if (pHair_Upper > 3 && pHair_Upper <= 4.5) {
-    ALU = (pHair_Upper - 3)/(4.5 - 3);
+    ALU = (pHair_Upper - 3) / (4.5 - 3);
     Serial.print("Nilai AL-Upper: " + String(ALU));
   }
   else if (pHair_Upper > 4.5 && pHair_Upper < 6) {
-    ALU = (6 - pHair_Upper)/(6 - 4.5);
+    ALU = (6 - pHair_Upper) / (6 - 4.5);
     Serial.print("Nilai AL-Upper: " + String(ALU));
   } 
 
@@ -801,11 +808,11 @@ void MF_AsamLemah() { //Fungsi Keanggotaan Asam Lemah
     ALL = 0; Serial.println(" , Nilai AL-Lower: " + String(ALL));
   }
   else if (pHair_Lower > 3.2 && pHair_Lower <= 4.5) {
-    ALL = (pHair_Lower - 3.2)/(4.5 - 3.2);
+    ALL = (pHair_Lower - 3.2) / (4.5 - 3.2);
     Serial.println(" , Nilai AL-Lower: " + String(ALL));
   }
   else if (pHair_Lower > 4.5 && pHair_Lower < 5.8) {
-    ALL = (5.8 - pHair_Lower)/(5.8 - 4.5);
+    ALL = (5.8 - pHair_Lower) / (5.8 - 4.5);
     Serial.println(" , Nilai AL-Lower: " + String(ALL));
   } 
 }
@@ -816,11 +823,11 @@ void MF_Netral() { //Fungsi Keanggotaan Netral
     NU = 0; Serial.print("Nilai N-Upper: " + String(NU));
   }
   else if (pHair_Upper > 6 && pHair_Upper <= 7) {
-    NU = (pHair_Upper - 6)/(7 - 6);
+    NU = (pHair_Upper - 6) / (7 - 6);
     Serial.print("Nilai N-Upper: " + String(NU));
   }
   else if (pHair_Upper > 7 && pHair_Upper < 8) {
-    NU = (8 - pHair_Upper)/(8 - 7);
+    NU = (8 - pHair_Upper) / (8 - 7);
     Serial.print("Nilai N-Upper: " + String(NU));
   } 
 
@@ -829,11 +836,11 @@ void MF_Netral() { //Fungsi Keanggotaan Netral
     NL = 0; Serial.println(" , Nilai N-Lower: " + String(NL));
   }
   else if (pHair_Lower > 6.2 && pHair_Lower <= 7) {
-    NL = (pHair_Lower - 6.2)/(7 - 6.2);
+    NL = (pHair_Lower - 6.2) / (7 - 6.2);
     Serial.println(" , Nilai N-Lower: " + String(NL));
   }
   else if (pHair_Lower > 7 && pHair_Lower < 7.8) {
-    NL = (7.8 - pHair_Lower)/(7.8 - 7);
+    NL = (7.8 - pHair_Lower) / (7.8 - 7);
     Serial.println(" , Nilai N-Lower: " + String(NL));
   } 
 }
@@ -844,11 +851,11 @@ void MF_BasaLemah() { //Fungsi Keanggotaan Basa Lemah
     BLU = 0; Serial.print("Nilai BL-Upper: " + String(BLU));
   }
   else if (pHair_Upper > 8 && pHair_Upper <= 9) {
-    BLU = (pHair_Upper - 8)/(9 - 8);
+    BLU = (pHair_Upper - 8) / (9 - 8);
     Serial.print("Nilai BL-Upper: " + String(BLU));
   }
   else if (pHair_Upper > 9 && pHair_Upper < 10) {
-    BLU = (10 - pHair_Upper)/(10 - 9);
+    BLU = (10 - pHair_Upper) / (10 - 9);
     Serial.print("Nilai BL-Upper: " + String(BLU));
   } 
 
@@ -857,11 +864,11 @@ void MF_BasaLemah() { //Fungsi Keanggotaan Basa Lemah
     BLL = 0; Serial.println(" , Nilai BL-Lower: " + String(BLL));
   }
   else if (pHair_Lower > 8.2 && pHair_Lower <= 9) {
-    BLL = (pHair_Lower - 8.2)/(9 - 8.2);
+    BLL = (pHair_Lower - 8.2) / (9 - 8.2);
     Serial.println(" , Nilai BL-Lower: " + String(BLL));
   }
   else if (pHair_Lower > 9 && pHair_Lower < 9.8) {
-    BLL = (9.8 - pHair_Lower)/(9.8 - 9);
+    BLL = (9.8 - pHair_Lower) / (9.8 - 9);
     Serial.println(" , Nilai BL-Lower: " + String(BLL));
   } 
 }
@@ -872,7 +879,7 @@ void MF_BasaKuat() { //Fungsi Keanggotaan Basa Kuat
     BKU = 0; Serial.print("Nilai BK-Upper: " + String(BKU));
   }
   else if (pHair_Upper > 10 && pHair_Upper < 14) {
-    BKU = (pHair_Upper - 10)/(14 - 10);
+    BKU = (pHair_Upper - 10) / (14 - 10);
     Serial.print("Nilai BK-Upper: " + String(BKU));
   }
   else if (pHair_Upper >= 14) {
@@ -884,7 +891,7 @@ void MF_BasaKuat() { //Fungsi Keanggotaan Basa Kuat
     BKL = 0; Serial.println(" , Nilai BK-Lower: " + String(BKL));
   }
   else if (pHair_Lower > 10.2 && pHair_Lower < 14) {
-    BKL = (pHair_Lower - 10.2)/(14 - 10.2);
+    BKL = (pHair_Lower - 10.2) / (14 - 10.2);
     Serial.println(" , Nilai BK-Lower: " + String(BKL));
   }
   else if (pHair_Lower >= 14) {
