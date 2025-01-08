@@ -278,8 +278,8 @@ void readPublishPH() {
   y = a + b * x; //pH Value
 
   //set point atas dan bawah
-  if (y>14.00) { y = 14.00; } 
-  else if (y<0.00) { y = 0.00; }
+  if (y > 14.00) { y = 14.00; } 
+  else if (y < 0.00) { y = 0.00; }
   
   pHValue = y; //Menyimpan nilai ke variabel pHValue
 
@@ -955,7 +955,7 @@ void redukdefuzz_it2fl() {
 
   //Perhitungan deffuzifikasi
   ycos = yl + yr;
-  yout = floor((ycos)/2);
+  yout = floor((ycos) / 2);
   Serial.println("yout = (" + String(yl) + " + " + String(yr) + ") / 2 = " + String(yout));
 
   //Nilai crips berdasarkan pengambilan keputusan
