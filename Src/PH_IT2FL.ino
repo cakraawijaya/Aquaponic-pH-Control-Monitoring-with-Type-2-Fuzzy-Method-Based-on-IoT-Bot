@@ -124,8 +124,8 @@ void loop(){
   //Ambil waktu saat ini
   currentMillis = millis();
   
-  //Mengendalikan flow millis
-  controllMillis();
+  //Mengendalikan flow fungsi millis
+  millisFlowControl();
   
   //Pertahankan koneksi IoT
   if (!client.connected()) { reconnect(); }
@@ -496,8 +496,8 @@ void setBuzzerRinging3Second() {
 }
 
 
-//====================================================== Method Kendali Flow Millis ======================================================
-void controllMillis() {
+//====================================================== Method Millis Flow Control ======================================================
+void millisFlowControl() {
   if (!ispHUp10SecondFinished) { pH_up_onsd(); }
   else if (!ispHUp25SecondFinished) { pH_up_onlm(); }
   else if (!ispHDown10SecondFinished) { pH_down_onsd(); }
