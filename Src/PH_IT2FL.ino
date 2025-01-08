@@ -962,7 +962,7 @@ void redukdefuzz_it2fl() {
   }
 }
 
-//Method untuk mereset perhitungan agar tetap optimal
+//Method ini digunakan untuk menyetel ulang perhitungan Fuzzy Type-2 agar tetap optimal
 void reset_redukdeffuzz() {
   yi = 0;
   SigyiMiuMFUpper = 0;
