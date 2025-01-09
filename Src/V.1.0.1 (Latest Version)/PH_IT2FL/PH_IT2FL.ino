@@ -311,10 +311,10 @@ void readPublishPH() {
   else if (y < 0.00) { y = 0.00; }
   
   pHValue = y; //Menyimpan nilai ke variabel pHValue
+  Alarm_pH(); //Memanggil method Alarm_pH
 
   //Cek nilai pH ada perubahan atau tidak, jika ada perubahan maka:
   if (pHValue != old_pHValue) {
-    Alarm_pH(); //Memanggil method Alarm_pH
     IT2FL_pH(); //Memanggil method IT2FL_pH
     dtostrf(pHValue, 4, 2, payload_Publish); //Float -> String 
     client.publish(Topic, payload_Publish, true); //Publish topik beserta payloadnya menggunakan retain message
