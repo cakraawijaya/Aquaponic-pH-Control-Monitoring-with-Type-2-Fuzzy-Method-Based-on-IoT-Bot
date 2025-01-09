@@ -112,8 +112,8 @@ void setup() {
   pinMode(PBuzzer, OUTPUT); //Inisialisasi pin sebagai OUTPUT
   digitalWrite(PBuzzer, LOW); //Default buzzer untuk pertama kali harus off
 
-  //Atur waktu agar fungsi millis langsung menyala
-  startTime1 = millis() - delayTime1;
+  //Atur Start Time
+  startTime1 = millis();
   startTime2 = millis() - delayTime2;
   svalveStartTime1 = millis() - svalveDuration1;
   svalveStartTime2 = millis() - svalveDuration2;
