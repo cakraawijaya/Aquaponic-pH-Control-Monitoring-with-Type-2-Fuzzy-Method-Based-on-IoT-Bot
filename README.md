@@ -287,7 +287,7 @@ void RTCinit(){
 
    <table><tr><td width="810">
       
-      Click ``` Tools ``` -> ``` Upload Speed ``` -> ``` 115200 ```
+      Click ``` Tools ``` -> ``` Upload Speed ``` -> ``` 9600 ```
 
    </td></tr></table><br>
    
