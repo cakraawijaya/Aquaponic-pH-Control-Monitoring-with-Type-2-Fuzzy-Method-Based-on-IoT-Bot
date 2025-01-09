@@ -50,13 +50,15 @@ bool ispHUp10SecondActive = false;
 bool ispHUp25SecondActive = false;
 bool ispHDown10SecondActive = false;
 bool ispHDown25SecondActive = false;
-bool isBuzzer2SecondFinished = false;
-bool isBuzzer3SecondFinished = false;
+bool isBuzzer2XFinished = false;
+bool isBuzzer3XFinished = false;
 
 //Tipe data Unsigned
 unsigned long currentMillis;
 unsigned long startTime1 = 0;
 unsigned long startTime2 = 0;
+unsigned long buzzerStartTime1 = 0;
+unsigned long buzzerStartTime2 = 0;
 const unsigned long delayTime1 = 1000;
 const unsigned long delayTime2 = 5000;
 unsigned long svalveStartTime1 = 0;
@@ -455,34 +457,34 @@ void autopHDown25SecondON() {
 //============================================================= Method Alarm =============================================================
 void B2(){ //Method alarm 2x bunyi : On/Off Controller -> dengan fungsi millis
   //Jika waktu pada buzzer sudah memenuhi durasi, maka :
-  if ((currentMillis - startTime1) >= delayTime1) { 
-    if (i < 2) { //Pastikan bunyi belum mencapai 2 kali, sehingga dilakukan :
+  if ((currentMillis - buzzerStartTime1) >= delayTime1) { 
+    if (i < 2) { //Pastikan buzzer belum bunyi 2 kali, sehingga dilakukan :
       isBuzzerOn = !isBuzzerOn; //Pertukaran status buzzer
       digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
       if (!isBuzzerOn) { //Jika buzzer baru saja mati, maka lakukan :
         i++; //Increment
       }
-      startTime1 = currentMillis; //Perbarui waktu terakhir ketika buzzer dijalankan
+      buzzerStartTime1 = currentMillis; //Perbarui waktu terakhir ketika buzzer dijalankan
     } else {
       digitalWrite(PBuzzer, LOW); //Matikan buzzer
-      isBuzzer2SecondFinished = true; //Tandai fungsi millis bahwa Buzzer selesai
+      isBuzzer2XFinished = true; //Tandai fungsi millis bahwa Buzzer sudah selesai
       i = 0; //Reset hitungan untuk alarm berikutnya
     }
   }
 } 
 void B3(){ //Method alarm 3x bunyi : On/Off Controller -> dengan fungsi millis
   //Jika waktu pada buzzer sudah memenuhi durasi, maka :
-  if ((currentMillis - startTime1) >= delayTime1) { 
-    if (i < 3) { //Pastikan bunyi belum mencapai 3 kali, sehingga dilakukan :
+  if ((currentMillis - buzzerStartTime2) >= delayTime1) { 
+    if (i < 3) { //Pastikan buzzer belum bunyi 3 kali, sehingga dilakukan :
       isBuzzerOn = !isBuzzerOn; //Pertukaran status buzzer
       digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
       if (!isBuzzerOn) { //Jika buzzer baru saja mati, maka lakukan :
         i++; //Increment
       }
-      startTime1 = currentMillis; //Perbarui waktu terakhir ketika buzzer dijalankan
+      buzzerStartTime2 = currentMillis; //Perbarui waktu terakhir ketika buzzer dijalankan
     } else {
       digitalWrite(PBuzzer, LOW); //Matikan buzzer
-      isBuzzer3SecondFinished = true; //Tandai fungsi millis bahwa Buzzer selesai
+      isBuzzer3XFinished = true; //Tandai fungsi millis bahwa Buzzer sudah selesai
       i = 0; //Reset hitungan untuk alarm berikutnya
     }
   }
@@ -512,12 +514,8 @@ void millisFlowControl() {
   }
 
   //Nyalakan Buzzer jika belum aktif
-  if (!isBuzzer2SecondFinished) { 
-    B2(); 
-  }
-  if (!isBuzzer3SecondFinished) {
-    B3();
-  }
+  if (!isBuzzer2XFinished) { B2(); }
+  if (!isBuzzer3XFinished) { B3(); }
 }
 
 
@@ -976,13 +974,17 @@ void redukdefuzz_it2fl() {
     statusPH = "Darurat (Asam Kuat)"; statusBuzzer = "Menyala (3x)";
     statusRelaypH = "pH-Up (ON lama: 25 detik)";
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    autopHUp25SecondON(); B3();
+    autopHUp25SecondON(); //pH Up Menyala 25 detik
+    isBuzzer3XFinished = false; //Reset status
+    B3(); //Bunyi 3 kali sebagai indikator
   }
   else if (yout == 1) {
     statusPH = "Waspada (Asam Lemah)"; statusBuzzer = "Menyala (2x)";
     statusRelaypH = "pH-Up (ON sedang: 10 detik)";
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    autopHUp10SecondON(); B2();
+    autopHUp10SecondON(); //pH Up Menyala 10 detik
+    isBuzzer2XFinished = false; //Reset status
+    B2(); //Bunyi 2 kali sebagai indikator
   }
   else if (yout == 2) {
     statusPH = "Aman (Netral)"; statusBuzzer = "Tidak Menyala"; 
@@ -994,13 +996,17 @@ void redukdefuzz_it2fl() {
     statusPH = "Waspada (Basa Lemah)"; statusBuzzer = "Menyala (2x)"; 
     statusRelaypH = "pH-Down (ON sedang: 10 detik)"; 
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    autopHDown10SecondON(); B2();
+    autopHDown10SecondON(); //pH Down Menyala 10 detik
+    isBuzzer2XFinished = false; //Reset status
+    B2(); //Bunyi 2 kali sebagai indikator
   }
   else if (yout == 4) {
     statusPH = "Darurat (Basa Kuat)"; statusBuzzer = "Menyala (3x)";
     statusRelaypH = "pH-Down (ON lama: 25 detik)"; 
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    autopHDown25SecondON(); B3();
+    autopHDown25SecondON(); //pH Down Menyala 25 detik
+    isBuzzer3XFinished = false; //Reset status
+    B3(); //Bunyi 3 kali sebagai indikator
   }
 }
 
