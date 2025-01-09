@@ -109,6 +109,7 @@ void setup() {
   RTCinit(); //Memanggil method RTCinit
   Loading(); //LCD view Loading
   pinMode(PBuzzer, OUTPUT); //Inisialisasi pin sebagai OUTPUT
+  digitalWrite(PBuzzer, LOW); //Default buzzer untuk pertama kali harus off
 
   //Atur waktu agar fungsi millis langsung menyala
   startTime1 = millis() - delayTime1;
