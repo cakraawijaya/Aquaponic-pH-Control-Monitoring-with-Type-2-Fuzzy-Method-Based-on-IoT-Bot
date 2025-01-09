@@ -314,11 +314,11 @@ void readPublishPH() {
 
   //Cek nilai pH ada perubahan atau tidak, jika ada perubahan maka:
   if (pHValue != old_pHValue) {
+    Alarm_pH(); //Memanggil method Alarm_pH
+    IT2FL_pH(); //Memanggil method IT2FL_pH
     dtostrf(pHValue, 4, 2, payload_Publish); //Float -> String 
     client.publish(Topic, payload_Publish, true); //Publish topik beserta payloadnya menggunakan retain message
-    // debuggingSubscribe(); //Memanggil method debuggingSubscribe => Jika tidak digunakan sebaiknya dibuat komentar saja
-    IT2FL_pH(); //Memanggil method IT2FL_pH
-    Alarm_pH(); //Memanggil method Alarm_pH    
+    // debuggingSubscribe(); //Memanggil method debuggingSubscribe => Jika tidak digunakan sebaiknya dibuat komentar saja    
     old_pHValue = pHValue; //Menyimpan nilai pH saat ini ke variabel old_pHValue
   }
 }
