@@ -509,6 +509,10 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    <td width="20">7.</td>
    <td width="820">Use physical protection such as a special case to protect the pH Sensor Probe from damage, especially from impact.</td>
    </tr>
+   <tr>
+   <td width="20">8.</td>
+   <td width="820">Consider choosing more than 1 Development Board to improve system optimization.</td>
+   </tr>
    </table>
 </li><br>
 <li>

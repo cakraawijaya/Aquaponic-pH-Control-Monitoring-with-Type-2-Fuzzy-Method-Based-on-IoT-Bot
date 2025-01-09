@@ -510,6 +510,10 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    <td width="20">7.</td>
    <td width="820">Gunakan pelindung fisik seperti casing khusus untuk melindungi Probe Sensor pH dari kerusakan, terutama akibat benturan.</td>
    </tr>
+   <tr>
+   <td width="20">8.</td>
+   <td width="820">Pertimbangkan untuk memilih lebih dari 1 Development Board untuk meningkatkan optimalisasi sistem.</td>
+   </tr>
    </table>
 </li><br>
 <li>
