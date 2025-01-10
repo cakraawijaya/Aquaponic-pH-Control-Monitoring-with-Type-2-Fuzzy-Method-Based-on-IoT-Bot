@@ -23,7 +23,8 @@ char payload_Publish[4];
 
 //Tipe data Float
 float payload_Subscribe;
-float adc_phSensor, x, a, b, y, old_pHValue = 0, pHValue;
+float adc_phSensor, x, a, b;
+float y, old_pHValue = 0, pHValue;
 float pHair_Upper, pHair_Lower;
 float AKU, AKL, ALU, ALL, NU, NL, BLU, BLL, BKU, BKL;
 float SigyiMiuMFUpper, SigyiMiuMFLower, SigMiuMFUpper, SigMiuMFLower, yl, yr;
@@ -36,7 +37,8 @@ int i, yi, ycos, yout, Tarray1, Tarray2;
 int SPK[5]; 
 
 //Tipe data String
-String hari, waktu, rp1, rp2, sendMsg, statusPH, statusBuzzer, statusRelaypH, statusKendaliIoT; 
+String hari, waktu, rp1, rp2, sendMsg, statusKendaliIoT;
+String statusPH, statusBuzzer, statusRelaypH;
 
 //Tipe data Boolean
 bool viewTombol; 
@@ -45,10 +47,13 @@ bool relayOFF = HIGH;
 
 
 //============================================================= Define Variabel ============================================================
+//Perangkat
 #define PBuzzer 2 //Pin Kaki Piezo Buzzer
 #define PoPin 35 //Pin Kaki pH Sensor (Po)
 #define SValve1 5 //Pin Kaki pH Up
 #define SValve2 18 //Pin Kaki pH Down
+
+//Koneksi
 #define ssid "YOUR_WIFI_NAME" //Nama wifi router
 #define password "YOUR_WIFI_PASSWORD" //Password wifi router
 #define mqtt_server "io-t.net" //Nama Platform IoT (Broker)
@@ -56,23 +61,25 @@ bool relayOFF = HIGH;
 #define mqtt_username "YOUR_IOTNET_USERNAME" //Username Io-t.net
 #define mqtt_password "YOUR_IOTNET_PASSWORD" //Password Io-t.net
 #define mqtt_clientID "YOUR_IOTNET_CLIENTID" //Client ID Io-t.net
+#define Topic "detect" //Topic MQTT : detect pH
+
+//Bot Telegram
 #define BOTtoken "YOUR_API_BOT_TOKEN" //API bot telegram
 #define INrespYes "INrespYes" //Callback Inline Respon Iya ke-1 
-#define INrespNo "INrespNo" //Callback Inline Respon Tidak ke-1 
 #define INrespYes1 "INrespYes1" //Callback Inline Respon Iya ke-2 
 #define INrespYes2 "INrespYes2" //Callback Inline Respon Iya ke-3 
-#define INrespNo1 "INrespNo1" //Callback Inline Respon Tidak ke-2
 #define INrespYes3 "INrespYes3" //Callback Inline Respon Iya ke-4 
 #define INrespYes4 "INrespYes4" //Callback Inline Respon Iya ke-5
-#define INrespNo2 "INrespNo2" //Callback Inline Respon Tidak ke-3
 #define INrespYes5 "INrespYes5" //Callback Inline Respon Iya ke-6
 #define INrespYes6 "INrespYes6" //Callback Inline Respon Iya ke-7 
+#define INrespNo "INrespNo" //Callback Inline Respon Tidak ke-1 
+#define INrespNo1 "INrespNo1" //Callback Inline Respon Tidak ke-2
+#define INrespNo2 "INrespNo2" //Callback Inline Respon Tidak ke-3
 #define INrespNo3 "INrespNo3" //Callback Inline Respon Tidak ke-4
-#define Topic "detect" //Topic MQTT : detect pH
 
 
 //============================================================== Method Setup ===============================================================
-void setup(){
+void setup() {
   RELAYinit(); //Memanggil method RELAYinit
   LCDinit(); //Memanggil method LCDinit
   Serial.begin(9600); //Memulai komunikasi serial dengan baud rate 9600
@@ -83,22 +90,23 @@ void setup(){
   RTCinit(); //Memanggil method RTCinit
   Loading(); //LCD view Loading
   pinMode(PBuzzer, OUTPUT); //Inisialisasi pin sebagai OUTPUT
+  digitalWrite(PBuzzer, LOW); //Default buzzer untuk pertama kali harus off
 }
 
 
 //============================================================== Method Loop ===============================================================
-void loop(){
-  // Pertahankan koneksi IoT
+void loop() {
+  //Pertahankan koneksi IoT
   if (!client.connected()) { reconnect(); }
   client.loop();
 
-  readPH(); //Memanggil method readpH
+  readPHandControl(); //Memanggil method readPHandControl
   botTelegram(); //Memanggil method botTelegram
 }
 
 
 //============================================================= Method LCD Init ============================================================
-void LCDinit(){
+void LCDinit() {
   //Memulai komunikasi serial dengan LCD
   lcd.init();
   //Start LCD
@@ -109,14 +117,14 @@ void LCDinit(){
 
 
 //============================================================ Method RTC Init =============================================================
-void RTCinit(){
+void RTCinit() {
   rtc.begin(); //Memulai komunikasi serial dengan RTC
   rtc.adjust(DateTime(F(__DATE__), F(__TIME__))); //Pengaturan DateTime
 }
 
 
 //============================================================ Method RELAY Init ===========================================================
-void RELAYinit(){
+void RELAYinit() {
   pinMode(SValve1, OUTPUT); //Inisialisasi pin sebagai output
   pinMode(SValve2, OUTPUT); //Inisialisasi pin sebagai output
   all_pH_off(); //Default relay untuk pertama kali harus off
@@ -124,13 +132,13 @@ void RELAYinit(){
 
 
 //========================================================== Method Konfigurasi WiFi =======================================================
-void connectWiFi(){
+void connectWiFi() {
   Serial.println("\n==================================================================================");
   Serial.print("[Konfigurasi Wi-Fi]\nmencoba menghubungkan ke Wi-Fi : "); 
   Serial.println(ssid); 
   WiFi.begin(ssid, password);
   
-  while(WiFi.status() != WL_CONNECTED){
+  while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
@@ -146,7 +154,7 @@ void connectWiFi(){
 
 
 //============================================================= Method Koneksi IoT =========================================================
-void connectIoT(){
+void connectIoT() {
   Serial.print("\n[Konfigurasi IoT]\nmencoba menghubungkan ke Platform : "); 
   Serial.println(mqtt_server);
   client.setServer(mqtt_server, mqtt_port); 
@@ -155,18 +163,18 @@ void connectIoT(){
 
 
 //==================================================== Method Menghubungkan Ulang Jaringan =================================================
-void reconnect(){
-  while(!client.connected()){        
-    if(client.connect(mqtt_clientID, mqtt_username, mqtt_password)){
-      Serial.println("status :"); Serial.print(mqtt_server);
+void reconnect() {
+  while (!client.connected()) {        
+    if (client.connect(mqtt_clientID, mqtt_username, mqtt_password)) {
+      Serial.println("\nstatus :"); Serial.print(mqtt_server);
       Serial.println(" berhasil tersambung");  
       client.subscribe(Topic);
     } 
-    else{
+    else {
       Serial.println("\nstatus :"); Serial.print(mqtt_server);
       Serial.print(" gagal tersambung (" + String(client.state()) + ")\nmenyambungkan kembali");
       LCDfailIoT(); //LCD view Fail
-      while(!client.connect(mqtt_clientID, mqtt_username, mqtt_password)){
+      while (!client.connect(mqtt_clientID, mqtt_username, mqtt_password)) {
         delay(500);
         Serial.print(".");
       }
@@ -186,8 +194,8 @@ void receivedCallback(char* topic, byte* payload, unsigned int length) {
 
 
 //==================================================== Method Debugging untuk Subscribe ==================================================
-void debuggingSubscribe(){
-  if(payload_Subscribe != 0){
+void debuggingSubscribe() {
+  if (payload_Subscribe != 0) {
     Serial.println("\n[Pemeriksaan Subscribe MQTT]"); 
     Serial.println("Payload: " + String(payload_Subscribe));
     Serial.println("\n==================================================================================");
@@ -196,18 +204,18 @@ void debuggingSubscribe(){
 
 
 //====================================================== Method Konfigurasi Bot Telegram ===================================================
-void connectBot(){
+void connectBot() {
   myBot.setTelegramToken(BOTtoken);
   myBot.wifiConnect(ssid, password); 
   myBot.setMaxConnectionRetries(5);
   Serial.println("\n[Konfigurasi Bot Telegram]\nmencoba menghubungkan ke : phiotnet_bot"); 
 
-  if(myBot.testConnection()){
+  if (myBot.testConnection()) {
     Serial.println("\nstatus :\nbot telegram berhasil tersambung"); 
-  } else{ 
+  } else { 
     Serial.print("\nstatus :\nbot telegram gagal tersambung\nmenyambungkan kembali"); 
     LCDfailBot();
-    while (!myBot.testConnection()){ 
+    while (!myBot.testConnection()) { 
       delay(1000);
       Serial.print(".");
     }
@@ -218,7 +226,7 @@ void connectBot(){
 
 
 //========================================================== Method View DateTime ==========================================================
-void DTnow(){
+void DTnow() {
   DateTime now = rtc.now(); //Membuat objek baru: now untuk menampung method RTC
   hari = dataHari[now.dayOfTheWeek()]; //Hari
   tanggal = now.day(), DEC; bulan = now.month(), DEC; tahun = now.year(), DEC; //DD-MM-YYYY
@@ -226,117 +234,117 @@ void DTnow(){
 }
 
 
-//============================================================== Method Read pH ============================================================
-void readPH(){
+//======================================================= Method Read pH and Control =======================================================
+void readPHandControl() {
   adc_phSensor = analogRead(PoPin); //Membaca ADC Sensor pH
   x = adc_phSensor * (5.0 / 4095.0); //Nilai tegangan murni
   a = 21.84; b = -5.27; //Linear Regression Value
   y = a + b * x; //pH Value
 
   //set point atas dan bawah
-  if(y>14.00){ y = 14.00; } 
-  else if (y<0.00){ y = 0.00; }
+  if (y > 14.00) { y = 14.00; } 
+  else if (y < 0.00) { y = 0.00; }
   
   pHValue = y; //Menyimpan nilai ke variabel pHValue
 
   //Cek nilai pH ada perubahan atau tidak, jika ada perubahan maka:
-  if(pHValue != old_pHValue){
+  if (pHValue != old_pHValue) {
+    IT2FL_pH(); //Memanggil method IT2FL_pH
     dtostrf(pHValue, 4, 2, payload_Publish); //Float -> String 
     client.publish(Topic, payload_Publish, true); //Publish topik beserta payloadnya menggunakan retain message
     // debuggingSubscribe(); //Memanggil method debuggingSubscribe => Jika tidak digunakan sebaiknya dibuat komentar saja
-    IT2FL_pH(); //Memanggil method IT2FL_pH
     old_pHValue = pHValue; //Menyimpan nilai pH saat ini ke variabel old_pHValue
   }
 }
 
 
 //============================================================ Method Output LCD ===========================================================
-void Loading(){
+void Loading() {
   lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("Loading...."); delay(5000); Waiting();
 }
-void Waiting(){
+void Waiting() {
   lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("Menunggu"); lcd.setCursor(1,1); lcd.print("Perintah..."); delay(1000);
 }
-void LCDfailIoT(){
+void LCDfailIoT() {
   lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("IoT Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); delay(5000);
 }
-void LCDfailBot(){
+void LCDfailBot() {
   lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("Bot Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); delay(5000);
 }
-void Viewnow(){
+void Viewnow() {
   lcd.clear(); lcd.backlight(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(payload_Subscribe)); delay(1000); Waiting();
 }
-void LCDAllpHON(){
+void LCDAllpHON() {
   lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
 }
-void LCDAllpHOFF(){
+void LCDAllpHOFF() {
   lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(5,1); lcd.print("(OFF)"); delay(5000); Waiting();
 }
-void LCDpHUpON(){
+void LCDpHUpON() {
   lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
 }
-void LCDpHUpOFF(){
+void LCDpHUpOFF() {
   lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(5,1); lcd.print("(OFF)"); delay(5000); Waiting();
 }
-void LCDpHDownON(){
+void LCDpHDownON() {
   lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
 }
-void LCDpHDownOFF(){
+void LCDpHDownOFF() {
   lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(OFF)"); delay(5000); Waiting();
 }
 
 
 //========================================================= Method Output Relay pH =======================================================
-void pH_up_onlm(){ //Method pH Up On 25 detik : On/Off Controller
-  while(count <= 25){
+void pH_up_onlm() { //Method pH Up On 25 detik : On/Off Controller
+  while (count <= 25) {
     digitalWrite(SValve1, relayON);
     count++;
-    if(count == 25){ break; }
+    if (count == 25) { break; }
     delay(1000);
   }
   digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
 }
-void pH_up_onsd(){ //Method pH Up On 10 detik : On/Off Controller
-  while(count <= 10){
+void pH_up_onsd() { //Method pH Up On 10 detik : On/Off Controller
+  while (count <= 10) {
     digitalWrite(SValve1, relayON);
     count++;
-    if(count == 10){ break; }
+    if (count == 10) { break; }
     delay(1000);
   }
   digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
 }
-void pH_up_on(){ //Method pH Up on : On/Off Controller
+void pH_up_on() { //Method pH Up on : On/Off Controller
   digitalWrite(SValve1, relayON);
 }
-void pH_up_off(){ //Method pH Up off : On/Off Controller
+void pH_up_off() { //Method pH Up off : On/Off Controller
   digitalWrite(SValve1, relayOFF);
 }
-void all_pH_on(){ //Method pH Up dan pH Down on : On/Off Controller
+void all_pH_on() { //Method pH Up dan pH Down on : On/Off Controller
   digitalWrite(SValve1, relayON); digitalWrite(SValve2, relayON);
 }
-void all_pH_off(){ //Method pH Up dan pH Down off : On/Off Controller
+void all_pH_off() { //Method pH Up dan pH Down off : On/Off Controller
   digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
 }
-void pH_down_on(){ //Method pH Down on : On/Off Controller
+void pH_down_on() { //Method pH Down on : On/Off Controller
   digitalWrite(SValve2, relayON);
 }
-void pH_down_off(){ //Method pH Down off : On/Off Controller
+void pH_down_off() { //Method pH Down off : On/Off Controller
   digitalWrite(SValve2, relayOFF);
 }
-void pH_down_onsd(){ //Method pH Down On 10 detik : On/Off Controller
-  while(count <= 10){
+void pH_down_onsd() { //Method pH Down On 10 detik : On/Off Controller
+  while (count <= 10) {
     digitalWrite(SValve2, relayON);
     count++;
-    if(count == 10){ break; }
+    if (count == 10) { break; }
     delay(1000);
   }
   digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
 }
-void pH_down_onlm(){ //Method pH Down On 25 detik : On/Off Controller
-  while(count <= 25){
+void pH_down_onlm() { //Method pH Down On 25 detik : On/Off Controller
+  while (count <= 25) {
     digitalWrite(SValve2, relayON);
     count++;
-    if(count == 25){ break; }
+    if (count == 25) { break; }
     delay(1000);
   }
   digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
@@ -344,11 +352,11 @@ void pH_down_onlm(){ //Method pH Down On 25 detik : On/Off Controller
 
 
 //============================================================= Method Alarm =============================================================
-void B2(){ //Method alarm 2x bunyi : On/Off Controller
+void B2() { //Method alarm 2x bunyi : On/Off Controller
   digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(1000); //Buzzer nyala 1x
   digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(2000); //Buzzer nyala 1x
 }
-void B3(){ //Method alarm 3x bunyi : On/Off Controller
+void B3() { //Method alarm 3x bunyi : On/Off Controller
   digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(1000); //Buzzer nyala 1x
   digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(1000); //Buzzer nyala 1x
   digitalWrite(PBuzzer, HIGH); delay(1000); digitalWrite(PBuzzer, LOW); delay(2000); //Buzzer nyala 1x
@@ -356,7 +364,7 @@ void B3(){ //Method alarm 3x bunyi : On/Off Controller
     
 
 //====================================================== Method Button Bot Telegram ======================================================
-void ButtonBot(){
+void ButtonBot() {
   //Button Menu Utama
   myKbd.addButton("👁 Monitoring pH");
   myKbd.addRow();
@@ -423,17 +431,17 @@ void ButtonBot(){
 
 
 //====================================================== Method Opsi Bot Telegram ========================================================
-void botTelegram(){
+void botTelegram() {
   TBMessage msg; //Constructor TBMessage
   
-  if(myBot.getNewMessage(msg)){  
-    if(msg.text.equalsIgnoreCase("/start")){ //Start Bot
+  if (myBot.getNewMessage(msg)) {  
+    if (msg.text.equalsIgnoreCase("/start")) { //Start Bot
       rp1 = "🙋🏻‍♂️ Hai @" + msg.sender.username + " 👋👋\nSelamat datang di Layanan BOT PHIOTNET.";
       rp2 = "\n\nBot ini berguna untuk kendali dan monitoring pH pada air Akuaponik.\n\n‼️ Silahkan isi kode rahasia PHIOTNET\n.................................. *(8 Characters)";
       sendMsg = rp1 + rp2;
       myBot.sendMessage(msg.sender.id, sendMsg);
     } 
-    else if(msg.text.equalsIgnoreCase("IFSK2022")){ //Menu Utama
+    else if (msg.text.equalsIgnoreCase("IFSK2022")) { //Menu Utama
       rp1 = "✅ Kode yang anda masukkan benar";
       myBot.sendMessage(msg.sender.id, rp1);
       main_menu:
@@ -441,7 +449,7 @@ void botTelegram(){
       viewTombol = true;
       myBot.sendMessage(msg.sender.id, rp2, myKbd);
     }
-    else if(msg.text.equalsIgnoreCase("👁 Monitoring pH")){ //Hasil Monitoring pH
+    else if (msg.text.equalsIgnoreCase("👁 Monitoring pH")) { //Hasil Monitoring pH
       rp1 = "🙋🏻‍♂️ Hai @" + msg.sender.username + " 👋👋\nBerikut hasil monitoring pH terkini :\n\n";
       myBot.sendMessage(msg.sender.id, rp1);
       DTnow(); Viewnow();
@@ -449,139 +457,139 @@ void botTelegram(){
       myBot.sendMessage(msg.sender.id, rp2);
       Serial.println("pH air akuaponik saat ini : " + String(payload_Subscribe) + "\nWaktu saat ini : " + String(waktu) + "\n");
     }    
-    else if(msg.text.equalsIgnoreCase("🤖 Bantuan Bot")) { //Opsi Bantuan Bot
+    else if (msg.text.equalsIgnoreCase("🤖 Bantuan Bot")) { //Opsi Bantuan Bot
       sendMsg = "Apakah anda ingin mengakses bantuan bot sekarang?";
       myBot.sendMessage(msg.sender.id, sendMsg, InKbd); 
     }
-    else if(msg.text.equalsIgnoreCase("🚰 Pengaturan pH")){ //Sub Menu Pengaturan pH
+    else if (msg.text.equalsIgnoreCase("🚰 Pengaturan pH")) { //Sub Menu Pengaturan pH
       sub_menu1:
       sendMsg = "--------------------------------------------------------------\n 🚰 PENGATURAN PH \n--------------------------------------------------------------\nBerikut pilihan sub menu yang dapat anda akses :";
       viewTombol = true;
       myBot.sendMessage(msg.sender.id, sendMsg, submainKbd);          
     }
-    else if(msg.text.equalsIgnoreCase("⬅️ Kembali")){ //Opsi Kembali ke Menu Utama
+    else if (msg.text.equalsIgnoreCase("⬅️ Kembali")) { //Opsi Kembali ke Menu Utama
       sendMsg = "✅ Berhasil kembali ke menu utama";
       myBot.sendMessage(msg.sender.id, sendMsg); 
       goto main_menu;
     }
-    else if(msg.text.equalsIgnoreCase("🧪 All-pH")){ //Sub Menu All-pH
+    else if (msg.text.equalsIgnoreCase("🧪 All-pH")) { //Sub Menu All-pH
       sub_menu2:
       sendMsg = "--------------------------------------------------------------\n 🧪 ALL-PH \n--------------------------------------------------------------\nBerikut pilihan sub menu yang dapat anda akses :";
       viewTombol = true;
       myBot.sendMessage(msg.sender.id, sendMsg, sub1Kbd);        
     }
-    else if(msg.text.equalsIgnoreCase("🧪 pH-Up")){ //Sub Menu pH-Up
+    else if (msg.text.equalsIgnoreCase("🧪 pH-Up")) { //Sub Menu pH-Up
       sub_menu3:
       sendMsg = "--------------------------------------------------------------\n 🧪 PH-UP \n--------------------------------------------------------------\nBerikut pilihan sub menu yang dapat anda akses :";
       viewTombol = true;
       myBot.sendMessage(msg.sender.id, sendMsg, sub2Kbd);          
     }
-    else if(msg.text.equalsIgnoreCase("🧪 pH-Down")){ //Sub Menu pH-Down
+    else if (msg.text.equalsIgnoreCase("🧪 pH-Down")) { //Sub Menu pH-Down
       sub_menu4:
       sendMsg = "--------------------------------------------------------------\n 🧪 PH-DOWN \n--------------------------------------------------------------\nBerikut pilihan sub menu yang dapat anda akses :";
       viewTombol = true;
       myBot.sendMessage(msg.sender.id, sendMsg, sub3Kbd);          
     }
-    else if(msg.text.equalsIgnoreCase("1️⃣ All-pH ON")){ //Opsi Sub Menu All-pH ON
+    else if (msg.text.equalsIgnoreCase("1️⃣ All-pH ON")) { //Opsi Sub Menu All-pH ON
       sendMsg = "Anda yakin memilih opsi All-pH ON?";
       myBot.sendMessage(msg.sender.id, sendMsg, In3Kbd1); 
     }
-    else if(msg.text.equalsIgnoreCase("2️⃣ All-pH OFF")){ //Opsi Sub Menu All-pH OFF
+    else if (msg.text.equalsIgnoreCase("2️⃣ All-pH OFF")) { //Opsi Sub Menu All-pH OFF
       sendMsg = "Anda yakin memilih opsi All-pH OFF?";
       myBot.sendMessage(msg.sender.id, sendMsg, In3Kbd2); 
     }
-    else if(msg.text.equalsIgnoreCase("1️⃣ pH-Up ON")){ //Opsi Sub Menu pH-Up ON
+    else if (msg.text.equalsIgnoreCase("1️⃣ pH-Up ON")) { //Opsi Sub Menu pH-Up ON
       sendMsg = "Anda yakin memilih opsi pH-Up ON?";
       myBot.sendMessage(msg.sender.id, sendMsg, In3Kbd3); 
     }
-    else if(msg.text.equalsIgnoreCase("2️⃣ pH-Up OFF")){ //Opsi Sub Menu pH-Up OFF
+    else if (msg.text.equalsIgnoreCase("2️⃣ pH-Up OFF")) { //Opsi Sub Menu pH-Up OFF
       sendMsg = "Anda yakin memilih opsi pH-Up OFF?";
       myBot.sendMessage(msg.sender.id, sendMsg, In3Kbd4); 
     }
-    else if(msg.text.equalsIgnoreCase("1️⃣ pH-Down ON")){ //Opsi Sub Menu pH-Down ON
+    else if (msg.text.equalsIgnoreCase("1️⃣ pH-Down ON")) { //Opsi Sub Menu pH-Down ON
       sendMsg = "Anda yakin memilih opsi pH-Down ON?";
       myBot.sendMessage(msg.sender.id, sendMsg, In3Kbd5); 
     }
-    else if(msg.text.equalsIgnoreCase("2️⃣ pH-Down OFF")){ //Opsi Sub Menu pH-Down OFF
+    else if (msg.text.equalsIgnoreCase("2️⃣ pH-Down OFF")) { //Opsi Sub Menu pH-Down OFF
       sendMsg = "Anda yakin memilih opsi pH-Down OFF?";
       myBot.sendMessage(msg.sender.id, sendMsg, In3Kbd6); 
     }
-    else if(msg.text.equalsIgnoreCase("↩️ Kembali")){ //Opsi Kembali ke Menu Pengaturan pH
+    else if (msg.text.equalsIgnoreCase("↩️ Kembali")) { //Opsi Kembali ke Menu Pengaturan pH
       sendMsg = "✅ Berhasil kembali ke menu pengaturan pH";
       myBot.sendMessage(msg.sender.id, sendMsg); 
       goto sub_menu1;
     }
-    else if(msg.messageType == CTBotMessageQuery){ //Respon Dari Semua Opsi
-      if(msg.callbackQueryData.equals(INrespYes)){ //Respon Opsi Bantuan Bot
+    else if (msg.messageType == CTBotMessageQuery) { //Respon Dari Semua Opsi
+      if (msg.callbackQueryData.equals(INrespYes)) { //Respon Opsi Bantuan Bot
         rp1 = "--------------------------------------------------------------\n 🤖 BANTUAN BOT \n--------------------------------------------------------------\n\n🙋🏻‍♂️ Hai @" + msg.sender.username + " 👋👋\nBerikut informasi yang ada di Bot PHIOTNET :\n\n1. Menu '👁 monitoring_pH' :\nfungsinya yaitu untuk memantau kondisi pH air akuaponik terkini.\n\n2. Menu '🚰 pengaturan_pH' :\nfungsinya yaitu untuk mematikan dan menyalakan pH up/down.\n\n";
         rp2 = "3. Menu '🤖 bantuan_bot' :\nfungsinya yaitu sebagai pusat informasi bot telegram.\n\n4. Aplikasi 'phiotnet_bot' ini diciptakan oleh @Devan_Cakra untuk pemenuhan Tugas Akhir (Skripsi) S1 Informatika UPN Veteran Jatim.\n\n5. Bahasa pemrograman yang dipakai yaitu Bahasa C (Arduino).\n--------------------------------------------------------------";
         sendMsg = rp1+rp2;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
-      else if(msg.callbackQueryData.equals(INrespNo)){ //Respon Opsi Tidak -> main_menu
+      else if (msg.callbackQueryData.equals(INrespNo)) { //Respon Opsi Tidak -> main_menu
         sendMsg = "❌ Perintah telah dibatalkan!!!";
         myBot.sendMessage(msg.sender.id, sendMsg);
         goto main_menu;
       }
-      else if(msg.callbackQueryData.equals(INrespYes1)){ //Respon Opsi Sub Menu All-pH ON
+      else if (msg.callbackQueryData.equals(INrespYes1)) { //Respon Opsi Sub Menu All-pH ON
         all_pH_on(); //Menyalakan semua relay pH
         statusKendaliIoT = "ON"; //Status kendali ON
         LCDAllpHON(); //View LCD All-pH ON
         sendMsg = "🌊 Semua pH (Up-Down): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
-      else if(msg.callbackQueryData.equals(INrespYes2)){ //Respon Opsi Sub Menu All-pH OFF
+      else if (msg.callbackQueryData.equals(INrespYes2)) { //Respon Opsi Sub Menu All-pH OFF
         all_pH_off(); //Mematikan semua relay pH
         statusKendaliIoT = "OFF"; //Status kendali OFF
         LCDAllpHOFF(); //View LCD All-pH OFF
         sendMsg = "💤 Semua pH (Up-Down): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
-      else if(msg.callbackQueryData.equals(INrespNo1)){ //Respon Opsi Tidak -> sub_menu2
+      else if (msg.callbackQueryData.equals(INrespNo1)) { //Respon Opsi Tidak -> sub_menu2
         sendMsg = "❌ Perintah telah dibatalkan!!!";
         myBot.sendMessage(msg.sender.id, sendMsg);
         goto sub_menu2;
       }
-      else if(msg.callbackQueryData.equals(INrespYes3)){ //Respon Opsi Sub Menu pH-Up ON
+      else if (msg.callbackQueryData.equals(INrespYes3)) { //Respon Opsi Sub Menu pH-Up ON
         pH_up_on(); //Menyalakan relay pH Up
         statusKendaliIoT = "ON"; //Status kendali ON
         LCDpHUpON(); //View LCD pH-Up ON
         sendMsg = "🌊 pH (Up): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
-      else if(msg.callbackQueryData.equals(INrespYes4)){ //Respon Opsi Sub Menu pH-Up OFF
+      else if (msg.callbackQueryData.equals(INrespYes4)) { //Respon Opsi Sub Menu pH-Up OFF
         pH_up_off(); //Mematikan relay pH Up
         statusKendaliIoT = "OFF"; //Status kendali OFF
         LCDpHUpOFF(); //View LCD pH-Up OFF
         sendMsg = "💤 pH (Up): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
-      else if(msg.callbackQueryData.equals(INrespNo2)){ //Respon Opsi Tidak -> sub_menu3
+      else if (msg.callbackQueryData.equals(INrespNo2)) { //Respon Opsi Tidak -> sub_menu3
         sendMsg = "❌ Perintah telah dibatalkan!!!";
         myBot.sendMessage(msg.sender.id, sendMsg);
         goto sub_menu3;
       }
-      else if(msg.callbackQueryData.equals(INrespYes5)){ //Respon Opsi Sub Menu pH-Down ON
+      else if (msg.callbackQueryData.equals(INrespYes5)) { //Respon Opsi Sub Menu pH-Down ON
         pH_down_on(); //Menyalakan relay pH Down
         statusKendaliIoT = "ON"; //Status kendali ON
         LCDpHDownON(); //View LCD pH-Down ON
         sendMsg = "🌊 pH (Down): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
-      else if(msg.callbackQueryData.equals(INrespYes6)){ //Respon Opsi Sub Menu pH-Down OFF
+      else if (msg.callbackQueryData.equals(INrespYes6)) { //Respon Opsi Sub Menu pH-Down OFF
         pH_down_off(); //Mematikan relay pH Down
         statusKendaliIoT = "OFF"; //Status kendali OFF
         LCDpHDownOFF(); //View LCD pH-Down OFF
         sendMsg = "💤 pH (Down): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
-      else if(msg.callbackQueryData.equals(INrespNo3)){ //Respon Opsi Tidak -> sub_menu4
+      else if (msg.callbackQueryData.equals(INrespNo3)) { //Respon Opsi Tidak -> sub_menu4
         sendMsg = "❌ Perintah telah dibatalkan!!!";
         myBot.sendMessage(msg.sender.id, sendMsg);
         goto sub_menu4;
       }
     }
-    else{ //Control Error jika perintah tidak sesuai
+    else { //Control Error jika perintah tidak sesuai
       sendMsg = "🙋🏻‍♂️ Hai @" + msg.sender.username + " 👋👋\n\n❌ Gagal mengakses, coba lagi";
       myBot.sendMessage(msg.sender.id, sendMsg);
     } 
@@ -590,7 +598,7 @@ void botTelegram(){
 
 
 //================================================== Method Interval Type 2 Fuzzy Logic ==================================================
-void IT2FL_pH(){
+void IT2FL_pH() {
   Serial.println("\n[Interval Type 2 Fuzzy Logic]\nproses fuzzifikasi :"); 
   Serial.println("\nDeteksi pH: " + String(pHValue, 2));
   pHair_Upper = float(pHValue); //Memasukkan nilai pH ke Himpunan atas
@@ -605,141 +613,141 @@ void IT2FL_pH(){
 }
 
 //========================================================= Method Fuzzifikasi ===========================================================
-void MF_AsamKuat(){ //Fungsi Keanggotaan Asam Kuat
+void MF_AsamKuat() { //Fungsi Keanggotaan Asam Kuat
   //MF-Upper : Asam Kuat
-  if(pHair_Upper <= 0){
+  if (pHair_Upper <= 0) {
     AKU = 1; Serial.print("Nilai AK-Upper: " + String(AKU));
   }
-  else if(pHair_Upper > 0 && pHair_Upper < 3){
-    AKU = (3 - pHair_Upper)/(3 - 0); Serial.print("Nilai AK-Upper: " + String(AKU));
+  else if (pHair_Upper > 0 && pHair_Upper < 3) {
+    AKU = (3 - pHair_Upper) / (3 - 0); Serial.print("Nilai AK-Upper: " + String(AKU));
   }
-  else if(pHair_Upper >= 3){
+  else if (pHair_Upper >= 3) {
     AKU = 0; Serial.print("Nilai AK-Upper: " + String(AKU));
   } 
 
   //MF-Lower : Asam Kuat
-  if(pHair_Lower <= 0){
+  if (pHair_Lower <= 0) {
     AKL = 1; Serial.println(" , Nilai AK-Lower: " + String(AKL));
   }
-  else if(pHair_Lower > 0 && pHair_Lower < 2.8){
-    AKL = (2.8 - pHair_Lower)/(2.8 - 0); Serial.println(" , Nilai AK-Lower: " + String(AKL));
+  else if (pHair_Lower > 0 && pHair_Lower < 2.8) {
+    AKL = (2.8 - pHair_Lower) / (2.8 - 0); Serial.println(" , Nilai AK-Lower: " + String(AKL));
   }
-  else if(pHair_Lower >= 2.8){
+  else if (pHair_Lower >= 2.8) {
     AKL = 0; Serial.println(" , Nilai AK-Lower: " + String(AKL));
   } 
 }
 
-void MF_AsamLemah(){ //Fungsi Keanggotaan Asam Lemah
+void MF_AsamLemah() { //Fungsi Keanggotaan Asam Lemah
   //MF-Upper : Asam Lemah
-  if(pHair_Upper <= 3 || pHair_Upper >= 6){
+  if (pHair_Upper <= 3 || pHair_Upper >= 6) {
     ALU = 0; Serial.print("Nilai AL-Upper: " + String(ALU));
   }
-  else if(pHair_Upper > 3 && pHair_Upper <= 4.5){
-    ALU = (pHair_Upper - 3)/(4.5 - 3);
+  else if (pHair_Upper > 3 && pHair_Upper <= 4.5) {
+    ALU = (pHair_Upper - 3) / (4.5 - 3);
     Serial.print("Nilai AL-Upper: " + String(ALU));
   }
-  else if(pHair_Upper > 4.5 && pHair_Upper < 6){
-    ALU = (6 - pHair_Upper)/(6 - 4.5);
+  else if (pHair_Upper > 4.5 && pHair_Upper < 6) {
+    ALU = (6 - pHair_Upper) / (6 - 4.5);
     Serial.print("Nilai AL-Upper: " + String(ALU));
   } 
 
   //MF-Lower : Asam Lemah
-  if(pHair_Lower <= 3.2 || pHair_Lower >= 5.8){
+  if (pHair_Lower <= 3.2 || pHair_Lower >= 5.8) {
     ALL = 0; Serial.println(" , Nilai AL-Lower: " + String(ALL));
   }
-  else if(pHair_Lower > 3.2 && pHair_Lower <= 4.5){
-    ALL = (pHair_Lower - 3.2)/(4.5 - 3.2);
+  else if (pHair_Lower > 3.2 && pHair_Lower <= 4.5) {
+    ALL = (pHair_Lower - 3.2) / (4.5 - 3.2);
     Serial.println(" , Nilai AL-Lower: " + String(ALL));
   }
-  else if(pHair_Lower > 4.5 && pHair_Lower < 5.8){
-    ALL = (5.8 - pHair_Lower)/(5.8 - 4.5);
+  else if (pHair_Lower > 4.5 && pHair_Lower < 5.8) {
+    ALL = (5.8 - pHair_Lower) / (5.8 - 4.5);
     Serial.println(" , Nilai AL-Lower: " + String(ALL));
   } 
 }
 
-void MF_Netral(){ //Fungsi Keanggotaan Netral
+void MF_Netral() { //Fungsi Keanggotaan Netral
   //MF-Upper : Netral
-  if(pHair_Upper <= 6 || pHair_Upper >= 8){
+  if (pHair_Upper <= 6 || pHair_Upper >= 8) {
     NU = 0; Serial.print("Nilai N-Upper: " + String(NU));
   }
-  else if(pHair_Upper > 6 && pHair_Upper <= 7){
-    NU = (pHair_Upper - 6)/(7 - 6);
+  else if (pHair_Upper > 6 && pHair_Upper <= 7) {
+    NU = (pHair_Upper - 6) / (7 - 6);
     Serial.print("Nilai N-Upper: " + String(NU));
   }
-  else if(pHair_Upper > 7 && pHair_Upper < 8){
-    NU = (8 - pHair_Upper)/(8 - 7);
+  else if (pHair_Upper > 7 && pHair_Upper < 8) {
+    NU = (8 - pHair_Upper) / (8 - 7);
     Serial.print("Nilai N-Upper: " + String(NU));
   } 
 
   //MF-Lower : Netral
-  if(pHair_Lower <= 6.2 || pHair_Lower >= 7.8){
+  if (pHair_Lower <= 6.2 || pHair_Lower >= 7.8) {
     NL = 0; Serial.println(" , Nilai N-Lower: " + String(NL));
   }
-  else if(pHair_Lower > 6.2 && pHair_Lower <= 7){
-    NL = (pHair_Lower - 6.2)/(7 - 6.2);
+  else if (pHair_Lower > 6.2 && pHair_Lower <= 7) {
+    NL = (pHair_Lower - 6.2) / (7 - 6.2);
     Serial.println(" , Nilai N-Lower: " + String(NL));
   }
-  else if(pHair_Lower > 7 && pHair_Lower < 7.8){
-    NL = (7.8 - pHair_Lower)/(7.8 - 7);
+  else if (pHair_Lower > 7 && pHair_Lower < 7.8) {
+    NL = (7.8 - pHair_Lower) / (7.8 - 7);
     Serial.println(" , Nilai N-Lower: " + String(NL));
   } 
 }
 
-void MF_BasaLemah(){ //Fungsi Keanggotaan Basa Lemah
+void MF_BasaLemah() { //Fungsi Keanggotaan Basa Lemah
   //MF-Upper : Basa Lemah
-  if(pHair_Upper <= 8 || pHair_Upper >= 10){
+  if (pHair_Upper <= 8 || pHair_Upper >= 10) {
     BLU = 0; Serial.print("Nilai BL-Upper: " + String(BLU));
   }
-  else if(pHair_Upper > 8 && pHair_Upper <= 9){
-    BLU = (pHair_Upper - 8)/(9 - 8);
+  else if (pHair_Upper > 8 && pHair_Upper <= 9) {
+    BLU = (pHair_Upper - 8) / (9 - 8);
     Serial.print("Nilai BL-Upper: " + String(BLU));
   }
-  else if(pHair_Upper > 9 && pHair_Upper < 10){
-    BLU = (10 - pHair_Upper)/(10 - 9);
+  else if (pHair_Upper > 9 && pHair_Upper < 10) {
+    BLU = (10 - pHair_Upper) / (10 - 9);
     Serial.print("Nilai BL-Upper: " + String(BLU));
   } 
 
   //MF-Lower : Basa Lemah
-  if(pHair_Lower <= 8.2 || pHair_Lower >= 9.8){
+  if (pHair_Lower <= 8.2 || pHair_Lower >= 9.8) {
     BLL = 0; Serial.println(" , Nilai BL-Lower: " + String(BLL));
   }
-  else if(pHair_Lower > 8.2 && pHair_Lower <= 9){
-    BLL = (pHair_Lower - 8.2)/(9 - 8.2);
+  else if (pHair_Lower > 8.2 && pHair_Lower <= 9) {
+    BLL = (pHair_Lower - 8.2) / (9 - 8.2);
     Serial.println(" , Nilai BL-Lower: " + String(BLL));
   }
-  else if(pHair_Lower > 9 && pHair_Lower < 9.8){
-    BLL = (9.8 - pHair_Lower)/(9.8 - 9);
+  else if (pHair_Lower > 9 && pHair_Lower < 9.8) {
+    BLL = (9.8 - pHair_Lower) / (9.8 - 9);
     Serial.println(" , Nilai BL-Lower: " + String(BLL));
   } 
 }
 
-void MF_BasaKuat(){ //Fungsi Keanggotaan Basa Kuat
+void MF_BasaKuat() { //Fungsi Keanggotaan Basa Kuat
   //MF-Upper : Basa Kuat
-  if(pHair_Upper <= 10){
+  if (pHair_Upper <= 10) {
     BKU = 0; Serial.print("Nilai BK-Upper: " + String(BKU));
   }
-  else if(pHair_Upper > 10 && pHair_Upper < 14){
-    BKU = (pHair_Upper - 10)/(14 - 10);
+  else if (pHair_Upper > 10 && pHair_Upper < 14) {
+    BKU = (pHair_Upper - 10) / (14 - 10);
     Serial.print("Nilai BK-Upper: " + String(BKU));
   }
-  else if(pHair_Upper >= 14){
+  else if (pHair_Upper >= 14) {
     BKU = 1; Serial.print("Nilai BK-Upper: " + String(BKU));
   } 
 
   //MF-Lower : Basa Kuat
-  if(pHair_Lower <= 10.2){
+  if (pHair_Lower <= 10.2) {
     BKL = 0; Serial.println(" , Nilai BK-Lower: " + String(BKL));
   }
-  else if(pHair_Lower > 10.2 && pHair_Lower < 14){
-    BKL = (pHair_Lower - 10.2)/(14 - 10.2);
+  else if (pHair_Lower > 10.2 && pHair_Lower < 14) {
+    BKL = (pHair_Lower - 10.2) / (14 - 10.2);
     Serial.println(" , Nilai BK-Lower: " + String(BKL));
   }
-  else if(pHair_Lower >= 14){
+  else if (pHair_Lower >= 14) {
     BKL = 1; Serial.println(" , Nilai BK-Lower: " + String(BKL));
   } 
 }
 
-void fuzz_it2fl(){
+void fuzz_it2fl() {
   MF_AsamKuat(); //Memanggil Method Fungsi Keanggotaan Asam Kuat
   MF_AsamLemah(); //Memanggil Method Fungsi Keanggotaan Asam Lemah
   MF_Netral(); //Memanggil Method Fungsi Keanggotaan Netral
@@ -749,7 +757,7 @@ void fuzz_it2fl(){
 
 
 //=========================================================== Method Inferensi ===========================================================
-void infer_it2fl(){
+void infer_it2fl() {
   //Proposisi Tunggal Upper => Penalaran Monoton
   MiuUMF[0] = AKU; MiuUMF[1] = ALU; MiuUMF[2] = NU; MiuUMF[3] = BLU; MiuUMF[4] = BKU;
 
@@ -773,20 +781,20 @@ void infer_it2fl(){
 
 
 //============================================= Method Reduksi Tipe & Defuzzifikasi ======================================================
-void redukdefuzz_it2fl(){
+void redukdefuzz_it2fl() {
   //Menjumlah total array yang ada pada MF-Upper dan MF-Lower
   Tarray1 = sizeof(MiuUMF) / sizeof(int);
   Tarray2 = sizeof(MiuLMF) / sizeof(int);
 
   //Perhitungan himpunan atas
-  for(i=0; i<Tarray1; i++){
+  for (i = 0; i < Tarray1; i++) {
     yi += SPK[i];
     SigyiMiuMFUpper += SPK[i] * MiuUMF[i];
     SigMiuMFUpper += MiuUMF[i];
   }
 
   //Perhitungan himpunan bawah
-  for(i=0; i<Tarray2; i++){
+  for (i = 0; i < Tarray2; i++) {
     yi += SPK[i];
     SigyiMiuMFLower += SPK[i] * MiuLMF[i];
     SigMiuMFLower += MiuLMF[i];
@@ -794,52 +802,56 @@ void redukdefuzz_it2fl(){
 
   //Perhitungan reduksi tipe
   //Interval kiri
-  yl = ((SigyiMiuMFUpper + SigyiMiuMFLower)/(SigMiuMFLower + SigMiuMFUpper));
+  yl = ((SigyiMiuMFUpper + SigyiMiuMFLower) / (SigMiuMFLower + SigMiuMFUpper));
   Serial.println("yl = (" + String(SigyiMiuMFUpper) + " + " + String(SigyiMiuMFLower) + ") / (" + String(SigMiuMFLower) + " + " + String(SigMiuMFUpper) + ") = " + yl);
   //Interval kanan
-  yr = ((SigyiMiuMFLower + SigyiMiuMFUpper)/(SigMiuMFUpper + SigMiuMFLower));
+  yr = ((SigyiMiuMFLower + SigyiMiuMFUpper) / (SigMiuMFUpper + SigMiuMFLower));
   Serial.println("yr = (" + String(SigyiMiuMFLower) + " + " + String(SigyiMiuMFUpper) + ") / (" + String(SigMiuMFUpper) + " + " + String(SigMiuMFLower) + ") = " + yr);
 
   //Perhitungan deffuzifikasi
   ycos = yl + yr;
-  yout = floor((ycos)/2);
+  yout = floor((ycos) / 2);
   Serial.println("yout = (" + String(yl) + " + " + String(yr) + ") / 2 = " + String(yout));
 
   //Nilai crips berdasarkan pengambilan keputusan
-  if(yout == 0){
+  if (yout == 0) {
     statusPH = "Darurat (Asam Kuat)"; statusBuzzer = "Menyala (3x)";
     statusRelaypH = "pH-Up (ON lama: 25 detik)";
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    pH_up_onlm(); B3();
+    pH_up_onlm(); //pH Up Menyala 25 detik
+    B2(); //Buzzer menyala 2x dalam interval jeda 1 detik
   }
-  else if(yout == 1){
+  else if (yout == 1) {
     statusPH = "Waspada (Asam Lemah)"; statusBuzzer = "Menyala (2x)";
     statusRelaypH = "pH-Up (ON sedang: 10 detik)";
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    pH_up_onsd(); B2();
+    pH_up_onsd(); //pH Up Menyala 10 detik
+    B2(); //Buzzer menyala 2x dalam interval jeda 1 detik
   }
-  else if(yout == 2){
+  else if (yout == 2) {
     statusPH = "Aman (Netral)"; statusBuzzer = "Tidak Menyala"; 
     statusRelaypH = "All-pH (OFF: diam)";
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    all_pH_off();
+    all_pH_off(); //Seluruh Solenoid Valve pH mati
   }
-  else if(yout == 3){
+  else if (yout == 3) {
     statusPH = "Waspada (Basa Lemah)"; statusBuzzer = "Menyala (2x)"; 
     statusRelaypH = "pH-Down (ON sedang: 10 detik)"; 
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    pH_down_onsd(); B2();
+    pH_down_onsd(); //pH Down Menyala 10 detik
+    B2(); //Buzzer menyala 2x dalam interval jeda 1 detik
   }
-  else if(yout == 4){
+  else if (yout == 4) {
     statusPH = "Darurat (Basa Kuat)"; statusBuzzer = "Menyala (3x)";
     statusRelaypH = "pH-Down (ON lama: 25 detik)"; 
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    pH_down_onlm(); B3(); 
+    pH_down_onlm(); //pH Down Menyala 25 detik
+    B3(); //Buzzer menyala 3x dalam interval jeda 1 detik
   }
 }
 
-//Method untuk mereset perhitungan agar tetap optimal
-void reset_redukdeffuzz(){
+//Method ini digunakan untuk menyetel ulang perhitungan Fuzzy Type-2 agar tetap optimal
+void reset_redukdeffuzz() {
   yi = 0;
   SigyiMiuMFUpper = 0;
   SigyiMiuMFLower = 0;
