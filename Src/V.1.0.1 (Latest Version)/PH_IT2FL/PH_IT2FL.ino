@@ -408,7 +408,7 @@ void lcdFailBot() {
 }
 void lcdWaiting() {
   lcd.clear(); lcd.setCursor(1,0); lcd.print("Menunggu"); lcd.setCursor(1,1); lcd.print("Perintah...");  //Cetak ke layar LCD
-  delay(5000); //Jeda 5 detik
+  delay(1000); //Jeda 1 detik
 }
 void lcdLoading() {
   //Jika status Loading belum ditampilkan sebelumnya, maka :
