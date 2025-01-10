@@ -45,23 +45,33 @@ bool relayON = LOW;
 bool relayOFF = HIGH;
 bool ispHUpOn = false;
 bool ispHDownOn = false;
+bool isLcdOn = false;
 bool isBuzzerOn = false;
 bool ispHUp10SecondActive = false;
 bool ispHUp25SecondActive = false;
 bool ispHDown10SecondActive = false;
 bool ispHDown25SecondActive = false;
+bool isLcdLoadingActive = false;
+bool isLcdpHValueActive = false;
+bool isLcdAllpHONActive = false;
+bool isLcdAllpHOFFActive = false;
+bool isLcdpHUpONActive = false;
+bool isLcdpHUpOFFActive = false;
+bool isLcdpHDownONActive = false;
+bool isLcdpHDownOFFActive = false;
 bool isBuzzer2XFinished = false;
 bool isBuzzer3XFinished = false;
 bool isBuzzerActive = false;
 
 //Tipe data Unsigned
 unsigned long currentMillis;
-unsigned long startTime1 = 0;
-unsigned long startTime2 = 0;
-const unsigned long delayTime1 = 1000;
-const unsigned long delayTime2 = 5000;
+unsigned long startTime = 0;
 unsigned long svalveStartTime1 = 0;
 unsigned long svalveStartTime2 = 0;
+unsigned long buzzerStartTime = 0;
+unsigned long lcdStartTime = 0;
+const unsigned long delayTime1 = 1000;
+const unsigned long delayTime2 = 5000;
 const unsigned long svalveDuration1 = 10000;
 const unsigned long svalveDuration2 = 25000;
 
@@ -113,10 +123,11 @@ void setup() {
   digitalWrite(PBuzzer, LOW); //Default buzzer untuk pertama kali harus off
 
   //Atur Start Time
-  startTime1 = millis();
-  startTime2 = millis();
+  startTime = millis();
   svalveStartTime1 = millis() - svalveDuration1;
   svalveStartTime2 = millis() - svalveDuration2;
+  buzzerStartTime = millis();
+  lcdStartTime = millis();
 }
 
 
@@ -130,10 +141,10 @@ void loop() {
   client.loop();
 
   //Jika waktu sekarang dikurangi waktu terakhir lebih besar dari 1 detik maka :
-  if ((currentMillis - startTime1) > delayTime1) {
+  if ((currentMillis - startTime) > delayTime1) {
     readPHandControl(); //Memanggil method readPHandControl
     botTelegram(); //Memanggil method botTelegram
-    startTime1 = currentMillis; //Perbarui waktu terakhir dijalankan
+    startTime = currentMillis; //Perbarui waktu terakhir dijalankan
   }
 
   millisFlowControl(); //Kontrol respon millis
@@ -271,21 +282,85 @@ void DTnow() {
 void millisFlowControl() {
   //Matikan pH Up jika masih aktif
   if (ispHUpOn) {
+    //Jika pH Up telah aktif selama 10 detik, maka :
     if (ispHUp10SecondActive && (currentMillis - svalveStartTime1) >= svalveDuration1) {
-      autopHUp10SecondOFF();
+      autopHUp10SecondOFF(); //Matikan relay pH Up
     }
+    //Jika pH Up telah aktif selama 25 detik, maka :
     if (ispHUp25SecondActive && (currentMillis - svalveStartTime2) >= svalveDuration2) {
-      autopHUp25SecondOFF();
+      autopHUp25SecondOFF(); //Matikan relay pH Up
     }
   }
 
   //Matikan pH Down jika masih aktif
   if (ispHDownOn) {
+    //Jika pH Down telah aktif selama 10 detik, maka :
     if (ispHDown10SecondActive && (currentMillis - svalveStartTime1) >= svalveDuration1) {
-      autopHDown10SecondOFF();
+      autopHDown10SecondOFF(); //Matikan relay pH Down
     }
+    //Jika pH Down telah aktif selama 25 detik, maka :
     if (ispHDown25SecondActive && (currentMillis - svalveStartTime2) >= svalveDuration2) {
-      autopHDown25SecondOFF();
+      autopHDown25SecondOFF(); //Matikan relay pH Down
+    }
+  }
+
+  //Matikan LCD jika masih aktif
+  if (isLcdOn) {
+    //Jika status Loading sudah ditampilkan selama 1 detik, maka :
+    if (isLcdLoadingActive && (currentMillis - lcdStartTime) >= delayTime2) {
+      lcd.clear(); //Hapus layar LCD
+      isLcdOn = false; //Perbarui status LCD
+      isLcdLoadingActive = false; //Tandai fungsi millis bahwa LCD sudah selesai
+      lcdWaiting(); //Memanggil method lcdWaiting
+    }
+    //Jika status Nilai pH sudah ditampilkan selama 1 detik, maka :
+    if (isLcdpHValueActive && (currentMillis - lcdStartTime) >= delayTime1) {
+      lcd.clear(); //Hapus layar LCD
+      isLcdOn = false; //Perbarui status LCD
+      isLcdpHValueActive = false; //Tandai fungsi millis bahwa LCD sudah selesai
+      lcdWaiting(); //Memanggil method lcdWaiting
+    }
+    //Jika status All pH ON sudah ditampilkan selama 5 detik, maka :
+    if (isLcdAllpHONActive && (currentMillis - lcdStartTime) >= delayTime2) {
+      lcd.clear(); //Hapus layar LCD
+      isLcdOn = false; //Perbarui status LCD
+      isLcdAllpHONActive = false; //Tandai fungsi millis bahwa LCD sudah selesai
+      lcdWaiting(); //Memanggil method lcdWaiting
+    }
+    //Jika status All pH OFF sudah ditampilkan selama 5 detik, maka :
+    if (isLcdAllpHOFFActive && (currentMillis - lcdStartTime) >= delayTime2) {
+      lcd.clear(); //Hapus layar LCD
+      isLcdOn = false; //Perbarui status LCD
+      isLcdAllpHOFFActive = false; //Tandai fungsi millis bahwa LCD sudah selesai
+      lcdWaiting(); //Memanggil method lcdWaiting
+    }
+    //Jika status pH Up ON sudah ditampilkan selama 5 detik, maka :
+    if (isLcdpHUpONActive && (currentMillis - lcdStartTime) >= delayTime2) {
+      lcd.clear(); //Hapus layar LCD
+      isLcdOn = false; //Perbarui status LCD
+      isLcdpHUpONActive = false; //Tandai fungsi millis bahwa LCD sudah selesai
+      lcdWaiting(); //Memanggil method lcdWaiting
+    }
+    //Jika status pH Up OFF sudah ditampilkan selama 5 detik, maka :
+    if (isLcdpHUpOFFActive && (currentMillis - lcdStartTime) >= delayTime2) {
+      lcd.clear(); //Hapus layar LCD
+      isLcdOn = false; //Perbarui status LCD
+      isLcdpHUpOFFActive = false; //Tandai fungsi millis bahwa LCD sudah selesai
+      lcdWaiting(); //Memanggil method lcdWaiting
+    }
+    //Jika status pH Down ON sudah ditampilkan selama 5 detik, maka :
+    if (isLcdpHDownONActive && (currentMillis - lcdStartTime) >= delayTime2) {
+      lcd.clear(); //Hapus layar LCD
+      isLcdOn = false; //Perbarui status LCD
+      isLcdpHDownONActive = false; //Tandai fungsi millis bahwa LCD sudah selesai
+      lcdWaiting(); //Memanggil method lcdWaiting
+    }
+    //Jika status pH Down OFF sudah ditampilkan selama 5 detik, maka :
+    if (isLcdpHDownOFFActive && (currentMillis - lcdStartTime) >= delayTime2) {
+      lcd.clear(); //Hapus layar LCD
+      isLcdOn = false; //Perbarui status LCD
+      isLcdpHDownOFFActive = false; //Tandai fungsi millis bahwa LCD sudah selesai
+      lcdWaiting(); //Memanggil method lcdWaiting
     }
   }
 
@@ -323,82 +398,89 @@ void readPHandControl() {
 
 
 //============================================================ Method Output LCD ===========================================================
-void LCDfailIoT() {
-  //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
-  if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.setCursor(1,0); lcd.print("IoT Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung...");
-    startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
+void lcdFailIoT() {
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("IoT Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); //Cetak ke layar LCD
+  delay(5000); //Jeda 5 detik
+}
+void lcdFailBot() {
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("Bot Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung...");  //Cetak ke layar LCD
+  delay(5000); //Jeda 5 detik
+}
+void lcdWaiting() {
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("Menunggu"); lcd.setCursor(1,1); lcd.print("Perintah...");  //Cetak ke layar LCD
+  delay(5000); //Jeda 5 detik
+}
+void lcdLoading() {
+  //Jika status Loading belum ditampilkan sebelumnya, maka :
+  if (!isLcdLoadingActive) {
+    lcd.clear(); lcd.setCursor(1,0); lcd.print("Loading...."); //Cetak ke layar LCD
+    lcdStartTime = currentMillis; //Perbarui waktu terakhir ketika LCD dinyalakan
+    isLcdOn = true; //Perbarui status LCD
+    isLcdLoadingActive = true; //Tandai fungsi millis bahwa LCD aktif
   }
 }
-void LCDfailBot() {
-  //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
-  if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.setCursor(1,0); lcd.print("Bot Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung...");
-    startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
+void lcdpHValue() {
+  //Jika status Nilai pH belum ditampilkan sebelumnya, maka :
+  if (!isLcdpHValueActive) {
+    lcd.clear(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(payload_Subscribe)); //Cetak ke layar LCD
+    lcdStartTime = currentMillis; //Perbarui waktu terakhir ketika LCD dinyalakan
+    isLcdOn = true; //Perbarui status LCD
+    isLcdpHValueActive = true; //Tandai fungsi millis bahwa LCD aktif
   }
 }
-void Waiting() {
-  //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 1 detik maka :
-  if ((currentMillis - startTime1) >= delayTime1) {
-    lcd.clear(); lcd.setCursor(1,0); lcd.print("Menunggu"); lcd.setCursor(1,1); lcd.print("Perintah...");
-    startTime1 = currentMillis; //Perbarui waktu terakhir dijalankan
+void lcdAllpHON() {
+  //Jika status All pH ON belum ditampilkan sebelumnya, maka :
+  if (!isLcdAllpHONActive) {
+    lcd.clear(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(6,1); lcd.print("(ON)"); //Cetak ke layar LCD
+    lcdStartTime = currentMillis; //Perbarui waktu terakhir ketika LCD dinyalakan
+    isLcdOn = true; //Perbarui status LCD
+    isLcdAllpHONActive = true; //Tandai fungsi millis bahwa LCD aktif
   }
 }
-void Loading() {
-  //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
-  if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.setCursor(1,0); lcd.print("Loading....");
-    startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
-  } Waiting();
+void lcdAllpHOFF() {
+  //Jika status All pH OFF belum ditampilkan sebelumnya, maka :
+  if (!isLcdAllpHOFFActive) {
+    lcd.clear(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(5,1); lcd.print("(OFF)"); //Cetak ke layar LCD
+    lcdStartTime = currentMillis; //Perbarui waktu terakhir ketika LCD dinyalakan
+    isLcdOn = true; //Perbarui status LCD
+    isLcdAllpHOFFActive = true; //Tandai fungsi millis bahwa LCD aktif
+  }
 }
-void Viewnow() {
-  //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 1 detik maka :
-  if ((currentMillis - startTime1) >= delayTime1) {
-    lcd.clear(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(payload_Subscribe));
-    startTime1 = currentMillis; //Perbarui waktu terakhir dijalankan
-  } Waiting();
+void lcdpHUpON() {
+  //Jika status pH Up ON belum ditampilkan sebelumnya, maka :
+  if (!isLcdpHUpONActive) {
+    lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(6,1); lcd.print("(ON)"); //Cetak ke layar LCD
+    lcdStartTime = currentMillis; //Perbarui waktu terakhir ketika LCD dinyalakan
+    isLcdOn = true; //Perbarui status LCD
+    isLcdpHUpONActive = true; //Tandai fungsi millis bahwa LCD aktif
+  }
 }
-void LCDAllpHON() {
-  //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
-  if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(6,1); lcd.print("(ON)");
-    startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
-  } Waiting();
+void lcdpHUpOFF() {
+  //Jika status pH Up OFF belum ditampilkan sebelumnya, maka :
+  if (!isLcdpHUpOFFActive) {
+    lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(5,1); lcd.print("(OFF)"); //Cetak ke layar LCD
+    lcdStartTime = currentMillis; //Perbarui waktu terakhir ketika LCD dinyalakan
+    isLcdOn = true; //Perbarui status LCD
+    isLcdpHUpOFFActive = true; //Tandai fungsi millis bahwa LCD aktif
+  }
 }
-void LCDAllpHOFF() {
-  //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
-  if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(5,1); lcd.print("(OFF)");
-    startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
-  } Waiting();
+void lcdpHDownON() {
+  //Jika status pH Down ON belum ditampilkan sebelumnya, maka :
+  if (!isLcdpHDownONActive) {
+    lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(ON)"); //Cetak ke layar LCD
+    lcdStartTime = currentMillis; //Perbarui waktu terakhir ketika LCD dinyalakan
+    isLcdOn = true; //Perbarui status LCD
+    isLcdpHDownONActive = true; //Tandai fungsi millis bahwa LCD aktif
+  }
 }
-void LCDpHUpON() {
-  //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
-  if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(6,1); lcd.print("(ON)");
-    startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
-  } Waiting();
-}
-void LCDpHUpOFF() {
-  //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
-  if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(5,1); lcd.print("(OFF)");
-    startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
-  } Waiting();
-}
-void LCDpHDownON() {
-  //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
-  if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(ON)");
-    startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
-  } Waiting();
-}
-void LCDpHDownOFF() {
-  //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 5 detik maka :
-  if ((currentMillis - startTime2) >= delayTime2) {
-    lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(OFF)");
-    startTime2 = currentMillis; //Perbarui waktu terakhir dijalankan
-  } Waiting();
+void lcdpHDownOFF() {
+  //Jika status pH Down OFF belum ditampilkan sebelumnya, maka :
+  if (!isLcdpHDownOFFActive) {
+    lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(OFF)"); //Cetak ke layar LCD
+    lcdStartTime = currentMillis; //Perbarui waktu terakhir ketika LCD dinyalakan
+    isLcdOn = true; //Perbarui status LCD
+    isLcdpHDownOFFActive = true; //Tandai fungsi millis bahwa LCD aktif
+  }
 }
 
 
@@ -414,12 +496,9 @@ void autopHUp25SecondON() {
   }
 }
 void autopHUp25SecondOFF() {
-  //Periksa apakah sudah 25 detik berlalu
-  if ((currentMillis - svalveStartTime2) >= svalveDuration2) {
-    pH_up_off(); //Memanggil fungsi untuk mematikan pH Up
-    ispHUp25SecondActive = false; //Tandai fungsi millis bahwa pH Up 25 detik sudah selesai
-    ispHUpOn = ispHUp10SecondActive; //Tetap ON jika pH Up 10 detik masih aktif
-  }
+  pH_up_off(); //Memanggil fungsi untuk mematikan pH Up
+  ispHUp25SecondActive = false; //Tandai fungsi millis bahwa pH Up 25 detik sudah selesai
+  ispHUpOn = ispHUp10SecondActive; //Tetap ON jika pH Up 10 detik masih aktif
 }
 
 //Method pH Up On 10 detik -> dengan fungsi millis
@@ -433,12 +512,9 @@ void autopHUp10SecondON() {
   }
 }
 void autopHUp10SecondOFF() {
-  //Periksa apakah sudah 10 detik berlalu
-  if ((currentMillis - svalveStartTime1) >= svalveDuration1) {
-    pH_up_off(); //Memanggil fungsi untuk mematikan pH Up
-    ispHUp10SecondActive = false; //Tandai fungsi millis bahwa pH Up 10 detik sudah selesai
-    ispHUpOn = ispHUp25SecondActive; //Tetap ON jika pH Up 25 detik masih aktif
-  }
+  pH_up_off(); //Memanggil fungsi untuk mematikan pH Up
+  ispHUp10SecondActive = false; //Tandai fungsi millis bahwa pH Up 10 detik sudah selesai
+  ispHUpOn = ispHUp25SecondActive; //Tetap ON jika pH Up 25 detik masih aktif
 }
 
 void pH_up_on() { //Method pH Up on : On/Off Controller
@@ -462,12 +538,9 @@ void pH_down_off() { //Method pH Down off : On/Off Controller
 
 //Method pH Down On 10 detik -> dengan fungsi millis
 void autopHDown10SecondOFF() {
-  //Periksa apakah sudah 10 detik berlalu
-  if ((currentMillis - svalveStartTime1) >= svalveDuration1) {
-    pH_down_off(); //Memanggil fungsi untuk mematikan pH Down
-    ispHDown10SecondActive = false; //Tandai fungsi millis bahwa pH Down 10 detik sudah selesai
-    ispHDownOn = ispHDown25SecondActive; //Tetap ON jika pH Down 25 detik masih aktif
-  }
+  pH_down_off(); //Memanggil fungsi untuk mematikan pH Down
+  ispHDown10SecondActive = false; //Tandai fungsi millis bahwa pH Down 10 detik sudah selesai
+  ispHDownOn = ispHDown25SecondActive; //Tetap ON jika pH Down 25 detik masih aktif
 }
 void autopHDown10SecondON() {
   //Jika Valve pH Down belum menyala 10 detik, maka :
@@ -481,12 +554,9 @@ void autopHDown10SecondON() {
 
 //Method pH Down On 25 detik -> dengan fungsi millis
 void autopHDown25SecondOFF() {
-  //Periksa apakah sudah 25 detik berlalu
-  if ((currentMillis - svalveStartTime2) >= svalveDuration2) {
-    pH_down_off(); //Memanggil fungsi untuk mematikan pH Down
-    ispHDown25SecondActive = false; //Tandai fungsi millis bahwa pH Down 25 detik sudah selesai
-    ispHDownOn = ispHDown10SecondActive; //Tetap ON jika pH Down 10 detik masih aktif
-  }
+  pH_down_off(); //Memanggil fungsi untuk mematikan pH Down
+  ispHDown25SecondActive = false; //Tandai fungsi millis bahwa pH Down 25 detik sudah selesai
+  ispHDownOn = ispHDown10SecondActive; //Tetap ON jika pH Down 10 detik masih aktif
 }
 void autopHDown25SecondON() {
   //Jika Valve pH Down belum menyala 25 detik, maka :
