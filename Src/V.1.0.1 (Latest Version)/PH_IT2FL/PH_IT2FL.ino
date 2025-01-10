@@ -340,7 +340,7 @@ void LCDfailBot() {
 void Waiting() {
   //Jika waktu sekarang dikurangi waktu terakhir lebih besar sama dengan 1 detik maka :
   if ((currentMillis - startTime1) >= delayTime1) {
-    lcd.clear(); lcd.setCursor(1,0); lcd.print("Menunggu"); lcd.setCursor(1,1); lcd.print("Perintah..."); delay(1000);
+    lcd.clear(); lcd.setCursor(1,0); lcd.print("Menunggu"); lcd.setCursor(1,1); lcd.print("Perintah...");
     startTime1 = currentMillis; //Perbarui waktu terakhir dijalankan
   }
 }
