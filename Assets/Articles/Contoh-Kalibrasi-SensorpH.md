@@ -13,12 +13,12 @@ Pasang kabel jumper di bagian ``` Positif (+) ``` konektor BNC pH, lalu hubungka
 int pHValue; // Variabel ini digunakan untuk menampung nilai pembacaan ADC
 float voltage; // Variabel ini digunakan untuk menyimpan nilai pembacaan tegangan
 
-void setup(){
+void setup() {
    Serial.begin(115200); // Baudrate default untuk ESP32
    pinMode(pHpin, INPUT); // Inisialisasi pin sensor pH sebagai input
 }
 
-void loop(){
+void loop() {
    pHValue = analogRead(pHpin); // Baca ADC sensor
    // ADC ESP32 => 4095 => 12 bit
    // Tegangan referensi => 5V
