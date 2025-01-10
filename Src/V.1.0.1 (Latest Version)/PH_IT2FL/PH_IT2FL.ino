@@ -400,7 +400,7 @@ void autopHUp25SecondON() {
   }
 }
 void autopHUp25SecondOFF() {
-  // Periksa apakah sudah 25 detik berlalu
+  //Periksa apakah sudah 25 detik berlalu
   if ((currentMillis - svalveStartTime2) >= svalveDuration2) {
     pH_up_off(); //Memanggil fungsi untuk mematikan pH Up
     ispHUp25SecondActive = false; //Tandai fungsi millis bahwa pH Up 25 detik sudah selesai
@@ -419,7 +419,7 @@ void autopHUp10SecondON() {
   }
 }
 void autopHUp10SecondOFF() {
-  // Periksa apakah sudah 10 detik berlalu
+  //Periksa apakah sudah 10 detik berlalu
   if ((currentMillis - svalveStartTime1) >= svalveDuration1) {
     pH_up_off(); //Memanggil fungsi untuk mematikan pH Up
     ispHUp10SecondActive = false; //Tandai fungsi millis bahwa pH Up 10 detik sudah selesai
@@ -448,7 +448,7 @@ void pH_down_off() { //Method pH Down off : On/Off Controller
 
 //Method pH Down On 10 detik -> dengan fungsi millis
 void autopHDown10SecondOFF() {
-  // Periksa apakah sudah 10 detik berlalu
+  //Periksa apakah sudah 10 detik berlalu
   if ((currentMillis - svalveStartTime1) >= svalveDuration1) {
     pH_down_off(); //Memanggil fungsi untuk mematikan pH Down
     ispHDown10SecondActive = false; //Tandai fungsi millis bahwa pH Down 10 detik sudah selesai
@@ -467,7 +467,7 @@ void autopHDown10SecondON() {
 
 //Method pH Down On 25 detik -> dengan fungsi millis
 void autopHDown25SecondOFF() {
-  // Periksa apakah sudah 25 detik berlalu
+  //Periksa apakah sudah 25 detik berlalu
   if ((currentMillis - svalveStartTime2) >= svalveDuration2) {
     pH_down_off(); //Memanggil fungsi untuk mematikan pH Down
     ispHDown25SecondActive = false; //Tandai fungsi millis bahwa pH Down 25 detik sudah selesai
