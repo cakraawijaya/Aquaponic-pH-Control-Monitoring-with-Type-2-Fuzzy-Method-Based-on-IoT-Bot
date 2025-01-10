@@ -572,14 +572,14 @@ void autopHDown25SecondON() {
 //============================================================= Method Alarm =============================================================
 void B2(){ //Method alarm 2x bunyi : On/Off Controller
   //Jika waktu pada buzzer sudah memenuhi durasi, maka :
-  if ((currentMillis - startTime1) >= delayTime1) { 
+  if ((currentMillis - buzzerStartTime) >= delayTime1) { 
     if (i < 2) { //Pastikan bunyi belum mencapai 2 kali
       isBuzzerOn = !isBuzzerOn; //Pertukaran status buzzer
       digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
       if (!isBuzzerOn) { //Jika buzzer baru saja mati
         i++; //Increment
       }
-      startTime1 = currentMillis; //Perbarui waktu terakhir ketika buzzer dijalankan
+      buzzerStartTime = currentMillis; //Perbarui waktu terakhir ketika buzzer dijalankan
     } else {
       digitalWrite(PBuzzer, LOW); //Matikan buzzer
       isBuzzer2XFinished = true; //Tandai buzzer selesai
@@ -590,14 +590,14 @@ void B2(){ //Method alarm 2x bunyi : On/Off Controller
 } 
 void B3(){ //Method alarm 3x bunyi : On/Off Controller
   //Jika waktu pada buzzer sudah memenuhi durasi, maka :
-  if ((currentMillis - startTime1) >= delayTime1) { 
+  if ((currentMillis - buzzerStartTime) >= delayTime1) { 
     if (i < 3) { //Pastikan bunyi belum mencapai 3 kali
       isBuzzerOn = !isBuzzerOn; //Pertukaran status buzzer
       digitalWrite(PBuzzer, isBuzzerOn ? HIGH : LOW); //Nyalakan atau Matikan buzzer
       if (!isBuzzerOn) { //Jika buzzer baru saja mati
         i++; //Increment
       }
-      startTime1 = currentMillis; //Perbarui waktu terakhir ketika buzzer dijalankan
+      buzzerStartTime = currentMillis; //Perbarui waktu terakhir ketika buzzer dijalankan
     } else {
       digitalWrite(PBuzzer, LOW); //Matikan buzzer
       isBuzzer3XFinished = true; //Tandai buzzer selesai
