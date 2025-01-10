@@ -107,12 +107,10 @@ void loop() {
 
 //============================================================= Method LCD Init ============================================================
 void LCDinit() {
-  //Memulai komunikasi serial dengan LCD
-  lcd.init();
-  //Start LCD
-  lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("Memulai"); lcd.setCursor(1,1); lcd.print("Sistem pH..."); delay(1000);
-  //Welcome LCD
-  lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("Welcome to"); lcd.setCursor(1,1); lcd.print("PHIOTNET...."); delay(1000);
+  lcd.init(); //Memulai komunikasi serial dengan LCD
+  lcd.backlight(); //Mengaktifkan lampu latar (backlight) pada layar LCD
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("Memulai"); lcd.setCursor(1,1); lcd.print("Sistem pH..."); delay(1000); //Start LCD
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("Welcome to"); lcd.setCursor(1,1); lcd.print("PHIOTNET...."); delay(1000); //Welcome LCD
 }
 
 
@@ -259,38 +257,38 @@ void readPHandControl() {
 
 
 //============================================================ Method Output LCD ===========================================================
-void Loading() {
-  lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("Loading...."); delay(5000); Waiting();
-}
-void Waiting() {
-  lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("Menunggu"); lcd.setCursor(1,1); lcd.print("Perintah..."); delay(1000);
-}
 void LCDfailIoT() {
-  lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("IoT Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); delay(5000);
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("IoT Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); delay(5000);
 }
 void LCDfailBot() {
-  lcd.clear(); lcd.backlight(); lcd.setCursor(1,0); lcd.print("Bot Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); delay(5000);
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("Bot Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); delay(5000);
+}
+void Waiting() {
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("Menunggu"); lcd.setCursor(1,1); lcd.print("Perintah..."); delay(1000);
+}
+void Loading() {
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("Loading...."); delay(5000); Waiting();
 }
 void Viewnow() {
-  lcd.clear(); lcd.backlight(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(payload_Subscribe)); delay(1000); Waiting();
+  lcd.clear(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(payload_Subscribe)); delay(1000); Waiting();
 }
 void LCDAllpHON() {
-  lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
+  lcd.clear(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
 }
 void LCDAllpHOFF() {
-  lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(5,1); lcd.print("(OFF)"); delay(5000); Waiting();
+  lcd.clear(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(5,1); lcd.print("(OFF)"); delay(5000); Waiting();
 }
 void LCDpHUpON() {
-  lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
+  lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
 }
 void LCDpHUpOFF() {
-  lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(5,1); lcd.print("(OFF)"); delay(5000); Waiting();
+  lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(5,1); lcd.print("(OFF)"); delay(5000); Waiting();
 }
 void LCDpHDownON() {
-  lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
+  lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
 }
 void LCDpHDownOFF() {
-  lcd.clear(); lcd.backlight(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(OFF)"); delay(5000); Waiting();
+  lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(OFF)"); delay(5000); Waiting();
 }
 
 
