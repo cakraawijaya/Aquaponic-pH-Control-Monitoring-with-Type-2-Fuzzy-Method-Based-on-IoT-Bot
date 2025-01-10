@@ -434,10 +434,10 @@ void pH_up_off() { //Method pH Up off : On/Off Controller
   digitalWrite(SValve1, relayOFF);   //Matikan Solenoid Valve 1
 }
 void all_pH_on() { //Method pH Up dan pH Down on : On/Off Controller
-  digitalWrite(SValve1, relayON); digitalWrite(SValve2, relayON);     //Nyalakan Semua Solenoid Valve
+  digitalWrite(SValve1, relayON); digitalWrite(SValve2, relayON);     //Seluruh Solenoid Valve pH menyala
 }
 void all_pH_off() { //Method pH Up dan pH Down off : On/Off Controller
-  digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);   //Matikan Semua Solenoid Valve
+  digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);   //Seluruh Solenoid Valve pH mati
 }
 void pH_down_on() { //Method pH Down on : On/Off Controller
   digitalWrite(SValve2, relayON);    //Nyalakan Solenoid Valve 2
@@ -1006,7 +1006,7 @@ void redukdefuzz_it2fl() {
     statusPH = "Aman (Netral)"; statusBuzzer = "Tidak Menyala"; 
     statusRelaypH = "All-pH (OFF: diam)";
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
-    all_pH_off();
+    all_pH_off(); //Seluruh Solenoid Valve pH mati
   }
   else if (yout == 3) {
     statusPH = "Waspada (Basa Lemah)"; statusBuzzer = "Menyala (2x)"; 
