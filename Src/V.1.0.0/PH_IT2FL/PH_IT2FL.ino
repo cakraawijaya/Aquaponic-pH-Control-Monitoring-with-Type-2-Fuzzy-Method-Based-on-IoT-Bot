@@ -241,7 +241,7 @@ void readPHandControl() {
   a = 21.84; b = -5.27; //Linear Regression Value
   y = a + b * x; //pH Value
 
-  //set point atas dan bawah
+  //Set point atas dan bawah
   if (y > 14.00) { y = 14.00; } 
   else if (y < 0.00) { y = 0.00; }
   
@@ -296,58 +296,54 @@ void LCDpHDownOFF() {
 
 //========================================================= Method Output Relay pH =======================================================
 void pH_up_onlm() { //Method pH Up On 25 detik : On/Off Controller
-  while (count <= 25) {
-    digitalWrite(SValve1, relayON);
-    count++;
-    if (count == 25) { break; }
-    delay(1000);
-  }
-  digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
+  while (count <= 25) { //Selama hitungan belum sampai 25 maka :
+    pH_up_on(); //Nyalakan Solenoid Valve 1
+    count++; //Increment
+    if (count == 25) { break; } //Jika hitungan sudah sampai 25 maka keluar dari kondisi perulangan
+    delay(1000); //Jeda 1 detik
+  } all_pH_off(); //Seluruh Solenoid Valve pH mati
 }
 void pH_up_onsd() { //Method pH Up On 10 detik : On/Off Controller
-  while (count <= 10) {
-    digitalWrite(SValve1, relayON);
-    count++;
-    if (count == 10) { break; }
-    delay(1000);
-  }
-  digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
+  while (count <= 10) { //Selama hitungan belum sampai 10 maka :
+    pH_up_on(); //Nyalakan Solenoid Valve 1
+    count++; //Increment
+    if (count == 10) { break; } //Jika hitungan sudah sampai 10 maka keluar dari kondisi perulangan
+    delay(1000); //Jeda 1 detik
+  } all_pH_off(); //Seluruh Solenoid Valve pH mati
 }
 void pH_up_on() { //Method pH Up on : On/Off Controller
-  digitalWrite(SValve1, relayON);
+  digitalWrite(SValve1, relayON);    //Nyalakan Solenoid Valve 1
 }
 void pH_up_off() { //Method pH Up off : On/Off Controller
-  digitalWrite(SValve1, relayOFF);
+  digitalWrite(SValve1, relayOFF);   //Matikan Solenoid Valve 1
 }
 void all_pH_on() { //Method pH Up dan pH Down on : On/Off Controller
-  digitalWrite(SValve1, relayON); digitalWrite(SValve2, relayON);
+  digitalWrite(SValve1, relayON); digitalWrite(SValve2, relayON);     //Seluruh Solenoid Valve pH menyala
 }
 void all_pH_off() { //Method pH Up dan pH Down off : On/Off Controller
-  digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
+  digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);   //Seluruh Solenoid Valve pH mati
 }
 void pH_down_on() { //Method pH Down on : On/Off Controller
-  digitalWrite(SValve2, relayON);
+  digitalWrite(SValve2, relayON);    //Nyalakan Solenoid Valve 2
 }
 void pH_down_off() { //Method pH Down off : On/Off Controller
-  digitalWrite(SValve2, relayOFF);
+  digitalWrite(SValve2, relayOFF);   //Matikan Solenoid Valve 2
 }
 void pH_down_onsd() { //Method pH Down On 10 detik : On/Off Controller
-  while (count <= 10) {
-    digitalWrite(SValve2, relayON);
-    count++;
-    if (count == 10) { break; }
-    delay(1000);
-  }
-  digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
+  while (count <= 10) { //Selama hitungan belum sampai 10 maka :
+    pH_down_on(); //Nyalakan Solenoid Valve 2
+    count++; //Increment
+    if (count == 10) { break; } //Jika hitungan sudah sampai 10 maka keluar dari kondisi perulangan
+    delay(1000); //Jeda 1 detik
+  } all_pH_off(); //Seluruh Solenoid Valve pH mati
 }
 void pH_down_onlm() { //Method pH Down On 25 detik : On/Off Controller
-  while (count <= 25) {
-    digitalWrite(SValve2, relayON);
-    count++;
-    if (count == 25) { break; }
-    delay(1000);
-  }
-  digitalWrite(SValve1, relayOFF); digitalWrite(SValve2, relayOFF);
+  while (count <= 25) { //Selama hitungan belum sampai 25 maka :
+    pH_down_on(); //Nyalakan Solenoid Valve 2
+    count++; //Increment
+    if (count == 25) { break; } //Jika hitungan sudah sampai 25 maka keluar dari kondisi perulangan
+    delay(1000); //Jeda 1 detik
+  } all_pH_off(); //Seluruh Solenoid Valve pH mati
 }
 
 
@@ -819,7 +815,7 @@ void redukdefuzz_it2fl() {
     statusRelaypH = "pH-Up (ON lama: 25 detik)";
     Serial.println("\nStatus pH: " + statusPH + "\nBuzzer: " + statusBuzzer + "\nRelay: " + statusRelaypH);
     pH_up_onlm(); //pH Up Menyala 25 detik
-    B2(); //Buzzer menyala 2x dalam interval jeda 1 detik
+    B3(); //Buzzer menyala 3x dalam interval jeda 1 detik
   }
   else if (yout == 1) {
     statusPH = "Waspada (Asam Lemah)"; statusBuzzer = "Menyala (2x)";
