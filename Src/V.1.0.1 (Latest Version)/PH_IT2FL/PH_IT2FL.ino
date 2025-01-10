@@ -131,12 +131,12 @@ void loop() {
 
   //Jika waktu sekarang dikurangi waktu terakhir lebih besar dari 1 detik maka :
   if ((currentMillis - startTime1) > delayTime1) {
-    readPublishPH(); //Memanggil method readPublishPH
+    readPHandControl(); //Memanggil method readPHandControl
     botTelegram(); //Memanggil method botTelegram
     startTime1 = currentMillis; //Perbarui waktu terakhir dijalankan
   }
 
-  millisFlowControl(); //Mengendalikan aliran kontrol millis
+  millisFlowControl(); //Kontrol respon millis
 }
 
 
@@ -299,8 +299,8 @@ void millisFlowControl() {
 }
 
 
-//============================================================== Method Read pH ============================================================
-void readPublishPH() {
+//======================================================= Method Read pH and Control =======================================================
+void readPHandControl() {
   adc_phSensor = analogRead(PoPin); //Membaca ADC Sensor pH
   x = adc_phSensor * (5.0 / 4095.0); //Nilai tegangan murni
   a = 21.84; b = -5.27; //Linear Regression Value
