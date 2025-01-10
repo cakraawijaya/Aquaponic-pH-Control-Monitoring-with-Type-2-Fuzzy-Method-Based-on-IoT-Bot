@@ -221,13 +221,13 @@ This RTC sensor can be calibrated using the following program code :
 #include <RTClib.h> // Calling the RTC library
 RTC_DS3231 rtc; // Constructor
 
-void setup(){
+void setup() {
    RTCinit(); // Calling the RTCinit method
 }
 
-void loop(){}
+void loop() {}
 
-void RTCinit(){
+void RTCinit() {
    // Starting up the RTC
    rtc.begin();
 

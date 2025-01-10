@@ -221,13 +221,13 @@ Sensor RTC ini dapat di kalibrasi dengan menggunakan kode program berikut :
 #include <RTClib.h> // Memanggil pustaka RTC
 RTC_DS3231 rtc; // Konstruktor
 
-void setup(){
+void setup() {
    RTCinit(); // Memanggil metode RTCinit
 }
 
-void loop(){}
+void loop() {}
 
-void RTCinit(){
+void RTCinit() {
    // Memulai RTC
    rtc.begin();
 
