@@ -127,8 +127,8 @@ void setup() {
   startTime = millis();
   svalveStartTime1 = millis() - svalveDuration1;
   svalveStartTime2 = millis() - svalveDuration2;
-  buzzerStartTime = millis();
   lcdStartTime = millis();
+  buzzerStartTime = millis();
 }
 
 
