@@ -89,7 +89,7 @@ void setup() {
   connectBot(); //Memanggil method connectBot (Bot Telegram)
   ButtonBot(); //Memanggil method Tombol Custom pada Bot Telegram
   RTCinit(); //Memanggil method RTCinit
-  Loading(); //LCD view Loading
+  lcdLoading(); //Memanggil method lcdLoading
   pinMode(PBuzzer, OUTPUT); //Inisialisasi pin sebagai OUTPUT
   digitalWrite(PBuzzer, LOW); //Default buzzer untuk pertama kali harus off
 }
@@ -172,7 +172,7 @@ void reconnect() {
     else {
       Serial.println("\nstatus :"); Serial.print(mqtt_server);
       Serial.print(" gagal tersambung (" + String(client.state()) + ")\nmenyambungkan kembali");
-      LCDfailIoT(); //LCD view Fail
+      lcdFailIoT(); //Memanggil method lcdFailIoT
       while (!client.connect(mqtt_clientID, mqtt_username, mqtt_password)) {
         delay(500);
         Serial.print(".");
@@ -213,7 +213,7 @@ void connectBot() {
     Serial.println("\nstatus :\nbot telegram berhasil tersambung"); 
   } else { 
     Serial.print("\nstatus :\nbot telegram gagal tersambung\nmenyambungkan kembali"); 
-    LCDfailBot();
+    lcdFailBot(); //Memanggil method lcdFailBot
     while (!myBot.testConnection()) { 
       delay(1000);
       Serial.print(".");
@@ -258,37 +258,37 @@ void readPHandControl() {
 
 
 //============================================================ Method Output LCD ===========================================================
-void LCDfailIoT() {
+void lcdFailIoT() {
   lcd.clear(); lcd.setCursor(1,0); lcd.print("IoT Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); delay(5000);
 }
-void LCDfailBot() {
+void lcdFailBot() {
   lcd.clear(); lcd.setCursor(1,0); lcd.print("Bot Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); delay(5000);
 }
-void Waiting() {
+void lcdWaiting() {
   lcd.clear(); lcd.setCursor(1,0); lcd.print("Menunggu"); lcd.setCursor(1,1); lcd.print("Perintah..."); delay(1000);
 }
-void Loading() {
+void lcdLoading() {
   lcd.clear(); lcd.setCursor(1,0); lcd.print("Loading...."); delay(5000); Waiting();
 }
-void Viewnow() {
+void lcdpHValue() {
   lcd.clear(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(payload_Subscribe)); delay(1000); Waiting();
 }
-void LCDAllpHON() {
+void lcdAllpHON() {
   lcd.clear(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
 }
-void LCDAllpHOFF() {
+void lcdAllpHOFF() {
   lcd.clear(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(5,1); lcd.print("(OFF)"); delay(5000); Waiting();
 }
-void LCDpHUpON() {
+void lcdpHUpON() {
   lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
 }
-void LCDpHUpOFF() {
+void lcdpHUpOFF() {
   lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(5,1); lcd.print("(OFF)"); delay(5000); Waiting();
 }
-void LCDpHDownON() {
+void lcdpHDownON() {
   lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); Waiting();
 }
-void LCDpHDownOFF() {
+void lcdpHDownOFF() {
   lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(OFF)"); delay(5000); Waiting();
 }
 
@@ -447,7 +447,8 @@ void botTelegram() {
     else if (msg.text.equalsIgnoreCase("👁 Monitoring pH")) { //Hasil Monitoring pH
       rp1 = "🙋🏻‍♂️ Hai @" + msg.sender.username + " 👋👋\nBerikut hasil monitoring pH terkini :\n\n";
       myBot.sendMessage(msg.sender.id, rp1);
-      DTnow(); Viewnow();
+      DTnow(); //Pewaktuan dari RTC
+      lcdpHValue(); //Tampilkan status Nilai pH pada LCD
       rp2 = "--------------------------------------------------------------\n 👁 MONITORING PH \n--------------------------------------------------------------\n💦 pH air akuarium : " + String(payload_Subscribe) + "\n⏰ waktu : " + String(waktu) + "\n--------------------------------------------------------------"; 
       myBot.sendMessage(msg.sender.id, rp2);
       Serial.println("pH air akuaponik saat ini : " + String(payload_Subscribe) + "\nWaktu saat ini : " + String(waktu) + "\n");
@@ -529,14 +530,14 @@ void botTelegram() {
       else if (msg.callbackQueryData.equals(INrespYes1)) { //Respon Opsi Sub Menu All-pH ON
         all_pH_on(); //Menyalakan semua relay pH
         statusKendaliIoT = "ON"; //Status kendali ON
-        LCDAllpHON(); //View LCD All-pH ON
+        lcdAllpHON(); //Tampilkan status All-pH ON pada LCD
         sendMsg = "🌊 Semua pH (Up-Down): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
       else if (msg.callbackQueryData.equals(INrespYes2)) { //Respon Opsi Sub Menu All-pH OFF
         all_pH_off(); //Mematikan semua relay pH
         statusKendaliIoT = "OFF"; //Status kendali OFF
-        LCDAllpHOFF(); //View LCD All-pH OFF
+        lcdAllpHOFF(); //Tampilkan status All-pH OFF pada LCD
         sendMsg = "💤 Semua pH (Up-Down): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
@@ -548,14 +549,14 @@ void botTelegram() {
       else if (msg.callbackQueryData.equals(INrespYes3)) { //Respon Opsi Sub Menu pH-Up ON
         pH_up_on(); //Menyalakan relay pH Up
         statusKendaliIoT = "ON"; //Status kendali ON
-        LCDpHUpON(); //View LCD pH-Up ON
+        lcdpHUpON(); //Tampilkan status pH-Up ON pada LCD
         sendMsg = "🌊 pH (Up): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
       else if (msg.callbackQueryData.equals(INrespYes4)) { //Respon Opsi Sub Menu pH-Up OFF
         pH_up_off(); //Mematikan relay pH Up
         statusKendaliIoT = "OFF"; //Status kendali OFF
-        LCDpHUpOFF(); //View LCD pH-Up OFF
+        lcdpHUpOFF(); //Tampilkan status pH-Up OFF pada LCD
         sendMsg = "💤 pH (Up): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
@@ -567,14 +568,14 @@ void botTelegram() {
       else if (msg.callbackQueryData.equals(INrespYes5)) { //Respon Opsi Sub Menu pH-Down ON
         pH_down_on(); //Menyalakan relay pH Down
         statusKendaliIoT = "ON"; //Status kendali ON
-        LCDpHDownON(); //View LCD pH-Down ON
+        lcdpHDownON(); //Tampilkan status pH-Down ON pada LCD
         sendMsg = "🌊 pH (Down): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
       else if (msg.callbackQueryData.equals(INrespYes6)) { //Respon Opsi Sub Menu pH-Down OFF
         pH_down_off(); //Mematikan relay pH Down
         statusKendaliIoT = "OFF"; //Status kendali OFF
-        LCDpHDownOFF(); //View LCD pH-Down OFF
+        lcdpHDownOFF(); //Tampilkan status pH-Down OFF pada LCD
         sendMsg = "💤 pH (Down): " + statusKendaliIoT;
         myBot.sendMessage(msg.sender.id, sendMsg);
       }
