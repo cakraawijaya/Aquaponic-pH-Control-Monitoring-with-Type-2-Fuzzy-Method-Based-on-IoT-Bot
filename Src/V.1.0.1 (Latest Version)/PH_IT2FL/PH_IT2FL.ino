@@ -306,7 +306,7 @@ void millisFlowControl() {
 
   //Matikan LCD jika masih aktif
   if (isLcdOn) {
-    //Jika status Loading sudah ditampilkan selama 1 detik, maka :
+    //Jika status Loading sudah ditampilkan selama 5 detik, maka :
     if (isLcdLoadingActive && (currentMillis - lcdStartTime) >= delayTime2) {
       lcd.clear(); //Hapus layar LCD
       isLcdOn = false; //Perbarui status LCD
