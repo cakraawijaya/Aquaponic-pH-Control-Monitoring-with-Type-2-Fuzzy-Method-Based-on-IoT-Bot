@@ -259,37 +259,56 @@ void readPHandControl() {
 
 //============================================================ Method Output LCD ===========================================================
 void lcdFailIoT() {
-  lcd.clear(); lcd.setCursor(1,0); lcd.print("IoT Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); delay(5000);
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("IoT Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); //Cetak ke layar LCD
+  delay(5000); //Jeda 5 detik
 }
 void lcdFailBot() {
-  lcd.clear(); lcd.setCursor(1,0); lcd.print("Bot Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); delay(5000);
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("Bot Gagal"); lcd.setCursor(1,1); lcd.print("Tersambung..."); //Cetak ke layar LCD
+  delay(5000); //Jeda 5 detik
 }
 void lcdWaiting() {
-  lcd.clear(); lcd.setCursor(1,0); lcd.print("Menunggu"); lcd.setCursor(1,1); lcd.print("Perintah..."); delay(1000);
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("Menunggu"); lcd.setCursor(1,1); lcd.print("Perintah..."); //Cetak ke layar LCD
+  delay(1000); //Jeda 1 detik
 }
 void lcdLoading() {
-  lcd.clear(); lcd.setCursor(1,0); lcd.print("Loading...."); delay(5000); lcdWaiting();
+  lcd.clear(); lcd.setCursor(1,0); lcd.print("Loading...."); //Cetak ke layar LCD
+  delay(5000); //Jeda 5 detik
+  lcdWaiting(); //Memanggil method lcdWaiting
 }
 void lcdpHValue() {
-  lcd.clear(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(payload_Subscribe)); delay(1000); lcdWaiting();
+  lcd.clear(); lcd.setCursor(2,0); lcd.print("pH Air : "+ String(payload_Subscribe));  //Cetak ke layar LCD
+  delay(1000); //Jeda 1 detik
+  lcdWaiting(); //Memanggil method lcdWaiting
 }
 void lcdAllpHON() {
-  lcd.clear(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); lcdWaiting();
+  lcd.clear(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(6,1); lcd.print("(ON)"); //Cetak ke layar LCD
+  delay(5000); //Jeda 5 detik
+  lcdWaiting(); //Memanggil method lcdWaiting
 }
 void lcdAllpHOFF() {
-  lcd.clear(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(5,1); lcd.print("(OFF)"); delay(5000); lcdWaiting();
+  lcd.clear(); lcd.setCursor(4,0); lcd.print("All pH :"); lcd.setCursor(5,1); lcd.print("(OFF)"); //Cetak ke layar LCD
+  delay(5000); //Jeda 5 detik
+  lcdWaiting(); //Memanggil method lcdWaiting
 }
 void lcdpHUpON() {
-  lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); lcdWaiting();
+  lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(6,1); lcd.print("(ON)"); //Cetak ke layar LCD
+  delay(5000); //Jeda 5 detik
+  lcdWaiting(); //Memanggil method lcdWaiting
 }
 void lcdpHUpOFF() {
-  lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(5,1); lcd.print("(OFF)"); delay(5000); lcdWaiting();
+  lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Up :"); lcd.setCursor(5,1); lcd.print("(OFF)"); //Cetak ke layar LCD
+  delay(5000); //Jeda 5 detik
+  lcdWaiting(); //Memanggil method lcdWaiting
 }
 void lcdpHDownON() {
-  lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(ON)"); delay(5000); lcdWaiting();
+  lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(ON)"); //Cetak ke layar LCD
+  delay(5000); //Jeda 5 detik
+  lcdWaiting(); //Memanggil method lcdWaiting
 }
 void lcdpHDownOFF() {
-  lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(OFF)"); delay(5000); lcdWaiting();
+  lcd.clear(); lcd.setCursor(4,0); lcd.print("pH Down:"); lcd.setCursor(6,1); lcd.print("(OFF)"); //Cetak ke layar LCD
+  delay(5000); //Jeda 5 detik
+  lcdWaiting(); //Memanggil method lcdWaiting
 }
 
 
