@@ -874,6 +874,7 @@ void IT2FL_pH() {
   reset_redukdeffuzz();
 }
 
+
 //========================================================= Method Fuzzifikasi ===========================================================
 void MF_AsamKuat() { //Fungsi Keanggotaan Asam Kuat
   //MF-Upper : Asam Kuat
@@ -1107,6 +1108,7 @@ void redukdefuzz_it2fl() {
     autopHDown25SecondON(); //pH Down Menyala 25 detik
   }
 }
+
 
 //Method ini digunakan untuk menyetel ulang perhitungan Fuzzy Type-2 agar tetap optimal
 void reset_redukdeffuzz() {
