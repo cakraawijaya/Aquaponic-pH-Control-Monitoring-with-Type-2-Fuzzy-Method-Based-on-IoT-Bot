@@ -18,22 +18,22 @@ CTBotInlineKeyboard InKbd, In3Kbd1, In3Kbd2, In3Kbd3, In3Kbd4, In3Kbd5, In3Kbd6,
 
 //===================================================== Deklarasi Variabel: Tipe Data ======================================================
 //Tipe data Char
-char dataHari[7][12] = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"}; 
 char payload_Publish[4];
+char dataHari[7][12] = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"}; 
 
 //Tipe data Float
-float payload_Subscribe;
 float adc_phSensor, x, a, b;
 float y, old_pHValue = 0, pHValue;
 float pHair_Upper, pHair_Lower;
 float AKU, AKL, ALU, ALL, NU, NL, BLU, BLL, BKU, BKL;
 float SigyiMiuMFUpper, SigyiMiuMFLower, SigMiuMFUpper, SigMiuMFLower, yl, yr;
 float MiuUMF[5], MiuLMF[5];
+float payload_Subscribe;
 
 //Tipe data Int
-int tanggal, bulan, tahun; 
 int i, yi, ycos, yout, Tarray1, Tarray2; 
 int SPK[5]; 
+int tanggal, bulan, tahun; 
 
 //Tipe data String
 String statusPH, statusBuzzer, statusRelaypH; 
