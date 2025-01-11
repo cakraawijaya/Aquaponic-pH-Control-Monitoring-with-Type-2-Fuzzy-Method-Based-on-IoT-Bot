@@ -2,15 +2,15 @@
 #include <WiFi.h> //Pemanggilan Library WiFi
 #include <PubSubClient.h> //Pemanggilan Library PubSubClient
 #include <LiquidCrystal_I2C.h> //Pemanggilan Library LiquidCrystal_I2C
-#include <CTBot.h> //Pemanggilan Library CTBot
 #include <RTClib.h> //Pemanggilan Library RTClib
+#include <CTBot.h> //Pemanggilan Library CTBot
 
 
 //======================================================= Inisialisasi: Constructor ========================================================
-RTC_DS3231 rtc; //Constructor RTC_DS3231
-LiquidCrystal_I2C lcd(0x27, 16, 2); //Constructor LiquidCrystal_I2C
 WiFiClient espClient; //Constructor WiFiClient
 PubSubClient client(espClient); //Constructor PubSubClient
+LiquidCrystal_I2C lcd(0x27, 16, 2); //Constructor LiquidCrystal_I2C
+RTC_DS3231 rtc; //Constructor RTC_DS3231
 CTBot myBot; //Constructor CTBot
 CTBotReplyKeyboard myKbd, submainKbd, sub1Kbd, sub2Kbd, sub3Kbd; //Constructor CTBotReplyKeyboard
 CTBotInlineKeyboard InKbd, In3Kbd1, In3Kbd2, In3Kbd3, In3Kbd4, In3Kbd5, In3Kbd6, InNULL; //Constructor CTBotInlineKeyboard
@@ -18,32 +18,33 @@ CTBotInlineKeyboard InKbd, In3Kbd1, In3Kbd2, In3Kbd3, In3Kbd4, In3Kbd5, In3Kbd6,
 
 //===================================================== Deklarasi Variabel: Tipe Data ======================================================
 //Tipe data Char
-char dataHari[7][12] = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"}; 
 char payload_Publish[4];
+char dataHari[7][12] = {"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"}; 
 
 //Tipe data Float
-float payload_Subscribe;
 float adc_phSensor, x, a, b;
 float y, old_pHValue = 0, pHValue;
 float pHair_Upper, pHair_Lower;
 float AKU, AKL, ALU, ALL, NU, NL, BLU, BLL, BKU, BKL;
 float SigyiMiuMFUpper, SigyiMiuMFLower, SigMiuMFUpper, SigMiuMFLower, yl, yr;
 float MiuUMF[5], MiuLMF[5];
+float payload_Subscribe;
 
 //Tipe data Int
 int count=0;
-int tanggal, bulan, tahun; 
 int i, yi, ycos, yout, Tarray1, Tarray2; 
 int SPK[5]; 
+int tanggal, bulan, tahun; 
 
 //Tipe data String
-String hari, waktu, rp1, rp2, sendMsg, statusKendaliIoT;
-String statusPH, statusBuzzer, statusRelaypH;
+String statusPH, statusBuzzer, statusRelaypH; 
+String hari, waktu;
+String rp1, rp2, sendMsg, statusKendaliIoT;
 
 //Tipe data Boolean
-bool viewTombol; 
 bool relayON = LOW;
 bool relayOFF = HIGH;
+bool viewTombol; 
 
 
 //============================================================= Define Variabel ============================================================
