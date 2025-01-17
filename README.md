@@ -48,7 +48,7 @@ An aquaponic system is a combined farming system between fish with vegetables wh
    <table><tr><td width="810">
 
    ```
-   https://bit.ly/CP210X_USB_Driver
+   https://bit.ly/CP210X_USBdriver
    ```
 
    </td></tr></table><br>
