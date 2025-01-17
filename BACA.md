@@ -58,7 +58,7 @@ Sistem akuaponik adalah sistem pertanian gabungan antara ikan dengan sayuran yan
    <table><tr><td width="810">
 
    ```
-   https://bit.ly/Matlab_R2020a_Installer
+   https://bit.ly/MATLAB_R2020a_Installer
    ```
 
    </td></tr></table>
