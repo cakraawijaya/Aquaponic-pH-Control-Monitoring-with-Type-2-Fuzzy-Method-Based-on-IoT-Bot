@@ -480,7 +480,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
 ## <img src="https://github.com/user-attachments/assets/932b96eb-cbc7-42f1-8938-43cb431889a5" width="16" height="16"> Catatan
 <ul>
 <li>
-   <strong><p>Perbaikan Hardware :</p></strong>
+   <strong><p>Saran Perbaikan Hardware :</p></strong>
    <table>
    <tr>
    <td width="20">1.</td>
@@ -521,7 +521,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </table>
 </li><br>
 <li>
-   <strong><p>Perbaikan Firmware :</p></strong>
+   <strong><p>Saran Perbaikan Firmware :</p></strong>
    <table>
    <tr>
    <td width="20">1.</td>
@@ -534,7 +534,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </table>
 </li><br>
 <li>
-   <strong><p>Fitur Otomatisasi Tambahan Yang Disarankan :</p></strong>
+   <strong><p>Saran Peningkatan Fitur Otomatisasi :</p></strong>
    <table>
    <tr>
    <td width="20">1.</td>      
@@ -559,7 +559,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </table>
 </li><br>
 <li>
-   <strong><p>Optimalisasi Media dan Infrastruktur :</p></strong>
+   <strong><p>Saran Optimalisasi Media dan Infrastruktur :</p></strong>
    <table>
    <tr>
    <td width="20">1.</td>
