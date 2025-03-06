@@ -563,7 +563,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </table>
 </li><br>
 <li>
-   <strong><p>Saran Optimalisasi Media dan Infrastruktur :</p></strong>
+   <strong><p>Saran Optimalisasi Media Tanam :</p></strong>
    <table>
    <tr>
    <td width="20">1.</td>
