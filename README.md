@@ -28,7 +28,7 @@ An aquaponic system is a combined farming system between fish with vegetables wh
 | Sensor | • pH Sensor (x1)<br>• RTC (x1) |
 | Display | LCD I2C (x1) |
 | Experimental Object | • Pakcoy mustard seeds<br>• Dumbo catfish fry |
-| Other Components | • Micro USB cable - USB type A (x1)<br>• Jumper cable (1 set)<br>• Switching power supply 12V 1A (x1)<br>• Electromechanical relay 2-channel (x1)<br>• Round switch (x1)<br>• ESP32 expansion board (x1)<br>• PCB Dot Matrix (x1)<br>• Terminal PCB block screw (x10)<br>• Socket female jack DC (x1)<br>• Connector male jack DC (x3)<br>• Probe Elektroda pH (x1)<br>• Pipes (1 set)<br>• Netpot (1 set)<br>• Rockwool (1 set)<br>• Flannel fabric (1 set)<br>• Water filter (x1)<br>• Glass hubcap (1 set)<br>• Bottle (x2)<br>• Aquarium wheeled placemat (x1)<br>• Aquarium (x1)<br>• Casing box (x1)<br>• Skun (1 set)<br>• Galvanized plate (x1)<br>• Bolts plus (1 set)<br>• Nuts (1 set) |
+| Other Components | • Micro USB cable - USB type A (x1)<br>• Jumper cable (1 set)<br>• Switching power supply 12V 1A (x1)<br>• Electromechanical relay 2-channel (x1)<br>• Round switch (x1)<br>• ESP32 expansion board (x1)<br>• PCB Dot Matrix (x1)<br>• Terminal PCB block screw (x10)<br>• Socket female jack DC (x1)<br>• Connector male jack DC (x3)<br>• Probe Elektroda pH (x1)<br>• Pipes (1 set)<br>• Netpot (1 set)<br>• Rockwool (1 set)<br>• Flannel fabric (1 set)<br>• Water filter (x1)<br>• Glass hubcap (1 set)<br>• Bottle (x2)<br>• Aquarium wheeled placemat (x1)<br>• Aquarium (x1)<br>• Acrylic box (x1)<br>• Skun (1 set)<br>• Galvanized plate (x1)<br>• Bolts plus (1 set)<br>• Nuts (1 set) |
 
 <br><br>
 
@@ -515,7 +515,11 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </tr>
    <tr>
    <td width="20">9.</td>
-   <td width="820">Consider changing the 2-Channel Electromechanical Relay with the SSR DD Relay for smoother control (no noise), faster response, lower power consumption, higher efficiency, and better durability for long-term use.</td>
+   <td width="820">Consider replacing the 2-Channel Electromechanical Relay with the SSR DD Relay for smoother control (no noise), faster response, lower power consumption, higher efficiency, and better durability for long-term use.</td>
+   </tr>
+   <tr>
+   <td width="20">10.</td>
+   <td width="820">Consider replacing the acrylic box with a standard panel box to make the device much more secure and presentable.</td>
    </tr>
    </table>
 </li><br>
@@ -558,7 +562,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </table>
 </li><br>
 <li>
-   <strong><p>Media and Infrastructure Optimization Suggestions :</p></strong>
+   <strong><p>Planting Media Optimization Suggestions :</p></strong>
    <table>
    <tr>
    <td width="20">1.</td>
