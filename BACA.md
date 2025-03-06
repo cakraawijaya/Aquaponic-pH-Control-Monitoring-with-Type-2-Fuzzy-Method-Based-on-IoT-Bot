@@ -28,7 +28,7 @@ Sistem akuaponik adalah sistem pertanian gabungan antara ikan dengan sayuran yan
 | Sensor | • pH Sensor (x1)<br>• RTC (x1) |
 | Layar | LCD I2C (x1) |
 | Objek Percobaan | • Benih sawi pakcoy<br>• Benih lele dumbo |
-| Komponen Lainnya | • Kabel USB Mikro - USB tipe A (x1)<br>• Kabel jumper (1 set)<br>• Switching power supply 12V 1A (x1)<br>• Electrical relay 2 channel (x1)<br>• Saklar bulat (x1)<br>• Papan ekspansi ESP32 (x1)<br>• PCB Dot Matrix (x1)<br>• Terminal PCB block screw (x10)<br>• Socket female jack DC (x1)<br>• Connector male jack DC (x3)<br>• Probe Elektroda pH (x1)<br>• Pipa (1 set)<br>• Netpot (1 set)<br>• Rockwool (1 set)<br>• Kain flanel (1 set)<br>• Saringan air (x1)<br>• Dop kaca (1 set)<br>• Botol (x2)<br>• Tatakan beroda akuarium (x1)<br>• Akuarium (x1)<br>• Kotak casing (x1)<br>• Skun (1 set)<br>• Plat galvanis (x1)<br>• Baut plus (1 set)<br>• Mur (1 set) |
+| Komponen Lainnya | • Kabel USB Mikro - USB tipe A (x1)<br>• Kabel jumper (1 set)<br>• Switching power supply 12V 1A (x1)<br>• Electromechanical relay 2 channel (x1)<br>• Saklar bulat (x1)<br>• Papan ekspansi ESP32 (x1)<br>• PCB Dot Matrix (x1)<br>• Terminal PCB block screw (x10)<br>• Socket female jack DC (x1)<br>• Connector male jack DC (x3)<br>• Probe Elektroda pH (x1)<br>• Pipa (1 set)<br>• Netpot (1 set)<br>• Rockwool (1 set)<br>• Kain flanel (1 set)<br>• Saringan air (x1)<br>• Dop kaca (1 set)<br>• Botol (x2)<br>• Tatakan beroda akuarium (x1)<br>• Akuarium (x1)<br>• Kotak casing (x1)<br>• Skun (1 set)<br>• Plat galvanis (x1)<br>• Baut plus (1 set)<br>• Mur (1 set) |
 
 <br><br>
 
@@ -504,7 +504,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </tr>
    <tr>
    <td width="20">6.</td>
-   <td width="820">Ganti pengaturan Relay dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih di Solenoid Valve.</td>
+   <td width="820">Ganti pengaturan Relay Elektromekanis 2-Channel dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih di Solenoid Valve.</td>
    </tr>
    <tr>
    <td width="20">7.</td>
@@ -513,6 +513,10 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    <tr>
    <td width="20">8.</td>
    <td width="820">Pertimbangkan untuk memilih lebih dari 1 Development Board untuk meningkatkan optimalisasi sistem.</td>
+   </tr>
+   <tr>
+   <td width="20">9.</td>
+   <td width="820">Pertimbangkan untuk mengganti Relay Elektromekanis 2-Channel dengan Relay SSR DD untuk memperoleh kendali yang lebih halus (tanpa noise), respon lebih cepat, konsumsi daya lebih rendah, efisiensi lebih tinggi, serta daya tahan lebih baik untuk penggunaan jangka panjang.</td>
    </tr>
    </table>
 </li><br>
