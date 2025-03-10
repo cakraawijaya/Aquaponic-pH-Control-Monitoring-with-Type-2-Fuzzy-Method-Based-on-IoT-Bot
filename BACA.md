@@ -484,11 +484,11 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    <table>
    <tr>
    <td width="20">1.</td>
-   <td width="820">Gunakan PSU standar dengan kapasitas 3A untuk menyuplai seluruh perangkat yang terpasang.</td>
+   <td width="820">Ubah pengaturan Relay Elektromekanis 2-Channel dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih.</td>
    </tr>
    <tr>
    <td width="20">2.</td>
-   <td width="820">Ubah pengaturan Relay Elektromekanis 2-Channel dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih.</td>
+   <td width="820">Gunakan PSU standar dengan kapasitas 3A untuk menyuplai seluruh perangkat yang terpasang.</td>
    </tr>
    <tr>
    <td width="20">3.</td>
@@ -528,7 +528,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </tr>
    <tr>
    <td width="20">12.</td>
-   <td width="820">Pertimbangkan untuk mengganti kabel sesuai dengan standar penggunaan. Untuk listrik DC, gunakan kabel AVS 1 x 0,5mm², yang lebih tahan lama dibandingkan kabel ribbon. Sementara itu, untuk listrik AC, gunakan kabel NYY-HY 2 x 1,5mm², karena lebih tahan terhadap air, cuaca, serta gangguan fisik seperti gigitan tikus.</td>
+   <td width="820">Pertimbangkan untuk mengganti kabel sesuai dengan standar penggunaan. Untuk listrik DC, gunakan kabel AVS 1 x 0,5mm², yang lebih tahan lama dibandingkan kabel pita. Sementara itu, untuk listrik AC, gunakan kabel NYY-HY 2 x 1,5mm², karena lebih tahan terhadap air, cuaca, serta gangguan fisik seperti gigitan tikus.</td>
    </tr>
    </table>
 </li><br>
