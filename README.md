@@ -542,6 +542,10 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    <td width="20">2.</td>
    <td width="820">Add OTA (Over The Air) methods to improve network security, including Telegram Bot.</td>
    </tr>
+   <tr>
+   <td width="20">3.</td>
+   <td width="820">Add EEPROM to permanently store the pH sensor calibration results, so that the calibration does not need to be written in the method loop again. This can save time and improve device efficiency.</td>
+   </tr>
    </table>
 </li><br>
 <li>
