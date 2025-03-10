@@ -488,31 +488,31 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </tr>
    <tr>
    <td width="20">2.</td>
-   <td width="820">Tambahkan Step Down Converter untuk mendapatkan tegangan yang lebih stabil dan sesuai dengan kebutuhan perangkat. Dengan adanya komponen ini, maka tidak membutuhkan Arduino Uno.</td>
-   </tr>
-   <tr>
-   <td width="20">3.</td>
-   <td width="820">Tambahkan isolator pada komponen listrik untuk mencegah arus bocor.</td>
-   </tr>
-   <tr>
-   <td width="20">4.</td>
-   <td width="820">Pasang kipas pendingin atau ventilasi tambahan untuk meningkatkan aliran udara dan mencegah panas berlebih.</td>
-   </tr>
-   <tr>
-   <td width="20">5.</td>
-   <td width="820">Tambahkan Heat Sink pada komponen yang rentan panas.</td>
-   </tr>
-   <tr>
-   <td width="20">6.</td>
    <td width="820">Ubah pengaturan Relay Elektromekanis 2-Channel dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih.</td>
    </tr>
    <tr>
+   <td width="20">3.</td>
+   <td width="820">Tambahkan Step Down Converter untuk mendapatkan tegangan yang lebih stabil dan sesuai dengan kebutuhan perangkat. Dengan adanya komponen ini, maka tidak membutuhkan Arduino Uno.</td>
+   </tr>
+   <tr>
+   <td width="20">4.</td>
+   <td width="820">Tambahkan isolator pada komponen listrik untuk mencegah arus bocor.</td>
+   </tr>
+   <tr>
+   <td width="20">5.</td>
+   <td width="820">Tambahkan kipas atau ventilasi untuk meningkatkan aliran udara dan mencegah panas berlebih.</td>
+   </tr>
+   <tr>
+   <td width="20">6.</td>
+   <td width="820">Tambahkan Heat Sink pada komponen yang rentan panas.</td>
+   </tr>
+   <tr>
    <td width="20">7.</td>
-   <td width="820">Gunakan pelindung fisik seperti casing khusus untuk melindungi Probe Sensor pH dari kerusakan, terutama akibat benturan.</td>
+   <td width="820">Tambahkan MCB (Miniature Circuit Breaker) untuk mencegah arus berlebih, sehingga perangkat tetap aman dan terlindungi.</td>
    </tr>
    <tr>
    <td width="20">8.</td>
-   <td width="820">Tambahkan MCB untuk menghindari overcurrent.</td>
+   <td width="820">Tambahkan casing khusus untuk melindungi Probe Sensor pH dari kerusakan, terutama akibat benturan.</td>
    </tr>
    <tr>
    <td width="20">9.</td>
