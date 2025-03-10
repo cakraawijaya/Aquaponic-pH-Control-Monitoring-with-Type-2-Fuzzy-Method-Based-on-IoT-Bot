@@ -483,11 +483,11 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    <table>
    <tr>
    <td width="20">1.</td>
-   <td width="820">Use a standard PSU with a capacity of 3A to supply all installed devices.</td>
+   <td width="820">Change the Electromechanical relay 2-channel setting from NO (Normally Open) to NC (Normally Close) to reduce overheating.</td>
    </tr>
    <tr>
    <td width="20">2.</td>
-   <td width="820">Change the Electromechanical relay 2-channel setting from NO (Normally Open) to NC (Normally Close) to reduce overheating.</td>
+   <td width="820">Use a standard PSU with a capacity of 3A to supply all installed devices.</td>
    </tr>
    <tr>
    <td width="20">3.</td>
