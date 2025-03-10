@@ -504,7 +504,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </tr>
    <tr>
    <td width="20">6.</td>
-   <td width="820">Ganti pengaturan Relay Elektromekanis 2-Channel dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih di Solenoid Valve.</td>
+   <td width="820">Ubah pengaturan Relay Elektromekanis 2-Channel dari NO (Normally Open) menjadi NC (Normally Close) untuk mengurangi panas berlebih.</td>
    </tr>
    <tr>
    <td width="20">7.</td>
@@ -512,15 +512,23 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </tr>
    <tr>
    <td width="20">8.</td>
-   <td width="820">Pertimbangkan untuk memilih lebih dari 1 Development Board untuk meningkatkan optimalisasi sistem.</td>
+   <td width="820">Tambahkan MCB untuk menghindari overcurrent.</td>
    </tr>
    <tr>
    <td width="20">9.</td>
-   <td width="820">Pertimbangkan untuk mengganti Relay Elektromekanis 2-Channel dengan Relay SSR DD untuk memperoleh kendali yang lebih halus (tanpa noise), respon lebih cepat, konsumsi daya lebih rendah, efisiensi lebih tinggi, serta daya tahan lebih baik untuk penggunaan jangka panjang.</td>
+   <td width="820">Pertimbangkan untuk memilih lebih dari 1 Development Board untuk meningkatkan optimalisasi sistem.</td>
    </tr>
    <tr>
    <td width="20">10.</td>
+   <td width="820">Pertimbangkan untuk mengganti Relay Elektromekanis 2-Channel dengan Relay SSR DD untuk memperoleh kendali yang lebih halus (tanpa noise), respon lebih cepat, konsumsi daya lebih rendah, efisiensi lebih tinggi, serta daya tahan lebih baik untuk penggunaan jangka panjang.</td>
+   </tr>
+   <tr>
+   <td width="20">11.</td>
    <td width="820">Pertimbangkan untuk mengganti kotak akrilik dengan box panel standar agar perangkat yang ada jauh lebih aman dan rapi.</td>
+   </tr>
+   <tr>
+   <td width="20">12.</td>
+   <td width="820">Pertimbangkan untuk mengganti kabel sesuai dengan standar penggunaan. Untuk listrik DC, gunakan kabel AVS 1 x 0,5mm², yang lebih tahan lama dibandingkan kabel ribbon. Sementara itu, untuk listrik AC, gunakan kabel NYY-HY 2 x 1,5mm², karena lebih tahan terhadap air, cuaca, serta gangguan fisik seperti gigitan tikus.</td>
    </tr>
    </table>
 </li><br>
