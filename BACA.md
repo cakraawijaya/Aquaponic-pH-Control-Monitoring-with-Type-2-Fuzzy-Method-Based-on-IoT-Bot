@@ -549,7 +549,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </tr>
    <tr>
    <td width="20">4.</td>
-   <td width="820">Tambahkan pustaka ArduLite dan gunakan sintaksnya untuk meringankan beban ESP32, karena dapat mengurangi penggunaan memori ESP32. ArduLite ini sangat ideal untuk proyek-proyek dengan sumber daya terbatas yang mengutamakan efisiensi dan kesederhanaan. Link: https://github.com/ArduLite/ArduLite.</td>
+   <td width="820">Tambahkan pustaka ArduLite dan gunakan sintaksnya untuk meringankan beban ESP32, karena dapat mengurangi penggunaan memori ESP32. ArduLite ini sangat ideal untuk proyek-proyek dengan sumber daya terbatas yang mengutamakan efisiensi dan kesederhanaan. Tautan: https://github.com/ArduLite/ArduLite.</td>
    </tr>
    </table>
 </li><br>
