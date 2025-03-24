@@ -546,6 +546,10 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    <td width="20">3.</td>
    <td width="820">Add EEPROM to permanently store the pH sensor calibration results, so that the calibration does not need to be written in the loop() method again. This can save time and improve device efficiency.</td>
    </tr>
+   <tr>
+   <td width="20">4.</td>
+   <td width="820">Add the ArduLite library and use its syntax to lighten the load of the ESP32, as it can reduce the memory usage of the ESP32. This ArduLite is ideal for projects with limited resources that prioritize efficiency and simplicity. Link: https://github.com/ArduLite/ArduLite.</td>
+   </tr>
    </table>
 </li><br>
 <li>
