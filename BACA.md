@@ -547,6 +547,10 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    <td width="20">3.</td>
    <td width="820">Tambahkan EEPROM untuk menyimpan hasil kalibrasi sensor pH secara permanen, sehingga kalibrasi tidak perlu dituliskan di method loop() lagi. Hal ini dapat menghemat waktu dan meningkatkan efisiensi perangkat.</td>
    </tr>
+   <tr>
+   <td width="20">4.</td>
+   <td width="820">Tambahkan pustaka ArduLite dan gunakan sintaksnya untuk meringankan beban ESP32, karena dapat mengurangi penggunaan memori ESP32. ArduLite ini sangat ideal untuk proyek-proyek dengan sumber daya terbatas yang mengutamakan efisiensi dan kesederhanaan. Link: https://github.com/ArduLite/ArduLite.</td>
+   </tr>
    </table>
 </li><br>
 <li>
