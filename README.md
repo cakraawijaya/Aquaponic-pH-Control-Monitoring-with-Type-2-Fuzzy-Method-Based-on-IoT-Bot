@@ -483,11 +483,12 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    <table>
    <tr>
    <td width="20">1.</td>
-   <td width="820">Change the Electromechanical relay 2-channel setting from NO (Normally Open) to NC (Normally Close) to reduce overheating.</td>
+   <td width="820">The power supply in the microcontroller and actuator circuit needs to be reset separately so that the system can function properly and safely.</td>
    </tr>
    <tr>
    <td width="20">2.</td>
-   <td width="820">Use a standard PSU with a capacity of 3A to supply all installed devices.</td>
+   <td width="820">
+      Use a standard PSU with a capacity of 3A to supply multiple attached devices, such as actuators.</td>
    </tr>
    <tr>
    <td width="20">3.</td>
@@ -495,38 +496,42 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
    </tr>
    <tr>
    <td width="20">4.</td>
-   <td width="820">Add insulators to electrical components to prevent leakage current.</td>
+   <td width="820">Change the Electromechanical relay 2-channel setting from NO (Normally Open) to NC (Normally Close) to reduce overheating.</td>
    </tr>
    <tr>
    <td width="20">5.</td>
-   <td width="820">Add fans or vents to increase airflow and prevent overheating.</td>
+   <td width="820">Add insulators to electrical components to prevent leakage current.</td>
    </tr>
    <tr>
    <td width="20">6.</td>
-   <td width="820">Add Heat Sinks to heat-prone components.</td>
+   <td width="820">Add fans or vents to increase airflow and prevent overheating.</td>
    </tr>
    <tr>
    <td width="20">7.</td>
-   <td width="820">Add an MCB (Miniature Circuit Breaker) to prevent overcurrent, keeping the device safe and secure.</td>
+   <td width="820">Add Heat Sinks to heat-prone components.</td>
    </tr>
    <tr>
    <td width="20">8.</td>
-   <td width="820">Add a special case to protect the pH Sensor Probe from damage, especially from impact.</td>
+   <td width="820">Add an MCB (Miniature Circuit Breaker) to prevent overcurrent, keeping the device safe and secure.</td>
    </tr>
    <tr>
    <td width="20">9.</td>
-   <td width="820">Consider choosing more than 1 Development Board to improve system optimization.</td>
+   <td width="820">Add a special case to protect the pH Sensor Probe from damage, especially from impact.</td>
    </tr>
    <tr>
    <td width="20">10.</td>
-   <td width="820">Consider replacing the 2-Channel Electromechanical Relay with the SSR DD Relay for smoother control (no noise), faster response, lower power consumption, higher efficiency, and better durability for long-term use.</td>
+   <td width="820">Consider choosing more than 1 Development Board to improve system optimization.</td>
    </tr>
    <tr>
    <td width="20">11.</td>
-   <td width="820">Consider replacing the acrylic box with a standard panel box to make the device much more secure and presentable.</td>
+   <td width="820">Consider replacing the 2-Channel Electromechanical Relay with the SSR DD Relay for smoother control (no noise), faster response, lower power consumption, higher efficiency, and better durability for long-term use.</td>
    </tr>
    <tr>
    <td width="20">12.</td>
+   <td width="820">Consider replacing the acrylic box with a standard panel box to make the device much more secure and presentable.</td>
+   </tr>
+   <tr>
+   <td width="20">13.</td>
    <td width="820">Consider replacing the cables according to the standard of use. For DC electricity, use AVS 1 x 0.5mm² cables, which are more durable than ribbon cables. Meanwhile, for AC electricity, use NYY-HY 2 x 1.5mm² cables, which are more resistant to water, weather, and physical disturbances such as rat bites.</td>
    </tr>
    </table>
