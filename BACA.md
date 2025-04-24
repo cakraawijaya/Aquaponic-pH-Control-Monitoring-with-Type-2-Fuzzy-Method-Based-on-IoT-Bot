@@ -470,9 +470,9 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
 <b>Informasi lebih lanjut:</b> <br><br>
 <table><tr><td width="840">
       
-   • Skripsi: <a href="http://repository.upnjatim.ac.id/id/eprint/7014"><u>Klik Disini</u></a><br><br>
-   • Jurnal tipe SINTA: <a href="https://publikasi.mercubuana.ac.id/index.php/Incomtech/article/view/15453"><u>Klik Disini</u></a><br><br>
-   • Jurnal tipe Non SINTA: <a href="https://www.researchgate.net/publication/363660330_SISTEM_KONTROL_PH_UP-DOWN_BERBASIS_NODEMCU32_DENGAN_METODE_ON-OFF_CONTROLLER"><u>Klik Disini</u></a>
+   • Skripsi : [ <a href="http://repository.upnjatim.ac.id/id/eprint/7014"><u>Akses 1</u></a> ] atau [ <a href="https://id.scribd.com/document/824839426/KENDALI-DAN-MONITORING-PH-AIR-AKUAPONIK-BERBASIS-IOT-DENGAN-METODE-FUZZY-TYPE-2"><u>Akses 2</u></a> ]<br><br>
+   • Jurnal tipe SINTA : <a href="https://publikasi.mercubuana.ac.id/index.php/Incomtech/article/view/15453"><u>Klik Disini</u></a><br><br>
+   • Jurnal tipe Non SINTA : <a href="https://www.researchgate.net/publication/363660330_SISTEM_KONTROL_PH_UP-DOWN_BERBASIS_NODEMCU32_DENGAN_METODE_ON-OFF_CONTROLLER"><u>Klik Disini</u></a>
 </td></tr></table>
 
 <br><br>
