@@ -317,13 +317,15 @@ void RTCinit() {
 
     <table><tr><td width="810">
        
-      • ``` Arduino IDE ``` information: ``` Uploading... ``` -> immediately press and hold the ``` BOOT ``` button.
+       • If ``` ESP32 board ``` cannot process ``` Source Code ```` totally -> Press ``` EN (RST) ``` button -> ``` Restart ````.
 
-      • ``` Arduino IDE ``` information: ``` Writing at .... (%) ``` -> release the ``` BOOT ``` button.
+       • If ```ESP32 board ``` cannot process ```Source Code ```` automatically then :<br>
 
-      • Wait until the message appears: ``` Done Uploading ``` -> ``` The program is directly operated ```.
+      - When information appears: ``` Uploading... ``` -> immediately press and hold the ``` BOOT ``` button.<br>
 
-      • Press the ``` EN (RST) ``` button and then ``` Restart ``` to handle the ``` ESP32 ``` board that cannot process the ``` SC ```.
+      - When information appears: ``` Writing at .... (%) ``` -> release the ``` BOOT ``` button.
+
+      • If message appears: ``` Done Uploading ``` -> ``` The previously entered program can already be operated ```.
 
       • Do not press the ``` BOOT ``` and ``` EN ``` buttons at the same time as this may switch to ``` Upload Firmware ``` mode.
 
