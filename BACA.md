@@ -332,7 +332,7 @@ void RTCinit() {
 
     </td></tr></table><br>
 
-12. Jika masih ada masalah saat unggah program, maka coba periksa pada bagian ``` driver ``` / ``` port ``` / ``` yang lainnya ```.
+11. Jika masih ada masalah saat unggah program, maka coba periksa pada bagian ``` driver ``` / ``` port ``` / ``` yang lainnya ```.
 
 <br><br>
 
@@ -349,7 +349,7 @@ void RTCinit() {
 
    </td></tr></table><br>
 
-3. Buat node :
+2. Buat node :
 
    <table><tr><td width="810">
       
@@ -359,7 +359,7 @@ void RTCinit() {
 
    </td></tr></table><br>
 
-4. Buat device :
+3. Buat device :
 
    <table><tr><td width="810">
       
