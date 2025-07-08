@@ -470,8 +470,8 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
 <br><br>
 <strong>More information:</strong><br>
 <table><tr><td width="840">
-   • Undergraduate Thesis : [ <a href="http://repository.upnjatim.ac.id/id/eprint/7014"><u>Access 1</u></a> ] or [ <a href="https://www.academia.edu/127498955"><u>Access 2</u></a> ]<br><br>
-   • Journals : [ <a href="https://publikasi.mercubuana.ac.id/index.php/Incomtech/article/view/15453"><u>Article 1</u></a> ] or [ <a href="https://www.researchgate.net/publication/363660330"><u>Article 2</u></a> ]
+   • Undergraduate Thesis : <a href="http://repository.upnjatim.ac.id/id/eprint/7014"><u>Access 1</u></a> or <a href="https://www.academia.edu/127498955"><u>Access 2</u></a><br><br>
+   • Journals : <a href="https://publikasi.mercubuana.ac.id/index.php/Incomtech/article/view/15453"><u>Article 1</u></a> or <a href="https://www.researchgate.net/publication/363660330"><u>Article 2</u></a>
 </td></tr></table>
 
 <br><br>
