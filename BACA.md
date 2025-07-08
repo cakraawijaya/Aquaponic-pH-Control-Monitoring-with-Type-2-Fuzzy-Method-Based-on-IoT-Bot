@@ -322,11 +322,11 @@ void RTCinit() {
 
        • Jika ``` board ESP32 ``` tidak dapat memproses ``` Source Code ``` secara otomatis maka :<br>
 
-      - Ketika muncul informasi : ``` Uploading... ``` -> segera tekan dan tahan tombol ``` BOOT ```.<br>
+      - Ketika informasi: ``` Uploading... ``` telah muncul -> segera tekan dan tahan tombol ``` BOOT ```.<br>
 
-      - Ketika muncul informasi : ``` Writing at .... (%) ``` -> lepaskan tombol ``` BOOT ```.
+      - Ketika informasi: ``` Writing at .... (%) ``` telah muncul -> lepaskan tombol ``` BOOT ```.
 
-       • Jika muncul pesan: ``` Done Uploading ``` -> ``` Program yang diisikan tadi sudah bisa dioperasikan ```.
+       • Jika pesan: ``` Done Uploading ``` telah muncul -> ``` Program yang diisikan tadi sudah bisa dioperasikan ```.
 
        • Jangan tekan tombol ``` BOOT ``` dan ``` EN ``` secara bersamaan karena hal ini bisa beralih ke mode ``` Unggah Firmware ```.
 
