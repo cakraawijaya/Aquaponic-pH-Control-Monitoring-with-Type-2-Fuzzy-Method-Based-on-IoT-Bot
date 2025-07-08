@@ -471,7 +471,7 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
 <br><br>
 <b>Informasi lebih lanjut:</b><br>
 <table><tr><td width="840">
-   • Skripsi : <a href="http://repository.upnjatim.ac.id/id/eprint/7014"><u>Akses 1</u></a> atau <a href="https://www.academia.edu/127498955"><u>Akses 2</u></a> ]<br><br>
+   • Skripsi : <a href="http://repository.upnjatim.ac.id/id/eprint/7014"><u>Akses 1</u></a> atau <a href="https://www.academia.edu/127498955"><u>Akses 2</u></a><br><br>
    • Jurnal : <a href="https://publikasi.mercubuana.ac.id/index.php/Incomtech/article/view/15453"><u>Artikel 1</u></a> atau <a href="https://www.researchgate.net/publication/363660330"><u>Artikel 2</u></a>
 </td></tr></table>
 
