@@ -317,9 +317,9 @@ void RTCinit() {
 
     <table><tr><td width="810">
        
-       • If ``` ESP32 board ``` cannot process ``` Source Code ```` totally -> Press ``` EN (RST) ``` button -> ``` Restart ````.
+       • If ``` ESP32 board ``` cannot process ``` Source Code ``` totally -> Press ``` EN (RST) ``` button -> ``` Restart ```.
 
-       • If ```ESP32 board ``` cannot process ```Source Code ```` automatically then :<br>
+       • If ```ESP32 board ``` cannot process ``` Source Code ``` automatically then :<br>
 
       - When information appears: ``` Uploading... ``` -> immediately press and hold the ``` BOOT ``` button.<br>
 
