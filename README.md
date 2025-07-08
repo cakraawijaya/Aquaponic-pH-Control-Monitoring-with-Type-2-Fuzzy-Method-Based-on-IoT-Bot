@@ -321,11 +321,11 @@ void RTCinit() {
 
        • If ```ESP32 board ``` cannot process ``` Source Code ``` automatically then :<br>
 
-      - When information appears: ``` Uploading... ``` -> immediately press and hold the ``` BOOT ``` button.<br>
+      - When information: ``` Uploading... ``` has appeared -> immediately press and hold the ``` BOOT ``` button.<br>
 
-      - When information appears: ``` Writing at .... (%) ``` -> release the ``` BOOT ``` button.
+      - When information: ``` Writing at .... (%) ``` has appeared -> release the ``` BOOT ``` button.
 
-      • If message appears: ``` Done Uploading ``` -> ``` The previously entered program can already be operated ```.
+      • If message: ``` Done Uploading ``` has appeared -> ``` The previously entered program can already be operated ```.
 
       • Do not press the ``` BOOT ``` and ``` EN ``` buttons at the same time as this may switch to ``` Upload Firmware ``` mode.
 
