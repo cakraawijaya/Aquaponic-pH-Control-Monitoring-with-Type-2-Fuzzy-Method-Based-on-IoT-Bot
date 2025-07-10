@@ -5,7 +5,7 @@
 ![Type](https://img.shields.io/badge/Type-Skripsi-light.svg?style=flat&logo=gitbook&logoColor=white&color=%23F7DF1E)
 
 # Aquaponic-pH-Control-Monitoring-with-Type-2-Fuzzy-Method-Based-on-IoT-Bot
-<strong>Dokumentasi Skripsi - Informatika UPN Veteran Jatim</strong><br><br>
+<strong>Dokumentasi Proyek Skripsi - Informatika UPN Veteran Jatim</strong><br><br>
 Sistem akuaponik adalah sistem pertanian gabungan antara ikan dengan sayuran yang saling menguntungkan. Di sisi lain, gagal panen juga dapat menjadi kekhawatiran bagi para petani akuaponik karena hal ini dapat terjadi kapan saja. Kegagalan panen dapat dipengaruhi oleh banyak faktor, namun biasanya disebabkan oleh ketidakjelasan pH air yang tinggi di sekitar ruang lingkup budidaya. Para petani akuaponik khawatir jika gagal panen terus berlanjut akan membahayakan ketahanan pangan mereka. Proyek ini dibuat dengan harapan dapat mengatasi masalah pH tersebut. Proyek ini telah dilaksanakan dan memakan waktu kurang lebih 1 tahun. Sistem yang dibuat dapat mengontrol dan memonitoring perubahan pH air setiap saat. Sistem ini berbasis Internet of Things (IoT), dengan menggunakan MQTT sebagai protokol komunikasinya. Sistem ini juga dilengkapi dengan kecerdasan buatan, yang menggunakan IT2FL (Interval Type-2 Fuzzy Logic) sebagai pendukung keputusannya. Selain itu, antarmuka sistem menggunakan Bot Telegram, sehingga memudahkan pengguna untuk berinteraksi.
 
 <br><br>
