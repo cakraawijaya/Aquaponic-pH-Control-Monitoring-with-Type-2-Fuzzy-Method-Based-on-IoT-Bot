@@ -15,7 +15,7 @@ An aquaponic system is a combined farming system between fish with vegetables wh
 | --- | --- |
 | Development Board | DOIT ESP32 DEVKIT V1 |
 | Supporting Board | Arduino Uno R3 |
-| Code Editor | Arduino IDE |
+| Code Editor | Arduino IDE 1.8.19 (Stable Legacy Version) |
 | Application Support | • Telegram Bot<br>• Matlab R2020 |
 | Driver | CP210X USB Driver |
 | IoT Platform | io-t.net |
