@@ -15,7 +15,7 @@ Sistem akuaponik adalah sistem pertanian gabungan antara ikan dengan sayuran yan
 | --- | --- |
 | Papan Pengembangan | DOIT ESP32 DEVKIT V1 |
 | Papan Pendukung | Arduino Uno R3 |
-| Editor Kode | Arduino IDE |
+| Editor Kode | Arduino IDE 1.8.19 (Versi Lama yang Stabil) |
 | Dukungan Aplikasi | • Bot Telegram<br>• Matlab R2020 |
 | Driver | CP210X USB Driver |
 | Platform IoT | io-t.net |
