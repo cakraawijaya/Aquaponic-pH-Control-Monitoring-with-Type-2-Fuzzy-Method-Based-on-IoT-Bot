@@ -23,7 +23,7 @@ An aquaponic system is a combined farming system between fish with vegetables wh
 | IoT Architecture | 3 Layer |
 | Matlab |  Fuzzy Interface System |
 | Programming Language | C/C++ |
-| Arduino Library | • WiFi (default)<br>• PubSubClient<br>• LiquidCrystal_I2C<br>• CTBot<br>• ArduinoJson<br>• RTClib |
+| Arduino Library | • WiFi (default)<br>• PubSubClient by Nick O'Leary (Version: 2.8)<br>• LiquidCrystal_I2C by Frank de Brabander (Version: 1.1.2)<br>• CTBot by Stefano Ledda (Version: 2.1.11)<br>• ArduinoJson by Benoit Blanchon (Version: 6.19.4)<br>• RTClib by Adafruit (Version: 2.0.2) |
 | Actuators | • Submersible pump aquarium (x1)<br>• Pneumatic solenoid valve (x2)<br>• Piezoelectric (x1) |
 | Sensor | • pH Sensor (x1)<br>• RTC (x1) |
 | Display | LCD I2C (x1) |
