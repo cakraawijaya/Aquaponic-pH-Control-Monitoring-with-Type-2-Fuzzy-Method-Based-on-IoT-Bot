@@ -23,7 +23,7 @@ Sistem akuaponik adalah sistem pertanian gabungan antara ikan dengan sayuran yan
 | Arsitektur IoT | 3 Lapisan |
 | Matlab |  Fuzzy Interface System |
 | Bahasa Pemrograman | C/C++ |
-| Pustaka Arduino | • WiFi (bawaan)<br>• PubSubClient<br>• LiquidCrystal_I2C<br>• CTBot<br>• ArduinoJson<br>• RTClib |
+| Pustaka Arduino | • WiFi (bawaan)<br>• PubSubClient oleh Nick O'Leary (Versi: 2.8)<br>• LiquidCrystal_I2C oleh Frank de Brabander (Versi: 1.1.2)<br>• CTBot oleh Stefano Ledda (Versi: 2.1.11)<br>• ArduinoJson oleh Benoit Blanchon (Versi: 6.19.4)<br>• RTClib oleh Adafruit (Versi: 2.0.2) |
 | Aktuator | • Submersible pump aquarium (x1)<br>• Pneumatic solenoid valve (x2)<br>• Piezoelectric (x1) |
 | Sensor | • pH Sensor (x1)<br>• RTC (x1) |
 | Layar | LCD I2C (x1) |
