@@ -627,14 +627,85 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
 ## Sorotan
 <table>
 <tr>
-<th width="280">Produk</th>
-<th width="280">Sistem Pendukung Keputusan (SPK) IT2FL</th>
-<th width="280">Bot Telegram</th>
+<th width="840">Produk</th>
 </tr>
 <tr>
-<td><img src="Assets/Documentation/Experiment/Product.jpg" alt="product"></td>
-<td><img src="Assets/Documentation/Experiment/IT2FL Decision Support System.jpg" alt="it2fl-spk"></td>
-<td><img src="Assets/Documentation/Experiment/Telegram Bot.jpg" alt="telegram-bot"></td>
+<td><img src="Assets/Documentation/Experiment/Product/Exhibition.jpg" alt="exhibition"></td>
+</tr>
+<tr>
+<td><img src="Assets/Documentation/Experiment/Product/Device ON.jpg" alt="device-on"></td>
+</tr>
+</table>
+<table>
+<tr>
+<th width="840" colspan="6">Layar LCD</th>
+</tr>
+<tr>
+<td><img src="Assets/Documentation/Experiment/LCD/Welcome to PHIOTNET.jpg" alt="welcome-to-phiotnet"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/Loading.jpg" alt="loading"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/IoT Connection Failed.jpg" alt="iot-connection-failed"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/Waiting for Instructions.jpg" alt="waiting-for-instructions"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/pH Value of Water.jpg" alt="ph-value-of-water"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/All pH ON.jpg" alt="all-pH-on"></td>
+</tr>
+<tr>
+<td><img src="Assets/Documentation/Experiment/LCD/All pH OFF.jpg" alt="all-pH-off"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/pH Up ON.jpg" alt="pH-up-on"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/pH Up OFF.jpg" alt="pH-up-off"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/pH Down ON.jpg" alt="pH-down-on"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/pH Down OFF.jpg" alt="pH-down-off"></td>
+</tr>
+</table>
+<table>
+<tr>
+<th width="840" colspan="5">Sistem Pendukung Keputusan IT2FL</th>
+</tr>
+<tr>
+<th width="168">Asam Kuat</th>
+<th width="168">Asam Lemah</th>
+<th width="168">Netral</th>
+<th width="168">Basa Lemah</th>
+<th width="168">Basa Kuat</th>
+</tr>
+<tr>
+<td align="center"><img src="Assets/Documentation/Experiment/Serial Monitor/IT2FL Decision Support System/Strong Acids.jpg" alt="strong-acids"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Serial Monitor/IT2FL Decision Support System/Weak Acids.jpg" alt="weak-acids"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Serial Monitor/IT2FL Decision Support System/Neutral.jpg" alt="neutral"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Serial Monitor/IT2FL Decision Support System/Weak Bases.jpg" alt="weak-bases"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Serial Monitor/IT2FL Decision Support System/Strong Bases.jpg" alt="strong-bases"></td>
+</table>
+<table>
+<tr>
+<th width="840" colspan="6">Bot Telegram</th>
+</tr>
+<tr>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/Access Denied.jpg" alt="access-denied"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/Main Menu.jpg" alt="main-menu"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/Bot Help.jpg" alt="bot-help"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/Bot Help (Canceled).jpg" alt="bot-help-canceled"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/Monitoring pH.jpg" alt="monitoring-ph"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/pH Adjustment Menu.jpg" alt="ph-adjustment-menu"></td>
+</tr>
+<tr>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/All pH Menu.jpg" alt="all-ph-menu"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/All pH ON (Applied).jpg" alt="all-ph-on-applied"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/All pH ON (Canceled).jpg" alt="all-ph-on-canceled"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/All pH OFF (Applied).jpg" alt="all-ph-off-applied"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/All pH OFF (Canceled).jpg" alt="all-ph-off-canceled"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/pH Up Menu.jpg" alt="ph-up-menu"></td>
+</tr>
+<tr>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/pH Up ON (Applied).jpg" alt="ph-up-on-applied"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/pH Up ON (Canceled).jpg" alt="ph-up-on-canceled"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/pH Up OFF (Applied).jpg" alt="ph-up-off-applied"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/pH Up OFF (Canceled).jpg" alt="ph-up-off-canceled"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/pH Down Menu.jpg" alt="ph-down-menu"></td>
+<td align="center"><img src="Assets/Documentation/Experiment/Telegram Bot/pH Down ON (Applied).jpg" alt="ph-down-on-applied"></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><img src="Assets/Documentation/Experiment/Telegram Bot/pH Down ON (Canceled).jpg" alt="ph-down-on-canceled"></td>
+<td align="center" colspan="2"><img src="Assets/Documentation/Experiment/Telegram Bot/pH Down OFF (Applied).jpg" alt="ph-down-off-applied"></td>
+<td align="center" colspan="2"><img src="Assets/Documentation/Experiment/Telegram Bot/pH Down OFF (Canceled).jpg" alt="ph-down-off-canceled"></td>
 </tr>
 </table>
 
