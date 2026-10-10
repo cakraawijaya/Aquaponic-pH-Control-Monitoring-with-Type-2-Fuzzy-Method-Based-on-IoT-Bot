@@ -626,14 +626,33 @@ Via Telegram: <a href="https://t.me/phiotnet_bot">@phiotnet_bot</a>
 ## Highlights
 <table>
 <tr>
-<th width="280">Product</th>
-<th width="280">IT2FL Decision Support System</th>
-<th width="280">Telegram Bot</th>
+<th width="840">Product</th>
 </tr>
 <tr>
-<td><img src="Assets/Documentation/Experiment/Product.jpg" alt="product"></td>
-<td><img src="Assets/Documentation/Experiment/IT2FL Decision Support System.jpg" alt="it2fl-spk"></td>
-<td><img src="Assets/Documentation/Experiment/Telegram Bot.jpg" alt="telegram-bot"></td>
+<td><img src="Assets/Documentation/Experiment/Product/Exhibition.jpg" alt="exhibition"></td>
+</tr>
+<tr>
+<td><img src="Assets/Documentation/Experiment/Product/Device ON.jpg" alt="device-on"></td>
+</tr>
+</table>
+<table>
+<tr>
+<th width="840" colspan="6">LCD Screen</th>
+</tr>
+<tr>
+<td><img src="Assets/Documentation/Experiment/LCD/Welcome to PHIOTNET.jpg" alt="welcome-to-phiotnet"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/Loading.jpg" alt="loading"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/IoT Connection Failed.jpg" alt="iot-connection-failed"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/Waiting for Instructions.jpg" alt="waiting-for-instructions"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/pH Value of Water.jpg" alt="ph-value-of-water"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/All pH ON.jpg" alt="all-pH-on"></td>
+</tr>
+<tr>
+<td><img src="Assets/Documentation/Experiment/LCD/All pH OFF.jpg" alt="all-pH-off"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/pH Up ON.jpg" alt="pH-up-on"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/pH Up OFF.jpg" alt="pH-up-off"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/pH Down ON.jpg" alt="pH-down-on"></td>
+<td><img src="Assets/Documentation/Experiment/LCD/pH Down OFF.jpg" alt="pH-down-off"></td>
 </tr>
 </table>
 <table>
